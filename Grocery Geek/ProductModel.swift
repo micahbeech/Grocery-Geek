@@ -34,10 +34,6 @@ class ProductModel {
         return groceryListData
     }
     
-    func setGroceryListData(data: [Product]) {
-        groceryListData = data
-    }
-    
     func productIndexSort(first: Product, second: Product) -> Bool {
         if let firstIndex = first.index, let secondIndex = second.index {
             return firstIndex.intValue < secondIndex.intValue
