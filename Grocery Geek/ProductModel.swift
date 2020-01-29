@@ -33,10 +33,6 @@ class ProductModel {
     func getGroceryListData() -> [Product] {
         return groceryListData
     }
-
-    func canUndoRemove() {
-        return removedList.count > 0
-    }
     
     func productIndexSort(first: Product, second: Product) -> Bool {
         if let firstIndex = first.index, let secondIndex = second.index {
@@ -78,13 +74,13 @@ class ProductModel {
         removedList.removeAll()
     }
     
-    func undoRemoveProduct() {
+    func undoRemoveProduct() -> Bool {
         // Get place of item to remove
         let itemIndex = removedList.count - 1
         
         // do nothing if nothing to remove
         if itemIndex < 0 {
-            return
+            return false
         }
         
         // create new cell
@@ -104,6 +100,8 @@ class ProductModel {
         
         // remove item from removed list
         removedList.remove(at: itemIndex)
+        
+        return true
     }
     
     func removeProduct(index: Int) {
