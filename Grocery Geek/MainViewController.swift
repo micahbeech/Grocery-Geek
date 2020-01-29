@@ -15,8 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var undoButton: UIBarButtonItem!
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let productModel = ProductModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +34,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ProductModel.groceryListData.count
+        return productModel.getGroceryListData().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Get the data for this row
-        let product = ProductModel.groceryListData[indexPath.row]
+        let product = productModel.getGroceryListData()[indexPath.row]
         
         // Get a cell to display
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductItem", for: indexPath) as! GroceryItem
@@ -52,83 +51,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        // get cell to remove
-        let removedCell = ProductModel.groceryListData.remove(at: indexPath.row)
-        let removedProduct = RemovedProduct()
-        
-        // add name to removed product
-        if removedCell.name != nil {
-            removedProduct.name = removedCell.name!
-        } else {
-            print("Attempted to remove a product with no name")
-            return
-        }
-        
-        // add quantity to remove product
-        if removedCell.quantity != nil {
-            removedProduct.quantity = removedCell.quantity!
-        } else {
-            removedProduct.quantity = ""
-        }
-        
-        removedProduct.spot = indexPath.row
-        
-        ProductModel.removedList.append(removedProduct)
-        
-        // Update grocery list
-        context.delete(removedCell)
+        productModel.removeProduct(index: indexPath.row)
         groceryList.reloadData()
     }
     
     @IBAction func undoRemove(_ sender: Any) {
-        // Get place of item to remove
-        let itemIndex = ProductModel.removedList.count - 1
-        
-        // do nothing if no items to remove
-        if itemIndex == 0 {
-            undoButton.tintColor = .lightText
-        } else if itemIndex < 0 {
-            return
-        }
-        
-        // create new cell
-        let entity = NSEntityDescription.entity(forEntityName: "Product", in: context)
-        let cellToAdd = NSManagedObject(entity: entity!, insertInto: context) as! Product
-        
-        // Get removed cell
-        let productToAdd = ProductModel.removedList[itemIndex]
-        
-        // Update new cell
-        cellToAdd.name = productToAdd.name
-        cellToAdd.quantity = productToAdd.quantity
-        cellToAdd.index = productToAdd.spot as NSNumber
-        
-        // Add cell to list
-        ProductModel.groceryListData.insert(cellToAdd, at: productToAdd.spot)
+        productModel.undoRemoveProduct()
         groceryList.reloadData()
-        
-        // remove item from removed list
-        ProductModel.removedList.remove(at: itemIndex)
     }
     
     @IBAction func clear(_ sender: Any) {
         
-        if ProductModel.groceryListData.count > 0 {
+        if productModel.getGroceryListData().count > 0 {
         
             // construct alert to be displayed
             let alert = UIAlertController(title: "Clear grocery list?", message: "This action cannot be undone", preferredStyle: .alert)
             
             // execute if confirmation received
             alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { action in
-                // delete cells from database
-                for item in ProductModel.groceryListData {
-                    self.context.delete(item)
-                }
-                
-                // delete cells from table and present to view
-                ProductModel.groceryListData.removeAll()
-                ProductModel.removedList.removeAll()
+                self.productModel.clearData()
                 self.groceryList.reloadData()
             }))
             
@@ -153,9 +94,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func addProduct(_ sender: Any) {
         
         // construct alert to be displayed
-        let alert = UIAlertController(title: "Add Product", message: "This action cannot be undone", preferredStyle: .alert)
-        
-       
+        let alert = UIAlertController(title: "Add Product", message: nil, preferredStyle: .alert)
         
         alert.addTextField(configurationHandler: { (productName) in
             productName.placeholder = "Cheese"
@@ -179,24 +118,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return
             }
              
-            // add product for core data
-            let newProduct = Product.init(entity: NSEntityDescription.entity(forEntityName: "Product", in: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)!, insertInto: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
-             
-            // set the product's properties
-            if let name = productName.text {
-                newProduct.name = name
-            } else {
-                print("No text available for name")
-                return
-            }
-            if let quantity = productQuantity.text {
-                newProduct.quantity = quantity
-            } else {
-                print("No text available for quantity")
-            }
-            newProduct.index = ProductModel.groceryListData.count as NSNumber
-             
-            ProductModel.groceryListData.append(newProduct)
+            self.productModel.addToList(productName: productName.text, productQuantity: productQuantity.text)
+            
             self.groceryList.reloadData()
         }))
         

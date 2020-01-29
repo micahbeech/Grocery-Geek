@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B45A5094228200620004BB54 /* ManualAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45A5093228200620004BB54 /* ManualAddViewController.swift */; };
 		B45A50962282006E0004BB54 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45A50952282006E0004BB54 /* ScanViewController.swift */; };
 		B45A5098228204AD0004BB54 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45A5097228204AD0004BB54 /* ProductModel.swift */; };
 		B4872D8E22948CF0008D0F20 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B4872D8C22948CF0008D0F20 /* Model.xcdatamodeld */; };
@@ -23,7 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B45A5093228200620004BB54 /* ManualAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualAddViewController.swift; sourceTree = "<group>"; };
 		B45A50952282006E0004BB54 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		B45A5097228204AD0004BB54 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
 		B4872D8D22948CF0008D0F20 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -78,7 +76,6 @@
 				B4F8F554228A0F0500575AFA /* GroceryItem.swift */,
 				B4F5728B2295CECB00379BB1 /* RemovedProduct.swift */,
 				B4C556982280BAAD00989D46 /* MainViewController.swift */,
-				B45A5093228200620004BB54 /* ManualAddViewController.swift */,
 				B45A50952282006E0004BB54 /* ScanViewController.swift */,
 				B4C5569A2280BAAD00989D46 /* Main.storyboard */,
 				B4C5569D2280BAAD00989D46 /* Assets.xcassets */,
@@ -165,7 +162,6 @@
 				B4C556972280BAAD00989D46 /* AppDelegate.swift in Sources */,
 				B4BEE82B2294A02200821202 /* Product+CoreDataClass.swift in Sources */,
 				B4872D8E22948CF0008D0F20 /* Model.xcdatamodeld in Sources */,
-				B45A5094228200620004BB54 /* ManualAddViewController.swift in Sources */,
 				B45A50962282006E0004BB54 /* ScanViewController.swift in Sources */,
 				B4F8F555228A0F0500575AFA /* GroceryItem.swift in Sources */,
 				B4BEE82C2294A02200821202 /* Product+CoreDataProperties.swift in Sources */,

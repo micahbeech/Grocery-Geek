@@ -17,12 +17,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        // reload core data
-        
+        let productModel = ProductModel()
         let context = persistentContainer.viewContext
+        
         do {
-            ProductModel.groceryListData = try context.fetch(Product.fetchRequest())
-            ProductModel.groceryListData.sort(by: ProductModel.productIndexSort(first:second:))
+            // fetch core data
+            try productModel.setGroceryListData(data: context.fetch(Product.fetchRequest()))
+            
+            // sort data into original order
+            var data = productModel.getGroceryListData()
+            data.sort(by: productModel.productIndexSort(first:second:))
+            productModel.setGroceryListData(data: data)
+            
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
