@@ -56,8 +56,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func undoRemove(_ sender: Any) {
-        productModel.undoRemoveProduct()
-        groceryList.reloadData()
+        
+        if productModel.getGroceryListData().count > 0 {
+            productModel.undoRemoveProduct()
+            groceryList.reloadData()
+            return
+        }
+        
+        // construct alert to be displayed
+        let alert = UIAlertController(title: "No items to remove", message: "Tap an item to remove it", preferredStyle: .alert)
+        
+        // execute if event cancelled
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func clear(_ sender: Any) {
