@@ -33,6 +33,10 @@ class ProductModel {
     func getGroceryListData() -> [Product] {
         return groceryListData
     }
+
+    func canUndoRemove() {
+        return removedList.count > 0
+    }
     
     func productIndexSort(first: Product, second: Product) -> Bool {
         if let firstIndex = first.index, let secondIndex = second.index {
