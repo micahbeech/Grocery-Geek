@@ -18,20 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         let productModel = ProductModel()
-        let context = persistentContainer.viewContext
-        
-        do {
-            // fetch core data
-            try productModel.setGroceryListData(data: context.fetch(Product.fetchRequest()))
-            
-            // sort data into original order
-            var data = productModel.getGroceryListData()
-            data.sort(by: productModel.productIndexSort(first:second:))
-            productModel.setGroceryListData(data: data)
-            
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
+        productModel.loadCoreData()
         
         return true
     }
