@@ -17,6 +17,19 @@ class ProductModel {
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    func loadCoreData() {
+         do {
+            // fetch core data
+            groceryListData = try context.fetch(Product.fetchRequest()))
+            
+            // sort data into original order
+            groceryListData.sort(by: productIndexSort(first:second:))
+            
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
     func getGroceryListData() -> [Product] {
         return groceryListData
     }
