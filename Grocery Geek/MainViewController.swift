@@ -57,8 +57,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func undoRemove(_ sender: Any) {
         
-        if productModel.getGroceryListData().count > 0 {
-            productModel.undoRemoveProduct()
+        if productModel.undoRemoveProduct() {
             groceryList.reloadData()
             return
         }
