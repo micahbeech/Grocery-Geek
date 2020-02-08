@@ -7,14 +7,10 @@
 //
 
 import UIKit
-import CoreData
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var groceryList: UITableView!
-    
-    @IBOutlet weak var undoButton: UIBarButtonItem!
-    
     let productModel = ProductModel()
     
     override func viewDidLoad() {
@@ -30,7 +26,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         groceryList.reloadData()
-        groceryList.setContentOffset(CGPoint(x: 0, y: CGFloat.greatestFiniteMagnitude), animated: false)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,9 +58,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         // construct alert to be displayed
-        let alert = UIAlertController(title: "No items to remove", message: "Tap an item to remove it", preferredStyle: .alert)
+        let alert = UIAlertController(title: "No items to remove", message: "Tap on an item to remove it", preferredStyle: .alert)
         
-        // execute if event cancelled
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
         present(alert, animated: true, completion: nil)
@@ -108,11 +102,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let alert = UIAlertController(title: "Add Product", message: nil, preferredStyle: .alert)
         
         alert.addTextField(configurationHandler: { (productName) in
-            productName.placeholder = "Cheese"
+            productName.placeholder = "Product"
         })
         
         alert.addTextField(configurationHandler: { (productQuantity) in
-            productQuantity.placeholder = "1 block"
+            productQuantity.placeholder = "Quantity"
         })
         
         // execute if confirmation received
@@ -138,6 +132,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         present(alert, animated: true, completion: nil)
+        
+        groceryList.setContentOffset(CGPoint(x: 0, y: CGFloat.greatestFiniteMagnitude), animated: false)
         
     }
     

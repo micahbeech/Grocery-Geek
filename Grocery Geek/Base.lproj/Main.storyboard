@@ -117,7 +117,6 @@
                     </view>
                     <connections>
                         <outlet property="groceryList" destination="bQo-7k-Mni" id="8mx-E0-fNG"/>
-                        <outlet property="undoButton" destination="kdE-oW-Tg0" id="yNS-4h-wLC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xMp-Gd-7LX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

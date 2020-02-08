@@ -20,7 +20,7 @@ class ProductModel {
     func loadCoreData() {
          do {
             // fetch core data
-            groceryListData = try context.fetch(Product.fetchRequest()))
+            groceryListData = try context.fetch(Product.fetchRequest())
             
             // sort data into original order
             groceryListData.sort(by: productIndexSort(first:second:))
@@ -44,7 +44,9 @@ class ProductModel {
     
     func addToList(productName: String?, productQuantity: String?) {
         // add product for core data
-        let newProduct = Product.init(entity: NSEntityDescription.entity(forEntityName: "Product", in: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)!, insertInto: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+        
+        let entity = NSEntityDescription.entity(forEntityName: "Product", in: context)
+        let newProduct = NSManagedObject(entity: entity!, insertInto: context) as! Product
          
         // set the product's properties
         if let name = productName {
