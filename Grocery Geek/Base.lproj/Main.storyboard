@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xO8-gZ-rOd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xO8-gZ-rOd">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -67,12 +67,17 @@
                                     <constraint firstAttribute="height" constant="50" id="LMz-Wm-71K"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Undo" id="kdE-oW-Tg0">
+                                    <barButtonItem title="Scan" id="o9e-np-tDf" userLabel="Scan">
+                                        <connections>
+                                            <segue destination="gzv-8T-iTN" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="dII-b9-nph"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Undo" width="135.5" id="kdE-oW-Tg0">
                                         <connections>
                                             <action selector="undoRemove:" destination="xO8-gZ-rOd" id="wfB-qC-rQq"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Add" width="300" id="BA2-O6-ZMN">
+                                    <barButtonItem title="Add" width="184" id="BA2-O6-ZMN">
                                         <inset key="imageInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <action selector="addProduct:" destination="xO8-gZ-rOd" id="lY2-BJ-ML7"/>
@@ -122,6 +127,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xMp-Gd-7LX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="670" y="904"/>
+        </scene>
+        <!--Scanner View Controller-->
+        <scene sceneID="C6x-WU-ySS">
+            <objects>
+                <viewController id="gzv-8T-iTN" customClass="ScannerViewController" customModule="Grocery_Geek" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XWd-de-0dr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sMD-NO-NpD">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="vXz-yM-3CJ"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Cancel" width="376.5" id="A96-TJ-iwm">
+                                        <connections>
+                                            <segue destination="xO8-gZ-rOd" kind="presentation" identifier="scanToList" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="jYg-DG-3ab"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="sMD-NO-NpD" firstAttribute="trailing" secondItem="zSY-QL-CjX" secondAttribute="trailing" id="40d-iQ-vVv"/>
+                            <constraint firstItem="sMD-NO-NpD" firstAttribute="leading" secondItem="zSY-QL-CjX" secondAttribute="leading" id="NmP-Jg-sdG"/>
+                            <constraint firstItem="sMD-NO-NpD" firstAttribute="bottom" secondItem="zSY-QL-CjX" secondAttribute="bottom" id="OYO-LH-f7G"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zSY-QL-CjX"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="w0t-w8-yCS"/>
+                    <connections>
+                        <outlet property="actionBar" destination="sMD-NO-NpD" id="S1C-22-jiL"/>
+                        <outlet property="doneButton" destination="A96-TJ-iwm" id="beC-MR-oni"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3oF-2m-Af4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1418" y="900"/>
         </scene>
     </scenes>
     <resources>

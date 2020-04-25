@@ -12,6 +12,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var groceryList: UITableView!
     let productModel = ProductModel()
+    var incomingBarcode: UIAlertController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         groceryList.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if (incomingBarcode != nil) {
+            present(incomingBarcode!, animated: true, completion: nil)
+            incomingBarcode = nil
+            groceryList.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,7 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         // construct alert to be displayed
-        let alert = UIAlertController(title: "No items to remove", message: "Tap on an item to remove it", preferredStyle: .alert)
+        let alert = UIAlertController(title: "No items have been removed", message: "Tap on an item to remove it", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
@@ -96,17 +107,33 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    @IBAction func addProduct(_ sender: Any) {
-        
+    func addFromScanner(barcode: String) {
+        let product = productModel.getFromBarcode(barcode: barcode)
+        if (product == nil) {
+            incomingBarcode = getAddAlert(message: "Sorry, we don't recognize this barcode", barcode: barcode)
+        } else {
+            incomingBarcode = getAddAlert(message: "Confirm details", name: product!.name, quantity: product!.quantity, barcode: barcode)
+        }
+    }
+    
+    func getAddAlert(message: String? = nil, name: String? = nil, quantity: String? = nil, barcode: String? = nil) -> UIAlertController {
         // construct alert to be displayed
-        let alert = UIAlertController(title: "Add Product", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add Product", message: message, preferredStyle: .alert)
         
         alert.addTextField(configurationHandler: { (productName) in
-            productName.placeholder = "Product"
+            if (name != nil && name != "") {
+                productName.text = name
+            } else {
+                productName.placeholder = "Product"
+            }
         })
         
         alert.addTextField(configurationHandler: { (productQuantity) in
-            productQuantity.placeholder = "Quantity"
+            if (quantity != nil && quantity != "") {
+                productQuantity.text = quantity
+            } else {
+                productQuantity.placeholder = "Quantity"
+            }
         })
         
         // execute if confirmation received
@@ -123,7 +150,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return
             }
              
-            self.productModel.addToList(productName: productName.text, productQuantity: productQuantity.text)
+            self.productModel.addToList(productName: productName.text, productQuantity: productQuantity.text, barcode: barcode)
             
             self.groceryList.reloadData()
         }))
@@ -131,6 +158,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // execute if event cancelled
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
+        return alert
+    }
+    
+    @IBAction func addProduct(_ sender: Any) {
+
+        let alert = getAddAlert()
         present(alert, animated: true, completion: nil)
         
         groceryList.setContentOffset(CGPoint(x: 0, y: CGFloat.greatestFiniteMagnitude), animated: false)

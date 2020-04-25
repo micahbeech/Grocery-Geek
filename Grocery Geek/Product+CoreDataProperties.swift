@@ -20,5 +20,6 @@ extension Product {
     @NSManaged public var name: String?
     @NSManaged public var quantity: String?
     @NSManaged public var index: NSNumber?
+    @NSManaged public var barcode: String?
 
 }

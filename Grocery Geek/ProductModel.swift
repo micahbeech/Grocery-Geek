@@ -42,7 +42,7 @@ class ProductModel {
         return false
     }
     
-    func addToList(productName: String?, productQuantity: String?) {
+    func addToList(productName: String?, productQuantity: String?, barcode: String? = nil) {
         // add product for core data
         
         let entity = NSEntityDescription.entity(forEntityName: "Product", in: context)
@@ -60,9 +60,21 @@ class ProductModel {
         } else {
             print("No text available for quantity")
         }
+        
+        newProduct.barcode = barcode
         newProduct.index = groceryListData.count as NSNumber
          
         groceryListData.append(newProduct)
+    }
+    
+    func getFromBarcode(barcode: String?) -> Product? {
+        for item in groceryListData {
+            print(item.name!)
+            if (item.barcode == barcode) {
+                return item
+            }
+        }
+        return nil
     }
     
     func clearData() {
