@@ -9,11 +9,13 @@
 import UIKit
 import CoreData
 
-class AddViewController: UIViewController {
+class AddViewController: UIViewController, UITextFieldDelegate {
     
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var productModel: ProductModel!
     var barcode = ""
+    var product:BarcodeProduct? = nil
+    var existingBarcodes = [BarcodeProduct]()
+    var groceryListData = [ListProduct]()
     
     @IBOutlet weak var addLabel: UILabel!
     @IBOutlet weak var productName: UITextField!
@@ -22,19 +24,39 @@ class AddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        productName.delegate = self
+        productQuantity.delegate = self
+        
+        productName.becomeFirstResponder()
+        
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
         
-        productModel = ProductModel(context: context)
+        do {
+            groceryListData = try context.fetch(ListProduct.fetchRequest())
+            existingBarcodes = try context.fetch(BarcodeProduct.fetchRequest())
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
         
-        let product = productModel.getFromBarcode(barcode: barcode)
-        if product != nil {
+        for item in existingBarcodes {
+            if (item.barcode == barcode) {
+                product = item
+                break
+            }
+        }
+        if let barcodeProduct = product {
             addLabel.text = "Confirm Details"
-            productName.text = product?.name
-            productQuantity.text = product?.quantity
+            productName.text = barcodeProduct.name
+            productQuantity.text = barcodeProduct.quantity
         } else {
             addLabel.text = "Add Product"
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
     
     @IBAction func addProduct(_ sender: Any) {
@@ -45,28 +67,39 @@ class AddViewController: UIViewController {
             self.present(warning, animated: true, completion: nil)
             return
         }
+        
+        // add product for core data
+        let entity = NSEntityDescription.entity(forEntityName: "ListProduct", in: context)
+        let newProduct = NSManagedObject(entity: entity!, insertInto: context) as! ListProduct
          
-        productModel.addToList(productName: productName.text, productQuantity: productQuantity.text, barcode: barcode)
-        
-        
-        if let parent = presentingViewController?.presentingViewController {
-            parent.dismiss(animated: false, completion: nil)
+        // set the product's properties
+        if let name = productName.text {
+            newProduct.name = name
         } else {
-            dismiss(animated: false, completion: nil)
+            print("No text available for name")
+            return
         }
-    }
-    
-    @IBAction func cancelAddProduct(_ sender: Any) {
-        if let parent = presentingViewController?.presentingViewController {
-            parent.dismiss(animated: false, completion: nil)
+        if let quantity = productQuantity.text {
+            newProduct.quantity = quantity
         } else {
-            dismiss(animated: false, completion: nil)
+            print("No text available for quantity")
         }
+        newProduct.index = Int32(groceryListData.count)
+        
+        if barcode != "" {
+            if let barcodeProduct = product {
+                barcodeProduct.name = newProduct.name
+                barcodeProduct.quantity = newProduct.quantity
+            } else {
+                let barcodeEntity = NSEntityDescription.entity(forEntityName: "BarcodeProduct", in: context)
+                let barcodeProduct = NSManagedObject(entity: barcodeEntity!, insertInto: context) as! BarcodeProduct
+                barcodeProduct.name = newProduct.name
+                barcodeProduct.quantity = newProduct.quantity
+                barcodeProduct.barcode = barcode
+            }
+        }
+        
+        performSegue(withIdentifier: "confirmAddProduct", sender: self)
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let destinationVC = segue.destination as! ViewController
-//        destinationVC.context = context
-//    }
 
 }

@@ -185,7 +185,7 @@
                                 <items>
                                     <barButtonItem title="Cancel" width="245" id="sAd-HY-DnD">
                                         <connections>
-                                            <action selector="cancelAddProduct:" destination="YOP-Za-fsU" id="ynG-YF-djJ"/>
+                                            <segue destination="xO8-gZ-rOd" kind="presentation" animates="NO" modalPresentationStyle="fullScreen" id="gRY-i4-0d6"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Add" id="cve-fP-hJf">
@@ -214,6 +214,7 @@
                         <outlet property="addLabel" destination="Lvp-Ux-I2z" id="v7P-83-h6j"/>
                         <outlet property="productName" destination="Z1Y-du-tZ2" id="n2w-yv-pkO"/>
                         <outlet property="productQuantity" destination="H0b-QH-5zL" id="SJ9-UU-BhQ"/>
+                        <segue destination="xO8-gZ-rOd" kind="presentation" identifier="confirmAddProduct" animates="NO" modalPresentationStyle="fullScreen" id="be8-JF-deK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LLe-5p-emi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -234,7 +235,11 @@
                                     <constraint firstAttribute="height" constant="50" id="vXz-yM-3CJ"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Cancel" width="376.5" id="A96-TJ-iwm"/>
+                                    <barButtonItem title="Cancel" width="376.5" id="A96-TJ-iwm">
+                                        <connections>
+                                            <segue destination="xO8-gZ-rOd" kind="presentation" modalPresentationStyle="fullScreen" id="K5g-gu-My1"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -259,6 +264,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="oQO-XZ-evl"/>
+        <segue reference="K5g-gu-My1"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="background" width="2000" height="2000"/>
