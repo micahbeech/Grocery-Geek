@@ -70,7 +70,8 @@ class ProductModel {
     }
     
     func getFromBarcode(barcode: String?) -> Product? {
-        for item in groceryListData {
+        if barcode == nil { return nil }
+        for item in groceryListData.reversed() {
             print(item.name!)
             if (item.barcode == barcode) {
                 return item

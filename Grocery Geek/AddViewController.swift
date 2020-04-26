@@ -13,7 +13,9 @@ class AddViewController: UIViewController {
     
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var productModel: ProductModel!
+    var barcode = ""
     
+    @IBOutlet weak var addLabel: UILabel!
     @IBOutlet weak var productName: UITextField!
     @IBOutlet weak var productQuantity: UITextField!
     
@@ -24,6 +26,15 @@ class AddViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         productModel = ProductModel(context: context)
+        
+        let product = productModel.getFromBarcode(barcode: barcode)
+        if product != nil {
+            addLabel.text = "Confirm Details"
+            productName.text = product?.name
+            productQuantity.text = product?.quantity
+        } else {
+            addLabel.text = "Add Product"
+        }
     }
     
     @IBAction func addProduct(_ sender: Any) {
@@ -35,9 +46,22 @@ class AddViewController: UIViewController {
             return
         }
          
-        productModel.addToList(productName: productName.text, productQuantity: productQuantity.text)
+        productModel.addToList(productName: productName.text, productQuantity: productQuantity.text, barcode: barcode)
         
-        dismiss(animated: false, completion: nil)
+        
+        if let parent = presentingViewController?.presentingViewController {
+            parent.dismiss(animated: false, completion: nil)
+        } else {
+            dismiss(animated: false, completion: nil)
+        }
+    }
+    
+    @IBAction func cancelAddProduct(_ sender: Any) {
+        if let parent = presentingViewController?.presentingViewController {
+            parent.dismiss(animated: false, completion: nil)
+        } else {
+            dismiss(animated: false, completion: nil)
+        }
     }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
