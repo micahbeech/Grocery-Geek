@@ -8,15 +8,17 @@
 
 import AVFoundation
 import UIKit
+import CoreData
 
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var productModel: ProductModel! = nil
     @IBOutlet weak var actionBar: UIToolbar!
     
     var barcode = ""
-    @IBOutlet weak var doneButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,19 +101,23 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             found(code: stringValue)
         }
         
+        dismiss(animated: false, completion: nil)
     }
 
     func found(code: String) {
         print(code)
         barcode = code
-        performSegue(withIdentifier: "scanToList", sender: self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (doneButton.isEqual(sender)) { return }
-        let viewController = segue.destination as! ViewController
-        viewController.addFromScanner(barcode: barcode)
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        switch segue.identifier! {
+//        case "scanAdd":
+//            let destinationVC = segue.destination as! AddViewController
+//            destinationVC.context = self.context
+//        default:
+//            break
+//        }
+//    }
 
     override var prefersStatusBarHidden: Bool {
         return true

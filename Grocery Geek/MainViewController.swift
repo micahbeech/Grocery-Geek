@@ -7,36 +7,31 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var groceryList: UITableView!
-    let productModel = ProductModel()
-    var incomingBarcode: UIAlertController? = nil
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var productModel: ProductModel! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        productModel = ProductModel(context: context)
         groceryList.delegate = self
         groceryList.dataSource = self
-        
-        groceryList.reloadData()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        productModel.loadCoreData()
         groceryList.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if (incomingBarcode != nil) {
-            present(incomingBarcode!, animated: true, completion: nil)
-            incomingBarcode = nil
-            groceryList.reloadData()
-        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -107,69 +102,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func addFromScanner(barcode: String) {
-        let product = productModel.getFromBarcode(barcode: barcode)
-        if (product == nil) {
-            incomingBarcode = getAddAlert(message: "Sorry, we don't recognize this barcode", barcode: barcode)
-        } else {
-            incomingBarcode = getAddAlert(message: "Confirm details", name: product!.name, quantity: product!.quantity, barcode: barcode)
-        }
-    }
-    
-    func getAddAlert(message: String? = nil, name: String? = nil, quantity: String? = nil, barcode: String? = nil) -> UIAlertController {
-        // construct alert to be displayed
-        let alert = UIAlertController(title: "Add Product", message: message, preferredStyle: .alert)
-        
-        alert.addTextField(configurationHandler: { (productName) in
-            if (name != nil && name != "") {
-                productName.text = name
-            } else {
-                productName.placeholder = "Product"
-            }
-        })
-        
-        alert.addTextField(configurationHandler: { (productQuantity) in
-            if (quantity != nil && quantity != "") {
-                productQuantity.text = quantity
-            } else {
-                productQuantity.placeholder = "Quantity"
-            }
-        })
-        
-        // execute if confirmation received
-        alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { action in
-            
-            let productName = alert.textFields![0]
-            let productQuantity = alert.textFields![1]
-            
-            // Guard against bad input
-            if productName.text == "" {
-                let warning = UIAlertController(title: "Cannot add item", message: "Please fill in all fields", preferredStyle: .alert)
-                warning.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(warning, animated: true, completion: nil)
-                return
-            }
-             
-            self.productModel.addToList(productName: productName.text, productQuantity: productQuantity.text, barcode: barcode)
-            
-            self.groceryList.reloadData()
-        }))
-        
-        // execute if event cancelled
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        return alert
-    }
-    
-    @IBAction func addProduct(_ sender: Any) {
-
-        let alert = getAddAlert()
-        present(alert, animated: true, completion: nil)
-        
-        groceryList.setContentOffset(CGPoint(x: 0, y: CGFloat.greatestFiniteMagnitude), animated: false)
-        
-    }
-    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        switch segue.identifier! {
+//        case "addProduct":
+//            let destinationVC = segue.destination as! AddViewController
+//            destinationVC.context = self.context
+//        case "scanProduct":
+//            let destinationVC = segue.destination as! ScannerViewController
+//            destinationVC.context = self.context
+//        default:
+//            break
+//        }
+//    }
     
 }
 

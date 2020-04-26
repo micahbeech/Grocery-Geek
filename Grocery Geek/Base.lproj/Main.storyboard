@@ -60,36 +60,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" translatesAutoresizingMaskIntoConstraints="NO" id="Auc-X9-k46">
-                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
-                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="LMz-Wm-71K"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem title="Scan" id="o9e-np-tDf" userLabel="Scan">
-                                        <connections>
-                                            <segue destination="gzv-8T-iTN" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="dII-b9-nph"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Undo" width="135.5" id="kdE-oW-Tg0">
-                                        <connections>
-                                            <action selector="undoRemove:" destination="xO8-gZ-rOd" id="wfB-qC-rQq"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Add" width="184" id="BA2-O6-ZMN">
-                                        <inset key="imageInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <action selector="addProduct:" destination="xO8-gZ-rOd" id="lY2-BJ-ML7"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Clear" id="dl4-rx-kai">
-                                        <connections>
-                                            <action selector="clear:" destination="xO8-gZ-rOd" id="0Fm-Dj-8t4"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Grocery List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="zRC-U1-85x">
                                 <rect key="frame" x="0.0" y="10" width="375" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -100,6 +70,36 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" translatesAutoresizingMaskIntoConstraints="NO" id="Auc-X9-k46">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="LMz-Wm-71K"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Scan" id="o9e-np-tDf" userLabel="Scan">
+                                        <connections>
+                                            <segue destination="gzv-8T-iTN" kind="presentation" identifier="scanProduct" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="dII-b9-nph"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Undo" width="135.5" id="kdE-oW-Tg0">
+                                        <connections>
+                                            <action selector="undoRemove:" destination="xO8-gZ-rOd" id="wfB-qC-rQq"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Add" width="184" id="BA2-O6-ZMN">
+                                        <inset key="imageInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <segue destination="YOP-Za-fsU" kind="presentation" identifier="addProduct" modalPresentationStyle="fullScreen" id="943-JN-0lX"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Clear" id="dl4-rx-kai">
+                                        <connections>
+                                            <action selector="clear:" destination="xO8-gZ-rOd" id="0Fm-Dj-8t4"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -128,6 +128,92 @@
             </objects>
             <point key="canvasLocation" x="670" y="904"/>
         </scene>
+        <!--Add View Controller-->
+        <scene sceneID="Kg5-N3-qlC">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="YOP-Za-fsU" customClass="AddViewController" customModule="Grocery_Geek" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mPG-RN-leI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ljU-dF-b8h">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0bK-qX-i20">
+                                <rect key="frame" x="87.5" y="289.5" width="200" height="88"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Z1Y-du-tZ2">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Quantity" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="H0b-QH-5zL">
+                                        <rect key="frame" x="0.0" y="54" width="200" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="pWQ-Tb-g5P"/>
+                                </constraints>
+                            </stackView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dl-eQ-ssv">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="kxI-3A-IZJ"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Cancel" width="245" id="sAd-HY-DnD">
+                                        <connections>
+                                            <segue destination="xO8-gZ-rOd" kind="presentation" identifier="cancelAddProduct" animates="NO" modalPresentationStyle="fullScreen" id="4z2-ot-tZ1"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Add" id="cve-fP-hJf">
+                                        <connections>
+                                            <action selector="addProduct:" destination="YOP-Za-fsU" id="mdD-w7-jOK"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0Dl-eQ-ssv" firstAttribute="leading" secondItem="Pnd-Yb-qhP" secondAttribute="leading" id="0Pe-9B-IFF"/>
+                            <constraint firstItem="Pnd-Yb-qhP" firstAttribute="trailing" secondItem="ljU-dF-b8h" secondAttribute="trailing" id="5am-Nn-cH6"/>
+                            <constraint firstAttribute="trailing" secondItem="0Dl-eQ-ssv" secondAttribute="trailing" id="5y4-bI-5V8"/>
+                            <constraint firstItem="Pnd-Yb-qhP" firstAttribute="bottom" secondItem="ljU-dF-b8h" secondAttribute="bottom" id="Mby-3i-QZF"/>
+                            <constraint firstItem="Pnd-Yb-qhP" firstAttribute="bottom" secondItem="0Dl-eQ-ssv" secondAttribute="bottom" id="OFM-0A-EbB"/>
+                            <constraint firstItem="ljU-dF-b8h" firstAttribute="leading" secondItem="Pnd-Yb-qhP" secondAttribute="leading" id="R7e-FF-HPr"/>
+                            <constraint firstItem="ljU-dF-b8h" firstAttribute="top" secondItem="Pnd-Yb-qhP" secondAttribute="top" id="bbv-Dh-1S0"/>
+                            <constraint firstItem="0bK-qX-i20" firstAttribute="centerX" secondItem="mPG-RN-leI" secondAttribute="centerX" id="neL-wN-YUz"/>
+                            <constraint firstItem="0bK-qX-i20" firstAttribute="centerY" secondItem="mPG-RN-leI" secondAttribute="centerY" id="sCG-AT-UET"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Pnd-Yb-qhP"/>
+                    </view>
+                    <connections>
+                        <outlet property="productName" destination="Z1Y-du-tZ2" id="n2w-yv-pkO"/>
+                        <outlet property="productQuantity" destination="H0b-QH-5zL" id="SJ9-UU-BhQ"/>
+                        <segue destination="xO8-gZ-rOd" kind="presentation" identifier="addToList" animates="NO" modalPresentationStyle="fullScreen" id="qUK-5Y-VR6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LLe-5p-emi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1050" y="1599"/>
+        </scene>
         <!--Scanner View Controller-->
         <scene sceneID="C6x-WU-ySS">
             <objects>
@@ -144,7 +230,7 @@
                                 <items>
                                     <barButtonItem title="Cancel" width="376.5" id="A96-TJ-iwm">
                                         <connections>
-                                            <segue destination="xO8-gZ-rOd" kind="presentation" identifier="scanToList" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="jYg-DG-3ab"/>
+                                            <segue destination="xO8-gZ-rOd" kind="presentation" identifier="cancelScan" animates="NO" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="jYg-DG-3ab"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -161,7 +247,7 @@
                     <navigationItem key="navigationItem" id="w0t-w8-yCS"/>
                     <connections>
                         <outlet property="actionBar" destination="sMD-NO-NpD" id="S1C-22-jiL"/>
-                        <outlet property="doneButton" destination="A96-TJ-iwm" id="beC-MR-oni"/>
+                        <segue destination="YOP-Za-fsU" kind="presentation" identifier="scanAdd" modalPresentationStyle="fullScreen" id="oQO-XZ-evl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oF-2m-Af4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -169,6 +255,10 @@
             <point key="canvasLocation" x="1418" y="900"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="oQO-XZ-evl"/>
+        <segue reference="qUK-5Y-VR6"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="background" width="2000" height="2000"/>
     </resources>

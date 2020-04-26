@@ -14,8 +14,12 @@ class ProductModel {
     private var groceryListData = [Product]()
     private var removedList = [RemovedProduct]()
     
-    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let context: NSManagedObjectContext!
+    
+    init(context: NSManagedObjectContext) {
+        self.context = context
+        loadCoreData()
+    }
     
     func loadCoreData() {
          do {
@@ -44,7 +48,6 @@ class ProductModel {
     
     func addToList(productName: String?, productQuantity: String?, barcode: String? = nil) {
         // add product for core data
-        
         let entity = NSEntityDescription.entity(forEntityName: "Product", in: context)
         let newProduct = NSManagedObject(entity: entity!, insertInto: context) as! Product
          
@@ -60,7 +63,6 @@ class ProductModel {
         } else {
             print("No text available for quantity")
         }
-        
         newProduct.barcode = barcode
         newProduct.index = groceryListData.count as NSNumber
          
