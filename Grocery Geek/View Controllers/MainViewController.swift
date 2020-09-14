@@ -17,6 +17,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private var groceryListData = [ListProduct]()
     private var removedListData = [RemovedProduct]()
     
+    private var selectedRow: ListProduct? = nil
+    
     // MARK: setup
     
     override func viewDidLoad() {
@@ -42,6 +44,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("Could not fetch. \(error), \(error.userInfo)")
         }
         groceryList.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "addProduct":
+            if selectedRow != nil {
+                let destinationVC = segue.destination as! AddViewController
+                destinationVC.itemToEdit = selectedRow
+                selectedRow = nil
+            }
+        default:
+            break
+        }
     }
     
     // MARK: list presentation
@@ -90,8 +105,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        removeProduct(index: indexPath.row)
-        groceryList.reloadData()
+        selectedRow = groceryListData[indexPath.row]
+        performSegue(withIdentifier: "addProduct", sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            removeProduct(index: indexPath.row)
+            groceryList.reloadData()
+        }
     }
     
     func undoRemoveProduct() -> Bool {
@@ -133,7 +155,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         // construct alert to be displayed
-        let alert = UIAlertController(title: "No items have been removed", message: "Tap on an item to remove it", preferredStyle: .alert)
+        let alert = UIAlertController(title: "No items have been removed", message: "Swipe left to remove an item", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         

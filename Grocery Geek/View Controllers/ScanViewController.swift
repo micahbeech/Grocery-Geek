@@ -107,7 +107,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier! {
+        switch segue.identifier {
         case "scanAdd":
             let destinationVC = segue.destination as! AddViewController
             destinationVC.barcode = self.barcode

@@ -21,6 +21,7 @@
 		B4C5569C2280BAAD00989D46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4C5569A2280BAAD00989D46 /* Main.storyboard */; };
 		B4C5569E2280BAAD00989D46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4C5569D2280BAAD00989D46 /* Assets.xcassets */; };
 		B4C556A12280BAAD00989D46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4C5569F2280BAAD00989D46 /* LaunchScreen.storyboard */; };
+		B4F7E2152456347F00A76FAB /* UIStoryBoardSegueFromTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F7E2142456347F00A76FAB /* UIStoryBoardSegueFromTop.swift */; };
 		B4F8F555228A0F0500575AFA /* GroceryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F8F554228A0F0500575AFA /* GroceryItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		B4C5569D2280BAAD00989D46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4C556A02280BAAD00989D46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B4C556A22280BAAD00989D46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4F7E2142456347F00A76FAB /* UIStoryBoardSegueFromTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryBoardSegueFromTop.swift; sourceTree = "<group>"; };
 		B4F8F554228A0F0500575AFA /* GroceryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -55,6 +57,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B41C8BDD2510292F00EAD7FE /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				B46173B524560430004DD830 /* RemovedProduct+CoreDataClass.swift */,
+				B46173B624560430004DD830 /* RemovedProduct+CoreDataProperties.swift */,
+				B46173B12456041D004DD830 /* BarcodeProduct+CoreDataClass.swift */,
+				B46173B22456041D004DD830 /* BarcodeProduct+CoreDataProperties.swift */,
+				B4BEE8292294A02200821202 /* Product+CoreDataClass.swift */,
+				B4BEE82A2294A02200821202 /* Product+CoreDataProperties.swift */,
+				B4872D8C22948CF0008D0F20 /* Model.xcdatamodeld */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		B41C8BDE2510297A00EAD7FE /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B4C556982280BAAD00989D46 /* MainViewController.swift */,
+				B45A50952282006E0004BB54 /* ScanViewController.swift */,
+				B46173AB2454E498004DD830 /* AddViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		B41C8BDF251029D500EAD7FE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B4F8F554228A0F0500575AFA /* GroceryItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B41C8BE0251029FD00EAD7FE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B4F7E2142456347F00A76FAB /* UIStoryBoardSegueFromTop.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		B4C5568A2280BAAD00989D46 = {
 			isa = PBXGroup;
 			children = (
@@ -75,17 +117,10 @@
 			isa = PBXGroup;
 			children = (
 				B4C556962280BAAD00989D46 /* AppDelegate.swift */,
-				B46173B524560430004DD830 /* RemovedProduct+CoreDataClass.swift */,
-				B46173B624560430004DD830 /* RemovedProduct+CoreDataProperties.swift */,
-				B46173B12456041D004DD830 /* BarcodeProduct+CoreDataClass.swift */,
-				B46173B22456041D004DD830 /* BarcodeProduct+CoreDataProperties.swift */,
-				B4BEE8292294A02200821202 /* Product+CoreDataClass.swift */,
-				B4BEE82A2294A02200821202 /* Product+CoreDataProperties.swift */,
-				B4872D8C22948CF0008D0F20 /* Model.xcdatamodeld */,
-				B4F8F554228A0F0500575AFA /* GroceryItem.swift */,
-				B4C556982280BAAD00989D46 /* MainViewController.swift */,
-				B45A50952282006E0004BB54 /* ScanViewController.swift */,
-				B46173AB2454E498004DD830 /* AddViewController.swift */,
+				B41C8BDD2510292F00EAD7FE /* Core Data */,
+				B41C8BDF251029D500EAD7FE /* Models */,
+				B41C8BDE2510297A00EAD7FE /* View Controllers */,
+				B41C8BE0251029FD00EAD7FE /* Resources */,
 				B4C5569A2280BAAD00989D46 /* Main.storyboard */,
 				B4C5569D2280BAAD00989D46 /* Assets.xcassets */,
 				B4C5569F2280BAAD00989D46 /* LaunchScreen.storyboard */,
@@ -173,6 +208,7 @@
 				B4872D8E22948CF0008D0F20 /* Model.xcdatamodeld in Sources */,
 				B46173B824560430004DD830 /* RemovedProduct+CoreDataProperties.swift in Sources */,
 				B45A50962282006E0004BB54 /* ScanViewController.swift in Sources */,
+				B4F7E2152456347F00A76FAB /* UIStoryBoardSegueFromTop.swift in Sources */,
 				B4F8F555228A0F0500575AFA /* GroceryItem.swift in Sources */,
 				B46173B42456041D004DD830 /* BarcodeProduct+CoreDataProperties.swift in Sources */,
 				B46173B724560430004DD830 /* RemovedProduct+CoreDataClass.swift in Sources */,

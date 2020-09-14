@@ -16,6 +16,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     var product:BarcodeProduct? = nil
     var existingBarcodes = [BarcodeProduct]()
     var groceryListData = [ListProduct]()
+    var itemToEdit: ListProduct? = nil
     
     @IBOutlet weak var addLabel: UILabel!
     @IBOutlet weak var productName: UITextField!
@@ -31,6 +32,10 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(AddViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(AddViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         do {
             groceryListData = try context.fetch(ListProduct.fetchRequest())
@@ -49,8 +54,30 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             addLabel.text = "Confirm Details"
             productName.text = barcodeProduct.name
             productQuantity.text = barcodeProduct.quantity
+        } else if let item = itemToEdit {
+            addLabel.text = "Edit Product"
+            productName.text = item.name
+            productQuantity.text = item.quantity
         } else {
             addLabel.text = "Add Product"
+        }
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else {return}
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
+        let keyboardFrame = keyboardSize.cgRectValue
+        if self.view.frame.origin.y == 0{
+            self.view.frame.origin.y -= keyboardFrame.height
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else {return}
+        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
+        let keyboardFrame = keyboardSize.cgRectValue
+        if self.view.frame.origin.y != 0{
+            self.view.frame.origin.y += keyboardFrame.height
         }
     }
     
@@ -84,7 +111,13 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         } else {
             print("No text available for quantity")
         }
-        newProduct.index = Int32(groceryListData.count)
+        
+        if let index = itemToEdit?.index {
+            newProduct.index = index
+            context.delete(itemToEdit!)
+        } else {
+            newProduct.index = Int32(groceryListData.count)
+        }
         
         if barcode != "" {
             if let barcodeProduct = product {
