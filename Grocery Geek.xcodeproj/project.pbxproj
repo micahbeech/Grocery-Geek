@@ -14,6 +14,7 @@
 		B46173B724560430004DD830 /* RemovedProduct+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173B524560430004DD830 /* RemovedProduct+CoreDataClass.swift */; };
 		B46173B824560430004DD830 /* RemovedProduct+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173B624560430004DD830 /* RemovedProduct+CoreDataProperties.swift */; };
 		B4872D8E22948CF0008D0F20 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B4872D8C22948CF0008D0F20 /* Model.xcdatamodeld */; };
+		B4BA8965251144D200EB48EA /* DragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BA8964251144D200EB48EA /* DragAndDrop.swift */; };
 		B4BEE82B2294A02200821202 /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BEE8292294A02200821202 /* Product+CoreDataClass.swift */; };
 		B4BEE82C2294A02200821202 /* Product+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BEE82A2294A02200821202 /* Product+CoreDataProperties.swift */; };
 		B4C556972280BAAD00989D46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C556962280BAAD00989D46 /* AppDelegate.swift */; };
@@ -33,6 +34,7 @@
 		B46173B524560430004DD830 /* RemovedProduct+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemovedProduct+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B46173B624560430004DD830 /* RemovedProduct+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemovedProduct+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B4872D8D22948CF0008D0F20 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		B4BA8964251144D200EB48EA /* DragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDrop.swift; sourceTree = "<group>"; };
 		B4BEE8292294A02200821202 /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B4BEE82A2294A02200821202 /* Product+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B4C556932280BAAD00989D46 /* Grocery Geek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grocery Geek.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				B4C556982280BAAD00989D46 /* MainViewController.swift */,
+				B4BA8964251144D200EB48EA /* DragAndDrop.swift */,
 				B45A50952282006E0004BB54 /* ScanViewController.swift */,
 				B46173AB2454E498004DD830 /* AddViewController.swift */,
 			);
@@ -200,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4BA8965251144D200EB48EA /* DragAndDrop.swift in Sources */,
 				B46173AC2454E498004DD830 /* AddViewController.swift in Sources */,
 				B4C556992280BAAD00989D46 /* MainViewController.swift in Sources */,
 				B4C556972280BAAD00989D46 /* AppDelegate.swift in Sources */,

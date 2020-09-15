@@ -12,12 +12,13 @@ import CoreData
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var groceryList: UITableView!
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    @IBOutlet weak var editButton: UIButton!
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    private var groceryListData = [ListProduct]()
-    private var removedListData = [RemovedProduct]()
+    var groceryListData = [ListProduct]()
+    var removedListData = [RemovedProduct]()
     
-    private var selectedRow: ListProduct? = nil
+    var selectedRow: ListProduct? = nil
     
     // MARK: setup
     
@@ -26,7 +27,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         groceryList.delegate = self
         groceryList.dataSource = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +76,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Return the cell
         return cell
+    }
+    
+    @IBAction func editToggle(_ sender: Any) {
+        groceryList.isEditing = !groceryList.isEditing
+        
+        if groceryList.isEditing {
+            editButton.setTitle("Done", for: .normal)
+            editButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        } else {
+            editButton.setTitle("Edit", for: .normal)
+            editButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        }
     }
     
     // MARK: remove data
