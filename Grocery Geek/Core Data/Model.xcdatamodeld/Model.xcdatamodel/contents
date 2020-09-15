@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BarcodeProduct" representedClassName=".BarcodeProduct" syncable="YES">
+        <attribute name="barcode" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="quantity" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="ListProduct" representedClassName=".ListProduct" syncable="YES">
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="quantity" attributeType="String"/>
+    </entity>
+    <entity name="RemovedProduct" representedClassName=".RemovedProduct" syncable="YES">
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="quantity" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="ListProduct" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="BarcodeProduct" positionX="-45" positionY="27" width="128" height="88"/>
+        <element name="RemovedProduct" positionX="-27" positionY="54" width="128" height="88"/>
+    </elements>
+</model>

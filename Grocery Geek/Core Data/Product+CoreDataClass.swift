@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 
-public class Product: NSManagedObject {
+public class ListProduct: NSManagedObject {
 
 }

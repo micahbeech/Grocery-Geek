@@ -11,14 +11,14 @@ import Foundation
 import CoreData
 
 
-extension Product {
+extension ListProduct {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Product> {
-        return NSFetchRequest<Product>(entityName: "Product")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<ListProduct> {
+        return NSFetchRequest<ListProduct>(entityName: "ListProduct")
     }
 
     @NSManaged public var name: String?
     @NSManaged public var quantity: String?
-    @NSManaged public var index: NSNumber?
+    @NSManaged public var index: Int32
 
 }
