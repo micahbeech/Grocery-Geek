@@ -109,11 +109,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         performSegue(withIdentifier: "addProduct", sender: self)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            removeProduct(index: indexPath.row)
-            groceryList.reloadData()
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "Remove") { (action, view, completionHandler) in
+            self.removeProduct(index: indexPath.row)
+            self.groceryList.reloadData()
         }
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
     }
     
     func undoRemoveProduct() -> Bool {
@@ -166,7 +169,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func clear(_ sender: Any) {
         
-        if groceryListData.count > 0 {
+        if groceryListData.count > 0 || removedListData.count > 0 {
         
             // construct alert to be displayed
             let alert = UIAlertController(title: "Clear grocery list?", message: "This action cannot be undone", preferredStyle: .alert)
