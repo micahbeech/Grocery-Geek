@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController {
+class ListViewController: UIViewController {
 
     @IBOutlet weak var groceryList: UITableView!
     @IBOutlet weak var editButton: UIButton!

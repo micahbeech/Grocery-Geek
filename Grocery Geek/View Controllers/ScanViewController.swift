@@ -123,4 +123,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
+    
+    @IBAction func cancelScan(_ sender: Any) {
+        dismiss(animated: false, completion: nil)
+    }
+    
 }

@@ -41,12 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-//        let context = persistentContainer.viewContext
-//        let removedObjects:[RemovedProduct] = try! context.fetch(RemovedProduct.fetchRequest())
-//        for item in removedObjects {
-//            context.delete(item)
-//        }
-//        self.saveContext()
     }
 
     // MARK: - Core Data stack

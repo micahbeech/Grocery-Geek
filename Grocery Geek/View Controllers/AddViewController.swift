@@ -164,7 +164,21 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
-        performSegue(withIdentifier: "confirmAddProduct", sender: self)
+        if let vc = presentingViewController as? ScannerViewController {
+            vc.presentingViewController?.dismiss(animated: true, completion: nil)
+        } else {
+            presentingViewController?.dismiss(animated: true, completion: nil)
+        }
+        
     }
+    
+    @IBAction func cancelAddProduct(_ sender: Any) {
+        if let vc = presentingViewController as? ScannerViewController {
+            vc.presentingViewController?.dismiss(animated: true, completion: nil)
+        } else {
+            presentingViewController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
 
 }

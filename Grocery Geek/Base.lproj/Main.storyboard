@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xO8-gZ-rOd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NjJ-1O-W2J">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -8,20 +8,103 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main-->
+        <!--Home View Controller-->
+        <scene sceneID="r85-V1-prX">
+            <objects>
+                <viewController id="K12-wu-qRE" customClass="HomeViewController" customModule="Grocery_Geek" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ibo-V3-cqn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grocery Geek" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVE-iJ-jel">
+                                <rect key="frame" x="10" y="54" width="300" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="0hj-Yc-2El"/>
+                                    <constraint firstAttribute="height" constant="52" id="Qdc-Ib-Wg6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HEy-2n-RPZ">
+                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListItem" id="NHn-jW-vuA" customClass="ListItem" customModule="Grocery_Geek" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NHn-jW-vuA" id="XMI-mh-7Ub">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Grocery List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5x-LM-1C7">
+                                                    <rect key="frame" x="15" y="10" width="300" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="300" id="hQG-Qe-MQ5"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bZ0-hd-ty4">
+                                                    <rect key="frame" x="352" y="12.5" width="13" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="23.5" id="5PB-WM-Lnf"/>
+                                                        <constraint firstAttribute="width" constant="13" id="jSP-dY-uAc"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="m5x-LM-1C7" firstAttribute="leading" secondItem="XMI-mh-7Ub" secondAttribute="leadingMargin" id="cBB-Ro-7My"/>
+                                                <constraint firstItem="m5x-LM-1C7" firstAttribute="centerY" secondItem="XMI-mh-7Ub" secondAttribute="centerY" id="gjA-eG-bgC"/>
+                                                <constraint firstItem="bZ0-hd-ty4" firstAttribute="centerY" secondItem="XMI-mh-7Ub" secondAttribute="centerY" id="oCN-k0-IE8"/>
+                                                <constraint firstAttribute="trailing" secondItem="bZ0-hd-ty4" secondAttribute="trailing" constant="10" id="zD8-p6-Lac"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="listName" destination="m5x-LM-1C7" id="0ah-YN-SsJ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="OB2-Db-F73" firstAttribute="trailing" secondItem="HEy-2n-RPZ" secondAttribute="trailing" id="2hH-zl-CQl"/>
+                            <constraint firstItem="OB2-Db-F73" firstAttribute="bottom" secondItem="HEy-2n-RPZ" secondAttribute="bottom" id="AiS-c0-Uck"/>
+                            <constraint firstItem="pVE-iJ-jel" firstAttribute="top" secondItem="OB2-Db-F73" secondAttribute="top" constant="10" id="EJA-BB-nej"/>
+                            <constraint firstItem="HEy-2n-RPZ" firstAttribute="leading" secondItem="OB2-Db-F73" secondAttribute="leading" id="l8i-vz-jV7"/>
+                            <constraint firstItem="pVE-iJ-jel" firstAttribute="leading" secondItem="OB2-Db-F73" secondAttribute="leading" constant="10" id="ouk-v5-SeP"/>
+                            <constraint firstItem="HEy-2n-RPZ" firstAttribute="top" secondItem="pVE-iJ-jel" secondAttribute="bottom" constant="10" id="xDa-3Z-vvZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="OB2-Db-F73"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="I0v-EE-EYA">
+                        <nil key="title"/>
+                        <barButtonItem key="backBarButtonItem" title="Back" id="g3S-Qa-gAS"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="listTable" destination="HEy-2n-RPZ" id="XBV-zw-SI2"/>
+                        <segue destination="xO8-gZ-rOd" kind="show" identifier="showList" id="XYI-ht-6fn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LtW-4Z-Dy4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="777" y="904"/>
+        </scene>
+        <!--List View Controller-->
         <scene sceneID="4WK-sK-ySV">
             <objects>
-                <viewController id="xO8-gZ-rOd" userLabel="Main" customClass="ViewController" customModule="Grocery_Geek" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xO8-gZ-rOd" userLabel="List View Controller" customClass="ListViewController" customModule="Grocery_Geek" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2iF-RT-cUG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="coE-6S-Iv2">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bQo-7k-Mni" userLabel="Grocery List">
-                                <rect key="frame" x="0.0" y="65" width="375" height="552"/>
+                                <rect key="frame" x="0.0" y="109" width="375" height="508"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
@@ -68,7 +151,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Grocery List" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="zRC-U1-85x">
-                                <rect key="frame" x="10" y="10" width="365" height="50"/>
+                                <rect key="frame" x="10" y="54" width="365" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="zLf-Hb-mLP"/>
@@ -111,7 +194,7 @@
                                 </items>
                             </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Trq-2p-b6r">
-                                <rect key="frame" x="331" y="24" width="34" height="36"/>
+                                <rect key="frame" x="331" y="68" width="34" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
@@ -119,7 +202,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="zRC-U1-85x" firstAttribute="leading" secondItem="78P-Gu-WAG" secondAttribute="leading" constant="10" id="14K-h9-hIX"/>
                             <constraint firstItem="78P-Gu-WAG" firstAttribute="trailing" secondItem="zRC-U1-85x" secondAttribute="trailing" id="26z-pu-fGG"/>
@@ -140,6 +223,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="78P-Gu-WAG"/>
                     </view>
+                    <navigationItem key="navigationItem" id="svI-t5-1HL"/>
                     <connections>
                         <outlet property="editButton" destination="Trq-2p-b6r" id="syx-jL-P5G"/>
                         <outlet property="groceryList" destination="bQo-7k-Mni" id="8mx-E0-fNG"/>
@@ -147,7 +231,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xMp-Gd-7LX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="670" y="904"/>
+            <point key="canvasLocation" x="1608.8" y="903.59820089955031"/>
         </scene>
         <!--Add View Controller-->
         <scene sceneID="Kg5-N3-qlC">
@@ -202,7 +286,7 @@
                                 <items>
                                     <barButtonItem title="Cancel" width="245" id="sAd-HY-DnD">
                                         <connections>
-                                            <segue destination="xO8-gZ-rOd" kind="presentation" identifier="cancelAddProduct" animates="NO" modalPresentationStyle="fullScreen" id="gRY-i4-0d6"/>
+                                            <action selector="cancelAddProduct:" destination="YOP-Za-fsU" id="4ho-WS-FIm"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Add" id="cve-fP-hJf">
@@ -227,6 +311,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Pnd-Yb-qhP"/>
                     </view>
+                    <navigationItem key="navigationItem" id="HjC-QW-oKl"/>
                     <connections>
                         <outlet property="addLabel" destination="Lvp-Ux-I2z" id="v7P-83-h6j"/>
                         <outlet property="inputStack" destination="0bK-qX-i20" id="QYb-80-Fjg"/>
@@ -235,12 +320,11 @@
                         <outlet property="productQuantity" destination="H0b-QH-5zL" id="SJ9-UU-BhQ"/>
                         <outlet property="toolbar" destination="0Dl-eQ-ssv" id="Vog-Q6-fVd"/>
                         <outlet property="toolbarHeight" destination="OFM-0A-EbB" id="VRO-EI-f3j"/>
-                        <segue destination="xO8-gZ-rOd" kind="presentation" identifier="confirmAddProduct" animates="NO" modalPresentationStyle="fullScreen" id="be8-JF-deK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LLe-5p-emi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1050" y="1599"/>
+            <point key="canvasLocation" x="1964" y="1652"/>
         </scene>
         <!--Scanner View Controller-->
         <scene sceneID="C6x-WU-ySS">
@@ -258,7 +342,7 @@
                                 <items>
                                     <barButtonItem title="Cancel" width="376.5" id="A96-TJ-iwm">
                                         <connections>
-                                            <segue destination="xO8-gZ-rOd" kind="presentation" identifier="cancelScan" animates="NO" modalPresentationStyle="fullScreen" id="K5g-gu-My1"/>
+                                            <action selector="cancelScan:" destination="gzv-8T-iTN" id="fhc-WI-KRC"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -280,14 +364,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oF-2m-Af4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1412" y="904"/>
+            <point key="canvasLocation" x="2351.1999999999998" y="903.59820089955031"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6tJ-d5-RYt">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NjJ-1O-W2J" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6m5-lh-ydi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="K12-wu-qRE" kind="relationship" relationship="rootViewController" id="fas-Ko-RcF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sXu-hZ-sGM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-162" y="904"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="oQO-XZ-evl"/>
-        <segue reference="K5g-gu-My1"/>
+        <segue reference="943-JN-0lX"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="background" width="2000" height="2000"/>
+        <image name="chevron.right" catalog="system" width="96" height="128"/>
     </resources>
 </document>

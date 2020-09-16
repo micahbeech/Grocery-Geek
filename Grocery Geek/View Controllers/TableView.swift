@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension ViewController : UITableViewDelegate, UITableViewDataSource {
+extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()

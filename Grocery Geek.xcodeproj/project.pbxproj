@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B4244BF1251266C700FAEA14 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4244BF0251266C700FAEA14 /* HomeViewController.swift */; };
+		B4244BF32512978F00FAEA14 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4244BF22512978F00FAEA14 /* ListItem.swift */; };
 		B45A50962282006E0004BB54 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45A50952282006E0004BB54 /* ScanViewController.swift */; };
 		B46173AC2454E498004DD830 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173AB2454E498004DD830 /* AddViewController.swift */; };
 		B46173B32456041D004DD830 /* BarcodeProduct+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173B12456041D004DD830 /* BarcodeProduct+CoreDataClass.swift */; };
@@ -18,7 +20,7 @@
 		B4BEE82B2294A02200821202 /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BEE8292294A02200821202 /* Product+CoreDataClass.swift */; };
 		B4BEE82C2294A02200821202 /* Product+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BEE82A2294A02200821202 /* Product+CoreDataProperties.swift */; };
 		B4C556972280BAAD00989D46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C556962280BAAD00989D46 /* AppDelegate.swift */; };
-		B4C556992280BAAD00989D46 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C556982280BAAD00989D46 /* MainViewController.swift */; };
+		B4C556992280BAAD00989D46 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C556982280BAAD00989D46 /* ListViewController.swift */; };
 		B4C5569C2280BAAD00989D46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4C5569A2280BAAD00989D46 /* Main.storyboard */; };
 		B4C5569E2280BAAD00989D46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4C5569D2280BAAD00989D46 /* Assets.xcassets */; };
 		B4C556A12280BAAD00989D46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4C5569F2280BAAD00989D46 /* LaunchScreen.storyboard */; };
@@ -26,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B4244BF0251266C700FAEA14 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B4244BF22512978F00FAEA14 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		B45A50952282006E0004BB54 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		B46173AB2454E498004DD830 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		B46173B12456041D004DD830 /* BarcodeProduct+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BarcodeProduct+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -38,7 +42,7 @@
 		B4BEE82A2294A02200821202 /* Product+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B4C556932280BAAD00989D46 /* Grocery Geek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grocery Geek.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C556962280BAAD00989D46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B4C556982280BAAD00989D46 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		B4C556982280BAAD00989D46 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		B4C5569B2280BAAD00989D46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B4C5569D2280BAAD00989D46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4C556A02280BAAD00989D46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -74,7 +78,8 @@
 		B41C8BDE2510297A00EAD7FE /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B4C556982280BAAD00989D46 /* MainViewController.swift */,
+				B4C556982280BAAD00989D46 /* ListViewController.swift */,
+				B4244BF0251266C700FAEA14 /* HomeViewController.swift */,
 				B4B947E12511A76F00C7FDFF /* TableView.swift */,
 				B45A50952282006E0004BB54 /* ScanViewController.swift */,
 				B46173AB2454E498004DD830 /* AddViewController.swift */,
@@ -86,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				B4F8F554228A0F0500575AFA /* GroceryItem.swift */,
+				B4244BF22512978F00FAEA14 /* ListItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -192,11 +198,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4244BF32512978F00FAEA14 /* ListItem.swift in Sources */,
 				B46173AC2454E498004DD830 /* AddViewController.swift in Sources */,
-				B4C556992280BAAD00989D46 /* MainViewController.swift in Sources */,
+				B4C556992280BAAD00989D46 /* ListViewController.swift in Sources */,
 				B4C556972280BAAD00989D46 /* AppDelegate.swift in Sources */,
 				B4B947E22511A76F00C7FDFF /* TableView.swift in Sources */,
 				B46173B32456041D004DD830 /* BarcodeProduct+CoreDataClass.swift in Sources */,
+				B4244BF1251266C700FAEA14 /* HomeViewController.swift in Sources */,
 				B4BEE82B2294A02200821202 /* Product+CoreDataClass.swift in Sources */,
 				B4872D8E22948CF0008D0F20 /* Model.xcdatamodeld in Sources */,
 				B46173B824560430004DD830 /* RemovedProduct+CoreDataProperties.swift in Sources */,
