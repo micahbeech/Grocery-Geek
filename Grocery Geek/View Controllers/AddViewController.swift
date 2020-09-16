@@ -13,11 +13,15 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var barcode = ""
-    var product:BarcodeProduct? = nil
+    var product: BarcodeProduct? = nil
     var existingBarcodes = [BarcodeProduct]()
     var groceryListData = [ListProduct]()
     var itemToEdit: ListProduct? = nil
     
+    @IBOutlet weak var toolbar: UIToolbar!
+    @IBOutlet weak var toolbarHeight: NSLayoutConstraint!
+    @IBOutlet weak var inputStackHeight: NSLayoutConstraint!
+    @IBOutlet weak var inputStack: UIStackView!
     @IBOutlet weak var addLabel: UILabel!
     @IBOutlet weak var productName: UITextField!
     @IBOutlet weak var productQuantity: UITextField!
@@ -40,6 +44,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         do {
             groceryListData = try context.fetch(ListProduct.fetchRequest())
             existingBarcodes = try context.fetch(BarcodeProduct.fetchRequest())
+            
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -50,39 +55,66 @@ class AddViewController: UIViewController, UITextFieldDelegate {
                 break
             }
         }
+        
         if let barcodeProduct = product {
             addLabel.text = "Confirm Details"
             productName.text = barcodeProduct.name
             productQuantity.text = barcodeProduct.quantity
+            
         } else if let item = itemToEdit {
             addLabel.text = "Edit Product"
             productName.text = item.name
             productQuantity.text = item.quantity
+            
         } else {
             addLabel.text = "Add Product"
         }
     }
-    
+        
     @objc func keyboardWillShow(notification: NSNotification) {
+        
+        // Get keyboard size
         guard let userInfo = notification.userInfo else {return}
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
         let keyboardFrame = keyboardSize.cgRectValue
-        if self.view.frame.origin.y == 0{
-            self.view.frame.origin.y -= keyboardFrame.height
+        
+        // Create new constraints (so elements are visible when keyboard is showing)
+        NSLayoutConstraint.deactivate([inputStackHeight, toolbarHeight])
+        inputStackHeight = inputStack.bottomAnchor.constraint(equalTo: toolbar.topAnchor, constant: -20)
+        toolbarHeight = toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardFrame.height)
+        
+        // Set constraints
+        UIView.animate(withDuration: 0.6) {
+            NSLayoutConstraint.activate([self.toolbarHeight, self.inputStackHeight])
+            self.view.layoutIfNeeded()
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        guard let userInfo = notification.userInfo else {return}
-        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
-        let keyboardFrame = keyboardSize.cgRectValue
-        if self.view.frame.origin.y != 0{
-            self.view.frame.origin.y += keyboardFrame.height
+        
+        // Create new constraints (replace elements once keyboard disappears)
+        NSLayoutConstraint.deactivate([inputStackHeight, toolbarHeight])
+        inputStackHeight = inputStack.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        toolbarHeight = toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
+        // Set constraints
+        UIView.animate(withDuration: 0.6) {
+            NSLayoutConstraint.activate([self.toolbarHeight, self.inputStackHeight])
+            self.view.layoutIfNeeded()
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
+        
+        if textField == productName {
+            // hit return in name, start typing in quantity
+            productQuantity.becomeFirstResponder()
+            
+        } else if textField == productQuantity {
+            // hit return in quantity, add product to list
+            addProduct(self)
+        }
+        
         return true
     }
     

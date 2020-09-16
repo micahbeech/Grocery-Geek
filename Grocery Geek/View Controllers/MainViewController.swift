@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController {
 
     @IBOutlet weak var groceryList: UITableView!
     @IBOutlet weak var editButton: UIButton!
@@ -22,18 +22,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // MARK: setup
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        groceryList.delegate = self
-        groceryList.dataSource = self
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         do {
             // fetch grocery list items
             groceryListData = try context.fetch(ListProduct.fetchRequest())
+            
             // sort data into original order
             groceryListData.sort(by: { (first: ListProduct, second: ListProduct) -> Bool in return first.index < second.index })
             
@@ -43,40 +38,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
+        
         groceryList.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
+            
         case "addProduct":
             if selectedRow != nil {
                 let destinationVC = segue.destination as! AddViewController
                 destinationVC.itemToEdit = selectedRow
                 selectedRow = nil
             }
+            
         default:
             break
         }
     }
     
-    // MARK: list presentation
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groceryListData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Get the data for this row
-        let product = groceryListData[indexPath.row]
-        
-        // Get a cell to display
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductItem", for: indexPath) as! GroceryItem
-        cell.productName?.text = product.name
-        cell.productQuantity?.text = product.quantity
-        
-        // Return the cell
-        return cell
-    }
+    // MARK: remove data
     
     @IBAction func editToggle(_ sender: Any) {
         groceryList.isEditing = !groceryList.isEditing
@@ -89,8 +70,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             editButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         }
     }
-    
-    // MARK: remove data
     
     func removeProduct(index: Int) {
         // get cell to remove
@@ -116,21 +95,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         context.delete(removedCell)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedRow = groceryListData[indexPath.row]
-        performSegue(withIdentifier: "addProduct", sender: self)
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "Remove") { (action, view, completionHandler) in
-            self.removeProduct(index: indexPath.row)
-            self.groceryList.reloadData()
-        }
-        let configuration = UISwipeActionsConfiguration(actions: [action])
-        configuration.performsFirstActionWithFullSwipe = true
-        return configuration
-    }
-    
     func undoRemoveProduct() -> Bool {
         // Get place of item to remove
         let itemIndex = removedListData.count - 1
@@ -150,10 +114,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Update new cell
         cellToAdd.name = productToAdd.name
         cellToAdd.quantity = productToAdd.quantity
-        cellToAdd.index = productToAdd.index
+        cellToAdd.index = productToAdd.index <= groceryListData.count ? productToAdd.index : Int32(groceryListData.endIndex)
         
         // Add cell to list
-        groceryListData.insert(cellToAdd, at: Int(productToAdd.index))
+        groceryListData.insert(cellToAdd, at: Int(cellToAdd.index))
         
         // remove item from removed list
         removedListData.remove(at: itemIndex)
@@ -184,7 +148,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if groceryListData.count > 0 || removedListData.count > 0 {
         
             // construct alert to be displayed
-            let alert = UIAlertController(title: "Clear grocery list?", message: "This action cannot be undone", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Clear grocery list?", message: "This will clear current and removed items.", preferredStyle: .alert)
             
             // execute if confirmation received
             alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { action in
@@ -209,7 +173,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             
             // construct alert to be displayed
-            let alert = UIAlertController(title: "Grocery list empty", message: "Add items from the toolbar below.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Your list is empty!", message: "Scan or add items from the toolbar below.", preferredStyle: .alert)
             
             // add action
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
