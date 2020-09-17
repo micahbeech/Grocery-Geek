@@ -13,10 +13,11 @@ class ListViewController: UIViewController {
 
     @IBOutlet weak var groceryList: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var navigationBar: UINavigationItem!
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var groceryListData = [ListProduct]()
-    var removedListData = [RemovedProduct]()
+    var list: List?
     
     var selectedRow: ListProduct? = nil
     
@@ -25,19 +26,7 @@ class ListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        do {
-            // fetch grocery list items
-            groceryListData = try context.fetch(ListProduct.fetchRequest())
-            
-            // sort data into original order
-            groceryListData.sort(by: { (first: ListProduct, second: ListProduct) -> Bool in return first.index < second.index })
-            
-            // fetch removed products
-            removedListData = try context.fetch(RemovedProduct.fetchRequest())
-            
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
+        navigationBar.title = list?.name
         
         groceryList.reloadData()
     }
@@ -46,11 +35,17 @@ class ListViewController: UIViewController {
         switch segue.identifier {
             
         case "addProduct":
+            let destinationVC = segue.destination as! AddViewController
+            destinationVC.list = list
+            
             if selectedRow != nil {
-                let destinationVC = segue.destination as! AddViewController
                 destinationVC.itemToEdit = selectedRow
                 selectedRow = nil
             }
+            
+        case "scanProduct":
+            let destinationVC = segue.destination as! ScannerViewController
+            destinationVC.list = list
             
         default:
             break
@@ -72,8 +67,10 @@ class ListViewController: UIViewController {
     }
     
     func removeProduct(index: Int) {
+        
         // get cell to remove
-        let removedCell = groceryListData.remove(at: index)
+        let removedCell = list?.listProducts?.array[index] as! ListProduct
+        
         // create new cell
         let entity = NSEntityDescription.entity(forEntityName: "RemovedProduct", in: context)
         let removedProduct = NSManagedObject(entity: entity!, insertInto: context) as! RemovedProduct
@@ -89,15 +86,13 @@ class ListViewController: UIViewController {
         removedProduct.quantity = removedCell.quantity!
         removedProduct.index = Int32(index)
         
-        removedListData.append(removedProduct)
-        
-        // Update grocery list
-        context.delete(removedCell)
+        list?.addToRemovedProducts(removedProduct)
+        list?.removeFromListProducts(removedCell)
     }
     
     func undoRemoveProduct() -> Bool {
         // Get place of item to remove
-        let itemIndex = removedListData.count - 1
+        let itemIndex = list!.removedProducts!.count - 1
         
         // do nothing if nothing to remove
         if itemIndex < 0 {
@@ -109,19 +104,18 @@ class ListViewController: UIViewController {
         let cellToAdd = NSManagedObject(entity: entity!, insertInto: context) as! ListProduct
         
         // Get removed cell
-        let productToAdd = removedListData[itemIndex]
+        let productToAdd = list?.removedProducts?.array[itemIndex] as! RemovedProduct
         
         // Update new cell
         cellToAdd.name = productToAdd.name
         cellToAdd.quantity = productToAdd.quantity
-        cellToAdd.index = productToAdd.index <= groceryListData.count ? productToAdd.index : Int32(groceryListData.endIndex)
+        cellToAdd.index = productToAdd.index <= Int32(list!.listProducts!.count) ? productToAdd.index : Int32(list!.listProducts!.count)
         
         // Add cell to list
-        groceryListData.insert(cellToAdd, at: Int(cellToAdd.index))
+        list?.insertIntoListProducts(cellToAdd, at: Int(cellToAdd.index))
         
         // remove item from removed list
-        removedListData.remove(at: itemIndex)
-        context.delete(productToAdd)
+        list?.removeFromRemovedProducts(at: itemIndex)
         
         return true
     }
@@ -145,23 +139,17 @@ class ListViewController: UIViewController {
     
     @IBAction func clear(_ sender: Any) {
         
-        if groceryListData.count > 0 || removedListData.count > 0 {
+        if list!.listProducts!.count > 0 || list!.removedProducts!.count > 0 {
         
             // construct alert to be displayed
             let alert = UIAlertController(title: "Clear grocery list?", message: "This will clear current and removed items.", preferredStyle: .alert)
             
             // execute if confirmation received
             alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { action in
-                for item in self.groceryListData {
-                    self.context.delete(item)
-                }
-                for item in self.removedListData {
-                    self.context.delete(item)
-                }
+                self.list?.removeFromListProducts(at: NSIndexSet(indexesIn: NSRange(location: 0, length: self.list!.listProducts!.count)))
+                self.list?.removeFromRemovedProducts(at: NSIndexSet(indexesIn: NSRange(location: 0, length: self.list!.removedProducts!.count)))
                 
                 // delete cells from table and present to view
-                self.groceryListData.removeAll()
-                self.removedListData.removeAll()
                 self.groceryList.reloadData()
             }))
             

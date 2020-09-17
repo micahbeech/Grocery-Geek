@@ -13,10 +13,9 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var barcode = ""
-    var product: BarcodeProduct? = nil
-    var existingBarcodes = [BarcodeProduct]()
-    var groceryListData = [ListProduct]()
-    var itemToEdit: ListProduct? = nil
+    var product: BarcodeProduct?
+    var itemToEdit: ListProduct?
+    var list: List?
     
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var toolbarHeight: NSLayoutConstraint!
@@ -41,15 +40,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(AddViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        do {
-            groceryListData = try context.fetch(ListProduct.fetchRequest())
-            existingBarcodes = try context.fetch(BarcodeProduct.fetchRequest())
-            
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        
-        for item in existingBarcodes {
+        for item in list!.barcodeProducts!.sortedArray(using: [NSSortDescriptor()]) as! [BarcodeProduct] {
             if (item.barcode == barcode) {
                 product = item
                 break
@@ -138,6 +129,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             print("No text available for name")
             return
         }
+        
         if let quantity = productQuantity.text {
             newProduct.quantity = quantity
         } else {
@@ -146,10 +138,12 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         
         if let index = itemToEdit?.index {
             newProduct.index = index
-            context.delete(itemToEdit!)
+            list?.removeFromListProducts(itemToEdit!)
         } else {
-            newProduct.index = Int32(groceryListData.count)
+            newProduct.index = Int32(list!.listProducts!.count)
         }
+        
+        list?.addToListProducts(newProduct)
         
         if barcode != "" {
             if let barcodeProduct = product {
@@ -161,7 +155,12 @@ class AddViewController: UIViewController, UITextFieldDelegate {
                 barcodeProduct.name = newProduct.name
                 barcodeProduct.quantity = newProduct.quantity
                 barcodeProduct.barcode = barcode
+                list?.addToBarcodeProducts(barcodeProduct)
             }
+        }
+        
+        for item in list?.listProducts?.array as! [ListProduct] {
+            print(item.name)
         }
         
         if let vc = presentingViewController as? ScannerViewController {

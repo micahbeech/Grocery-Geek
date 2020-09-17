@@ -17,6 +17,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     @IBOutlet weak var actionBar: UIToolbar!
     
     var barcode = ""
+    var list: List?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,6 +113,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         case "scanAdd":
             let destinationVC = segue.destination as! AddViewController
             destinationVC.barcode = self.barcode
+            destinationVC.list = self.list
             
         default:
             break

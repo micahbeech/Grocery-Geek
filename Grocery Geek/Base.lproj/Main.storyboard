@@ -69,8 +69,19 @@
                     </view>
                     <navigationItem key="navigationItem" title="Grocery Lists" id="I0v-EE-EYA">
                         <barButtonItem key="backBarButtonItem" title="Back" id="g3S-Qa-gAS"/>
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="RMv-v9-v67">
+                            <connections>
+                                <action selector="editToggle:" destination="K12-wu-qRE" id="YOM-gv-Q5V"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Add" image="plus" catalog="system" id="YuD-hO-aaF">
+                            <connections>
+                                <action selector="addList:" destination="K12-wu-qRE" id="N1U-hb-1eT"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="RMv-v9-v67" id="0Nf-pT-E5D"/>
                         <outlet property="listTable" destination="HEy-2n-RPZ" id="XBV-zw-SI2"/>
                         <segue destination="xO8-gZ-rOd" kind="show" identifier="showList" id="XYI-ht-6fn"/>
                     </connections>
@@ -230,6 +241,7 @@
                     <connections>
                         <outlet property="editButton" destination="WG6-0x-VhF" id="D8X-E5-Fes"/>
                         <outlet property="groceryList" destination="bQo-7k-Mni" id="8mx-E0-fNG"/>
+                        <outlet property="navigationBar" destination="svI-t5-1HL" id="Zep-zz-B2s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xMp-Gd-7LX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -409,5 +421,6 @@
     <resources>
         <image name="background" width="2000" height="2000"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
     </resources>
 </document>

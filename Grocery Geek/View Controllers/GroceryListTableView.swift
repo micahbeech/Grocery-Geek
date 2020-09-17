@@ -19,12 +19,12 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groceryListData.count
+        return list!.listProducts!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Get the data for this row
-        let product = groceryListData[indexPath.row]
+        let product = list?.listProducts?.array[indexPath.row] as! ListProduct
         
         // Get a cell to display
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductItem", for: indexPath) as! GroceryItem
@@ -36,7 +36,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedRow = groceryListData[indexPath.row]
+        selectedRow = list?.listProducts?.array[indexPath.row] as? ListProduct
         performSegue(withIdentifier: "addProduct", sender: self)
     }
     
@@ -48,10 +48,10 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let product = groceryListData[sourceIndexPath.row]
-        groceryListData.remove(at: sourceIndexPath.row)
+        let product = list?.listProducts?.array[sourceIndexPath.row] as! ListProduct
+        list?.removeFromListProducts(at: sourceIndexPath.row)
         product.index = Int32(destinationIndexPath.row)
-        groceryListData.insert(product, at: destinationIndexPath.row)
+        list?.insertIntoListProducts(product, at: destinationIndexPath.row)
     }
     
 }
