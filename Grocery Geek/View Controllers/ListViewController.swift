@@ -12,7 +12,7 @@ import CoreData
 class ListViewController: UIViewController {
 
     @IBOutlet weak var groceryList: UITableView!
-    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var editButton: UIBarButtonItem!
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var groceryListData = [ListProduct]()
@@ -63,11 +63,11 @@ class ListViewController: UIViewController {
         groceryList.isEditing = !groceryList.isEditing
         
         if groceryList.isEditing {
-            editButton.setTitle("Done", for: .normal)
-            editButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+            editButton.title = "Done"
+            editButton.style = .done
         } else {
-            editButton.setTitle("Edit", for: .normal)
-            editButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+            editButton.title = "Edit"
+            editButton.style = .plain
         }
     }
     
