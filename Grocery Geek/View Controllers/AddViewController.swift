@@ -24,6 +24,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var addLabel: UILabel!
     @IBOutlet weak var productName: UITextField!
     @IBOutlet weak var productQuantity: UITextField!
+    @IBOutlet weak var addButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,25 +41,42 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(AddViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        for item in list!.barcodeProducts!.allObjects as! [BarcodeProduct] {
-            if (item.barcode == barcode) {
-                product = item
-                break
+        // Get existings barcodes
+        var barcodeProducts = [BarcodeProduct]()
+        do {
+            barcodeProducts = try context.fetch(BarcodeProduct.fetchRequest())
+        } catch {
+            print("Could not fetch barcodes")
+        }
+        
+        // Check for matches
+        if barcode != "" {
+            for item in barcodeProducts {
+                if item.barcode == barcode {
+                    product = item
+                    break
+                }
             }
         }
         
+        // Check if item was scanned
         if let barcodeProduct = product {
             addLabel.text = "Confirm Details"
             productName.text = barcodeProduct.name
             productQuantity.text = barcodeProduct.quantity
-            
+            addButton.title = "Confirm"
+        
+        // Check if item is to be edited
         } else if let item = itemToEdit {
             addLabel.text = "Edit Product"
             productName.text = item.name
             productQuantity.text = item.quantity
-            
+            addButton.title = "Confirm"
+        
+        // Manual addition
         } else {
             addLabel.text = "Add Product"
+            addButton.title = "Add"
         }
     }
         
@@ -137,7 +155,11 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         }
         
         if let index = itemToEdit?.index {
+            // Copy over old product
             newProduct.index = index
+            newProduct.barcode = itemToEdit?.barcode
+            
+            // Remove old product
             list?.removeFromListProducts(itemToEdit!)
             context.delete(itemToEdit!)
             itemToEdit = nil
@@ -148,18 +170,23 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         list?.insertIntoListProducts(newProduct, at: Int(newProduct.index))
         
         if barcode != "" {
+            
             if let barcodeProduct = product {
-                barcodeProduct.name = newProduct.name
-                barcodeProduct.quantity = newProduct.quantity
+                // Barcode already existed, update product
+                newProduct.barcode = barcodeProduct
+                
             } else {
+                // No barcode, create new one for product
                 let barcodeEntity = NSEntityDescription.entity(forEntityName: "BarcodeProduct", in: context)
                 let barcodeProduct = NSManagedObject(entity: barcodeEntity!, insertInto: context) as! BarcodeProduct
-                barcodeProduct.name = newProduct.name
-                barcodeProduct.quantity = newProduct.quantity
                 barcodeProduct.barcode = barcode
-                list?.addToBarcodeProducts(barcodeProduct)
+                newProduct.barcode = barcodeProduct
             }
         }
+        
+        // update info for the scanned barcode
+        newProduct.barcode?.name = newProduct.name
+        newProduct.barcode?.quantity = newProduct.quantity
         
         if let vc = presentingViewController as? ScannerViewController {
             vc.presentingViewController?.dismiss(animated: true, completion: nil)

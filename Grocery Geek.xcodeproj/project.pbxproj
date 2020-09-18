@@ -9,18 +9,18 @@
 /* Begin PBXBuildFile section */
 		B4244BF1251266C700FAEA14 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4244BF0251266C700FAEA14 /* HomeViewController.swift */; };
 		B4244BF32512978F00FAEA14 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4244BF22512978F00FAEA14 /* ListItem.swift */; };
+		B443894F25150650009E5381 /* List+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B443894725150650009E5381 /* List+CoreDataClass.swift */; };
+		B443895025150650009E5381 /* List+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B443894825150650009E5381 /* List+CoreDataProperties.swift */; };
+		B443895125150650009E5381 /* BarcodeProduct+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B443894925150650009E5381 /* BarcodeProduct+CoreDataClass.swift */; };
+		B443895225150650009E5381 /* BarcodeProduct+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B443894A25150650009E5381 /* BarcodeProduct+CoreDataProperties.swift */; };
+		B443895325150650009E5381 /* ListProduct+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B443894B25150650009E5381 /* ListProduct+CoreDataClass.swift */; };
+		B443895425150650009E5381 /* ListProduct+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B443894C25150650009E5381 /* ListProduct+CoreDataProperties.swift */; };
+		B443895525150650009E5381 /* RemovedProduct+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B443894D25150650009E5381 /* RemovedProduct+CoreDataClass.swift */; };
+		B443895625150650009E5381 /* RemovedProduct+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B443894E25150650009E5381 /* RemovedProduct+CoreDataProperties.swift */; };
 		B45A50962282006E0004BB54 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45A50952282006E0004BB54 /* ScanViewController.swift */; };
 		B46173AC2454E498004DD830 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173AB2454E498004DD830 /* AddViewController.swift */; };
-		B46173B32456041D004DD830 /* BarcodeProduct+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173B12456041D004DD830 /* BarcodeProduct+CoreDataClass.swift */; };
-		B46173B42456041D004DD830 /* BarcodeProduct+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173B22456041D004DD830 /* BarcodeProduct+CoreDataProperties.swift */; };
-		B46173B724560430004DD830 /* RemovedProduct+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173B524560430004DD830 /* RemovedProduct+CoreDataClass.swift */; };
-		B46173B824560430004DD830 /* RemovedProduct+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173B624560430004DD830 /* RemovedProduct+CoreDataProperties.swift */; };
 		B4872D8E22948CF0008D0F20 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B4872D8C22948CF0008D0F20 /* Model.xcdatamodeld */; };
-		B487B36B2512CC85001ECD38 /* List+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487B3692512CC85001ECD38 /* List+CoreDataClass.swift */; };
-		B487B36C2512CC85001ECD38 /* List+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B487B36A2512CC85001ECD38 /* List+CoreDataProperties.swift */; };
 		B4B947E22511A76F00C7FDFF /* GroceryListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B947E12511A76F00C7FDFF /* GroceryListTableView.swift */; };
-		B4BEE82B2294A02200821202 /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BEE8292294A02200821202 /* Product+CoreDataClass.swift */; };
-		B4BEE82C2294A02200821202 /* Product+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BEE82A2294A02200821202 /* Product+CoreDataProperties.swift */; };
 		B4C556972280BAAD00989D46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C556962280BAAD00989D46 /* AppDelegate.swift */; };
 		B4C556992280BAAD00989D46 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C556982280BAAD00989D46 /* ListViewController.swift */; };
 		B4C5569C2280BAAD00989D46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4C5569A2280BAAD00989D46 /* Main.storyboard */; };
@@ -32,18 +32,18 @@
 /* Begin PBXFileReference section */
 		B4244BF0251266C700FAEA14 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B4244BF22512978F00FAEA14 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
+		B443894725150650009E5381 /* List+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		B443894825150650009E5381 /* List+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		B443894925150650009E5381 /* BarcodeProduct+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BarcodeProduct+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		B443894A25150650009E5381 /* BarcodeProduct+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BarcodeProduct+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		B443894B25150650009E5381 /* ListProduct+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListProduct+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		B443894C25150650009E5381 /* ListProduct+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListProduct+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		B443894D25150650009E5381 /* RemovedProduct+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemovedProduct+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		B443894E25150650009E5381 /* RemovedProduct+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemovedProduct+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		B45A50952282006E0004BB54 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		B46173AB2454E498004DD830 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
-		B46173B12456041D004DD830 /* BarcodeProduct+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BarcodeProduct+CoreDataClass.swift"; sourceTree = "<group>"; };
-		B46173B22456041D004DD830 /* BarcodeProduct+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BarcodeProduct+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		B46173B524560430004DD830 /* RemovedProduct+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemovedProduct+CoreDataClass.swift"; sourceTree = "<group>"; };
-		B46173B624560430004DD830 /* RemovedProduct+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemovedProduct+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B4872D8D22948CF0008D0F20 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		B487B3692512CC85001ECD38 /* List+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+CoreDataClass.swift"; sourceTree = "<group>"; };
-		B487B36A2512CC85001ECD38 /* List+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B4B947E12511A76F00C7FDFF /* GroceryListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListTableView.swift; sourceTree = "<group>"; };
-		B4BEE8292294A02200821202 /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
-		B4BEE82A2294A02200821202 /* Product+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B4C556932280BAAD00989D46 /* Grocery Geek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grocery Geek.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C556962280BAAD00989D46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4C556982280BAAD00989D46 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -68,14 +68,14 @@
 		B41C8BDD2510292F00EAD7FE /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				B487B3692512CC85001ECD38 /* List+CoreDataClass.swift */,
-				B487B36A2512CC85001ECD38 /* List+CoreDataProperties.swift */,
-				B46173B524560430004DD830 /* RemovedProduct+CoreDataClass.swift */,
-				B46173B624560430004DD830 /* RemovedProduct+CoreDataProperties.swift */,
-				B46173B12456041D004DD830 /* BarcodeProduct+CoreDataClass.swift */,
-				B46173B22456041D004DD830 /* BarcodeProduct+CoreDataProperties.swift */,
-				B4BEE8292294A02200821202 /* Product+CoreDataClass.swift */,
-				B4BEE82A2294A02200821202 /* Product+CoreDataProperties.swift */,
+				B443894725150650009E5381 /* List+CoreDataClass.swift */,
+				B443894825150650009E5381 /* List+CoreDataProperties.swift */,
+				B443894925150650009E5381 /* BarcodeProduct+CoreDataClass.swift */,
+				B443894A25150650009E5381 /* BarcodeProduct+CoreDataProperties.swift */,
+				B443894B25150650009E5381 /* ListProduct+CoreDataClass.swift */,
+				B443894C25150650009E5381 /* ListProduct+CoreDataProperties.swift */,
+				B443894D25150650009E5381 /* RemovedProduct+CoreDataClass.swift */,
+				B443894E25150650009E5381 /* RemovedProduct+CoreDataProperties.swift */,
 				B4872D8C22948CF0008D0F20 /* Model.xcdatamodeld */,
 			);
 			path = "Core Data";
@@ -207,20 +207,20 @@
 				B4244BF32512978F00FAEA14 /* ListItem.swift in Sources */,
 				B46173AC2454E498004DD830 /* AddViewController.swift in Sources */,
 				B4C556992280BAAD00989D46 /* ListViewController.swift in Sources */,
-				B487B36C2512CC85001ECD38 /* List+CoreDataProperties.swift in Sources */,
-				B487B36B2512CC85001ECD38 /* List+CoreDataClass.swift in Sources */,
+				B443895325150650009E5381 /* ListProduct+CoreDataClass.swift in Sources */,
+				B443895525150650009E5381 /* RemovedProduct+CoreDataClass.swift in Sources */,
 				B4C556972280BAAD00989D46 /* AppDelegate.swift in Sources */,
 				B4B947E22511A76F00C7FDFF /* GroceryListTableView.swift in Sources */,
-				B46173B32456041D004DD830 /* BarcodeProduct+CoreDataClass.swift in Sources */,
 				B4244BF1251266C700FAEA14 /* HomeViewController.swift in Sources */,
-				B4BEE82B2294A02200821202 /* Product+CoreDataClass.swift in Sources */,
 				B4872D8E22948CF0008D0F20 /* Model.xcdatamodeld in Sources */,
-				B46173B824560430004DD830 /* RemovedProduct+CoreDataProperties.swift in Sources */,
+				B443895225150650009E5381 /* BarcodeProduct+CoreDataProperties.swift in Sources */,
+				B443895425150650009E5381 /* ListProduct+CoreDataProperties.swift in Sources */,
+				B443895025150650009E5381 /* List+CoreDataProperties.swift in Sources */,
+				B443894F25150650009E5381 /* List+CoreDataClass.swift in Sources */,
 				B45A50962282006E0004BB54 /* ScanViewController.swift in Sources */,
+				B443895125150650009E5381 /* BarcodeProduct+CoreDataClass.swift in Sources */,
+				B443895625150650009E5381 /* RemovedProduct+CoreDataProperties.swift in Sources */,
 				B4F8F555228A0F0500575AFA /* GroceryItem.swift in Sources */,
-				B46173B42456041D004DD830 /* BarcodeProduct+CoreDataProperties.swift in Sources */,
-				B46173B724560430004DD830 /* RemovedProduct+CoreDataClass.swift in Sources */,
-				B4BEE82C2294A02200821202 /* Product+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +369,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 99QP45942G;
 				INFOPLIST_FILE = "Grocery Geek/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -387,6 +388,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 99QP45942G;
 				INFOPLIST_FILE = "Grocery Geek/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

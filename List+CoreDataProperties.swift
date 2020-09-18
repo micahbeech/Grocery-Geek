@@ -2,7 +2,7 @@
 //  List+CoreDataProperties.swift
 //  Grocery Geek
 //
-//  Created by Micah Beech on 2020-09-16.
+//  Created by Micah Beech on 2020-09-18.
 //  Copyright © 2020 Micah Beech. All rights reserved.
 //
 //
@@ -17,11 +17,10 @@ extension List {
         return NSFetchRequest<List>(entityName: "List")
     }
 
-    @NSManaged public var name: String?
     @NSManaged public var id: UUID?
+    @NSManaged public var name: String?
     @NSManaged public var index: Int32
     @NSManaged public var listProducts: NSOrderedSet?
-    @NSManaged public var barcodeProducts: NSSet?
     @NSManaged public var removedProducts: NSOrderedSet?
 
 }
@@ -58,23 +57,6 @@ extension List {
 
     @objc(removeListProducts:)
     @NSManaged public func removeFromListProducts(_ values: NSOrderedSet)
-
-}
-
-// MARK: Generated accessors for barcodeProducts
-extension List {
-
-    @objc(addBarcodeProductsObject:)
-    @NSManaged public func addToBarcodeProducts(_ value: BarcodeProduct)
-
-    @objc(removeBarcodeProductsObject:)
-    @NSManaged public func removeFromBarcodeProducts(_ value: BarcodeProduct)
-
-    @objc(addBarcodeProducts:)
-    @NSManaged public func addToBarcodeProducts(_ values: NSSet)
-
-    @objc(removeBarcodeProducts:)
-    @NSManaged public func removeFromBarcodeProducts(_ values: NSSet)
 
 }
 

@@ -97,9 +97,14 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        // Get list to be moved
         let list = listData[sourceIndexPath.row]
+        
+        // Update indices
         listData[destinationIndexPath.row].index = list.index
         list.index = Int32(destinationIndexPath.row)
+        
+        // Update table
         listData.remove(at: sourceIndexPath.row)
         listData.insert(list, at: destinationIndexPath.row)
         listTable.reloadData()

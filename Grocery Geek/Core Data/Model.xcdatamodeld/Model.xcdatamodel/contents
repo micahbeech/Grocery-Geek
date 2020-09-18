@@ -4,29 +4,32 @@
         <attribute name="barcode" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="quantity" optional="YES" attributeType="String"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListProduct" inverseName="barcode" inverseEntity="ListProduct"/>
     </entity>
     <entity name="List" representedClassName=".List" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="index" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="barcodeProducts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BarcodeProduct"/>
-        <relationship name="listProducts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ListProduct"/>
-        <relationship name="removedProducts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="RemovedProduct"/>
+        <relationship name="listProducts" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ListProduct" inverseName="list" inverseEntity="ListProduct"/>
+        <relationship name="removedProducts" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="RemovedProduct" inverseName="list" inverseEntity="RemovedProduct"/>
     </entity>
     <entity name="ListProduct" representedClassName=".ListProduct" syncable="YES">
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="quantity" attributeType="String"/>
+        <relationship name="barcode" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BarcodeProduct" inverseName="product" inverseEntity="BarcodeProduct"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="listProducts" inverseEntity="List"/>
     </entity>
     <entity name="RemovedProduct" representedClassName=".RemovedProduct" syncable="YES">
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="quantity" optional="YES" attributeType="String"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="removedProducts" inverseEntity="List"/>
     </entity>
     <elements>
-        <element name="BarcodeProduct" positionX="-45" positionY="27" width="128" height="88"/>
-        <element name="List" positionX="-45" positionY="45" width="128" height="133"/>
-        <element name="ListProduct" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="RemovedProduct" positionX="-27" positionY="54" width="128" height="88"/>
+        <element name="BarcodeProduct" positionX="-45" positionY="27" width="128" height="103"/>
+        <element name="List" positionX="-431.8515625" positionY="-108.4453125" width="128" height="118"/>
+        <element name="ListProduct" positionX="-311.69140625" positionY="196.33984375" width="128" height="118"/>
+        <element name="RemovedProduct" positionX="-515.70703125" positionY="181.890625" width="128" height="103"/>
     </elements>
 </model>
