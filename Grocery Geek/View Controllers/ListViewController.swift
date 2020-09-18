@@ -88,6 +88,7 @@ class ListViewController: UIViewController {
         
         list?.addToRemovedProducts(removedProduct)
         list?.removeFromListProducts(removedCell)
+        context.delete(removedCell)
     }
     
     func undoRemoveProduct() -> Bool {
@@ -115,7 +116,8 @@ class ListViewController: UIViewController {
         list?.insertIntoListProducts(cellToAdd, at: Int(cellToAdd.index))
         
         // remove item from removed list
-        list?.removeFromRemovedProducts(at: itemIndex)
+        list?.removeFromRemovedProducts(productToAdd)
+        context.delete(productToAdd)
         
         return true
     }
@@ -146,8 +148,18 @@ class ListViewController: UIViewController {
             
             // execute if confirmation received
             alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { action in
-                self.list?.removeFromListProducts(at: NSIndexSet(indexesIn: NSRange(location: 0, length: self.list!.listProducts!.count)))
-                self.list?.removeFromRemovedProducts(at: NSIndexSet(indexesIn: NSRange(location: 0, length: self.list!.removedProducts!.count)))
+                
+                // delete removed products
+                for product in self.list?.removedProducts?.array as! [RemovedProduct] {
+                    self.list?.removeFromRemovedProducts(product)
+                    self.context.delete(product)
+                }
+                
+                // delete from list
+                for product in self.list?.listProducts?.array as! [ListProduct] {
+                    self.list?.removeFromListProducts(product)
+                    self.context.delete(product)
+                }
                 
                 // delete cells from table and present to view
                 self.groceryList.reloadData()

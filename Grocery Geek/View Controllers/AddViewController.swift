@@ -40,7 +40,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(AddViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        for item in list!.barcodeProducts!.sortedArray(using: [NSSortDescriptor()]) as! [BarcodeProduct] {
+        for item in list!.barcodeProducts!.allObjects as! [BarcodeProduct] {
             if (item.barcode == barcode) {
                 product = item
                 break
@@ -139,11 +139,13 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         if let index = itemToEdit?.index {
             newProduct.index = index
             list?.removeFromListProducts(itemToEdit!)
+            context.delete(itemToEdit!)
+            itemToEdit = nil
         } else {
             newProduct.index = Int32(list!.listProducts!.count)
         }
         
-        list?.addToListProducts(newProduct)
+        list?.insertIntoListProducts(newProduct, at: Int(newProduct.index))
         
         if barcode != "" {
             if let barcodeProduct = product {
@@ -157,10 +159,6 @@ class AddViewController: UIViewController, UITextFieldDelegate {
                 barcodeProduct.barcode = barcode
                 list?.addToBarcodeProducts(barcodeProduct)
             }
-        }
-        
-        for item in list?.listProducts?.array as! [ListProduct] {
-            print(item.name)
         }
         
         if let vc = presentingViewController as? ScannerViewController {

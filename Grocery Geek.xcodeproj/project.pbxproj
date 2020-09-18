@@ -84,8 +84,8 @@
 		B41C8BDE2510297A00EAD7FE /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B4C556982280BAAD00989D46 /* ListViewController.swift */,
 				B4244BF0251266C700FAEA14 /* HomeViewController.swift */,
+				B4C556982280BAAD00989D46 /* ListViewController.swift */,
 				B4B947E12511A76F00C7FDFF /* GroceryListTableView.swift */,
 				B45A50952282006E0004BB54 /* ScanViewController.swift */,
 				B46173AB2454E498004DD830 /* AddViewController.swift */,

@@ -58,10 +58,22 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Get reference to list that was selected
         selectedList = listData[indexPath.row]
-        performSegue(withIdentifier: "showList", sender: self)
+        
+        if listTable.isEditing {
+            // Editing mode, change the name of the list
+            changeListName(title: "Change name", message: "", newList: false)
+            
+        } else {
+            // Regular mode, show list
+            performSegue(withIdentifier: "showList", sender: self)
+            selectedList = nil
+            
+        }
+        
+        // Reset selection
         listTable.deselectRow(at: indexPath, animated: true)
-        selectedList = nil
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -86,8 +98,9 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let list = listData[sourceIndexPath.row]
-        listData.remove(at: sourceIndexPath.row)
+        listData[destinationIndexPath.row].index = list.index
         list.index = Int32(destinationIndexPath.row)
+        listData.remove(at: sourceIndexPath.row)
         listData.insert(list, at: destinationIndexPath.row)
         listTable.reloadData()
     }
@@ -105,11 +118,11 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    @IBAction func addList(_ sender: Any) {
+    func changeListName(title: String, message: String, newList: Bool) {
         
         let alert = UIAlertController(
-            title: "Add List",
-            message: "Make a list for a store, a product type, or anything else you can think of!",
+            title: title,
+            message: message,
             preferredStyle: .alert
         )
         
@@ -117,29 +130,58 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
         
         alert.addTextField { (textField) in
             textField.placeholder = "Name"
+            if self.selectedList != nil {
+                textField.text = self.selectedList!.name
+            }
             listNameField = textField
         }
         
-        let add = UIAlertAction(title: "Add", style: .default) { (action) in
+        let add = UIAlertAction(title: "OK", style: .default) { (action) in
             if listNameField.text == nil || listNameField.text == "" {
                 return
             }
             
-            let entity = NSEntityDescription.entity(forEntityName: "List", in: self.context)
-            let list = NSManagedObject(entity: entity!, insertInto: self.context) as! List
-            list.name = listNameField.text
-            list.id = UUID()
-            list.index = Int32(self.listData.count)
-            self.listData.append(list)
+            if newList {
+                // Create new list
+                let entity = NSEntityDescription.entity(forEntityName: "List", in: self.context)
+                let list = NSManagedObject(entity: entity!, insertInto: self.context) as! List
+                
+                // Set fields
+                list.name = listNameField.text
+                list.id = UUID()
+                list.index = Int32(self.listData.count)
+                
+                // Add to list of lists
+                self.listData.append(list)
+                
+            } else {
+                // Updated existing list
+                self.selectedList?.name = listNameField.text
+                
+            }
+            
             self.listTable.reloadData()
+            self.selectedList = nil
         }
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            self.selectedList = nil
+        }
         
         alert.addAction(add)
         alert.addAction(cancel)
         
         present(alert, animated: true)
+        
+    }
+    
+    @IBAction func addList(_ sender: Any) {
+        
+        changeListName(
+            title: "Add List",
+            message: "Make a list for a store, a product type, or anything else you can think of!",
+            newList: true
+        )
         
     }
     
