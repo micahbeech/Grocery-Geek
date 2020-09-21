@@ -2,7 +2,7 @@
 //  RemovedProduct+CoreDataProperties.swift
 //  Grocery Geek
 //
-//  Created by Micah Beech on 2020-04-26.
+//  Created by Micah Beech on 2020-09-18.
 //  Copyright © 2020 Micah Beech. All rights reserved.
 //
 //
@@ -17,8 +17,9 @@ extension RemovedProduct {
         return NSFetchRequest<RemovedProduct>(entityName: "RemovedProduct")
     }
 
+    @NSManaged public var index: Int32
     @NSManaged public var name: String?
     @NSManaged public var quantity: String?
-    @NSManaged public var index: Int32
+    @NSManaged public var list: List?
 
 }

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,20 +18,13 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="tao-g5-eXD">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grocery Geek" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucM-Zo-B6X">
-                                <rect key="frame" x="51.5" y="80" width="272" height="96"/>
-                                <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="80"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="tao-g5-eXD" secondAttribute="bottom" id="8Sp-V3-PBi"/>
                             <constraint firstItem="tao-g5-eXD" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Haw-2t-EXZ"/>
-                            <constraint firstItem="ucM-Zo-B6X" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="e56-Dz-ODa"/>
-                            <constraint firstItem="ucM-Zo-B6X" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="r79-6m-b0g"/>
                             <constraint firstAttribute="trailing" secondItem="tao-g5-eXD" secondAttribute="trailing" id="saH-T6-F1u"/>
                             <constraint firstItem="tao-g5-eXD" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="yPo-IC-Jyb"/>
                         </constraints>

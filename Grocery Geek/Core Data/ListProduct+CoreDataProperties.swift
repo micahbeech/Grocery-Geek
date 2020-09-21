@@ -1,9 +1,9 @@
 //
-//  Product+CoreDataProperties.swift
+//  ListProduct+CoreDataProperties.swift
 //  Grocery Geek
 //
-//  Created by Micah Beech on 2019-05-21.
-//  Copyright © 2019 Micah Beech. All rights reserved.
+//  Created by Micah Beech on 2020-09-18.
+//  Copyright © 2020 Micah Beech. All rights reserved.
 //
 //
 
@@ -17,8 +17,10 @@ extension ListProduct {
         return NSFetchRequest<ListProduct>(entityName: "ListProduct")
     }
 
+    @NSManaged public var index: Int32
     @NSManaged public var name: String?
     @NSManaged public var quantity: String?
-    @NSManaged public var index: Int32
+    @NSManaged public var barcode: BarcodeProduct?
+    @NSManaged public var list: List?
 
 }

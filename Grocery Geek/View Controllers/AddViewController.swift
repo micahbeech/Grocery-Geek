@@ -11,12 +11,10 @@ import CoreData
 
 class AddViewController: UIViewController, UITextFieldDelegate {
     
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var barcode = ""
-    var product: BarcodeProduct? = nil
-    var existingBarcodes = [BarcodeProduct]()
-    var groceryListData = [ListProduct]()
-    var itemToEdit: ListProduct? = nil
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var barcodeProduct: BarcodeProduct?
+    var itemToEdit: ListProduct?
+    var list: List?
     
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var toolbarHeight: NSLayoutConstraint!
@@ -25,6 +23,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var addLabel: UILabel!
     @IBOutlet weak var productName: UITextField!
     @IBOutlet weak var productQuantity: UITextField!
+    @IBOutlet weak var addButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,33 +40,24 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(AddViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        do {
-            groceryListData = try context.fetch(ListProduct.fetchRequest())
-            existingBarcodes = try context.fetch(BarcodeProduct.fetchRequest())
-            
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        
-        for item in existingBarcodes {
-            if (item.barcode == barcode) {
-                product = item
-                break
-            }
-        }
-        
-        if let barcodeProduct = product {
+        // Check if item was scanned
+        if let barcode = barcodeProduct {
             addLabel.text = "Confirm Details"
-            productName.text = barcodeProduct.name
-            productQuantity.text = barcodeProduct.quantity
-            
+            productName.text = barcode.name
+            productQuantity.text = barcode.quantity
+            addButton.title = "Confirm"
+        
+        // Check if item is to be edited
         } else if let item = itemToEdit {
             addLabel.text = "Edit Product"
             productName.text = item.name
             productQuantity.text = item.quantity
-            
+            addButton.title = "Confirm"
+        
+        // Manual addition
         } else {
             addLabel.text = "Add Product"
+            addButton.title = "Add"
         }
     }
         
@@ -78,24 +68,18 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
         let keyboardFrame = keyboardSize.cgRectValue
         
-        // Create new constraints (so elements are visible when keyboard is showing)
-        NSLayoutConstraint.deactivate([inputStackHeight, toolbarHeight])
-        inputStackHeight = inputStack.bottomAnchor.constraint(equalTo: toolbar.topAnchor, constant: -20)
-        toolbarHeight = toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardFrame.height)
-        
-        // Set constraints
-        UIView.animate(withDuration: 0.6) {
-            NSLayoutConstraint.activate([self.toolbarHeight, self.inputStackHeight])
-            self.view.layoutIfNeeded()
-        }
+        moveFields(toolbarOffset: -keyboardFrame.height, inputOffset: -20)
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        
-        // Create new constraints (replace elements once keyboard disappears)
+        moveFields(toolbarOffset: 0, inputOffset: 0)
+    }
+    
+    func moveFields(toolbarOffset: CGFloat, inputOffset: CGFloat) {
+        // Create new constraints
         NSLayoutConstraint.deactivate([inputStackHeight, toolbarHeight])
-        inputStackHeight = inputStack.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        toolbarHeight = toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        inputStackHeight = inputStack.bottomAnchor.constraint(equalTo: toolbar.topAnchor, constant: inputOffset)
+        toolbarHeight = toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: toolbarOffset)
         
         // Set constraints
         UIView.animate(withDuration: 0.6) {
@@ -132,39 +116,47 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         let newProduct = NSManagedObject(entity: entity!, insertInto: context) as! ListProduct
          
         // set the product's properties
-        if let name = productName.text {
-            newProduct.name = name
-        } else {
-            print("No text available for name")
-            return
-        }
-        if let quantity = productQuantity.text {
-            newProduct.quantity = quantity
-        } else {
-            print("No text available for quantity")
-        }
+        newProduct.name = productName.text
+        newProduct.quantity = productQuantity.text
         
-        if let index = itemToEdit?.index {
-            newProduct.index = index
+        if itemToEdit != nil {
+            // Copy over old product
+            newProduct.index = itemToEdit!.index
+            newProduct.barcode = itemToEdit!.barcode
+            
+            // Remove old product
+            list?.removeFromListProducts(itemToEdit!)
             context.delete(itemToEdit!)
+            itemToEdit = nil
+            
         } else {
-            newProduct.index = Int32(groceryListData.count)
+            newProduct.index = Int32(list!.listProducts!.count)
+            newProduct.barcode = barcodeProduct
+            
         }
         
-        if barcode != "" {
-            if let barcodeProduct = product {
-                barcodeProduct.name = newProduct.name
-                barcodeProduct.quantity = newProduct.quantity
-            } else {
-                let barcodeEntity = NSEntityDescription.entity(forEntityName: "BarcodeProduct", in: context)
-                let barcodeProduct = NSManagedObject(entity: barcodeEntity!, insertInto: context) as! BarcodeProduct
-                barcodeProduct.name = newProduct.name
-                barcodeProduct.quantity = newProduct.quantity
-                barcodeProduct.barcode = barcode
-            }
+        list?.insertIntoListProducts(newProduct, at: Int(newProduct.index))
+        
+        // update info for the barcode
+        newProduct.barcode?.name = newProduct.name
+        newProduct.barcode?.quantity = newProduct.quantity
+        
+        if let vc = presentingViewController as? ScannerViewController {
+            vc.presentingViewController?.dismiss(animated: true, completion: nil)
+        } else {
+            presentingViewController?.dismiss(animated: true, completion: nil)
         }
         
-        performSegue(withIdentifier: "confirmAddProduct", sender: self)
     }
+    
+    @IBAction func cancelAddProduct(_ sender: Any) {
+        
+        if let vc = presentingViewController as? ScannerViewController {
+            vc.presentingViewController?.dismiss(animated: true, completion: nil)
+        } else {
+            presentingViewController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
 
 }

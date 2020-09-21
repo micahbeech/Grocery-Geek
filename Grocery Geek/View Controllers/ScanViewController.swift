@@ -11,12 +11,16 @@ import UIKit
 import CoreData
 
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-    var captureSession: AVCaptureSession!
-    var previewLayer: AVCaptureVideoPreviewLayer!
     
     @IBOutlet weak var actionBar: UIToolbar!
     
-    var barcode = ""
+    var captureSession: AVCaptureSession!
+    var previewLayer: AVCaptureVideoPreviewLayer!
+    
+    var barcodeProduct: BarcodeProduct?
+    var list: List?
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +71,12 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
 
     func failed() {
-        let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. You can add items manually.", preferredStyle: .alert)
+        let ac = UIAlertController(
+            title: "Scanning unavailable",
+            message: "Looks like your device doesn't support scanning barcodes.",
+            preferredStyle: .alert
+        )
+        
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
         captureSession = nil
@@ -102,15 +111,40 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
 
     func found(code: String) {
-        barcode = code
+        
+        // Get existings barcodes
+        var barcodeProducts = [BarcodeProduct]()
+        
+        do {
+            barcodeProducts = try context.fetch(BarcodeProduct.fetchRequest())
+        } catch {
+            print("Could not fetch barcodes")
+        }
+        
+        for item in barcodeProducts {
+            if item.barcode == code {
+                barcodeProduct = item
+                break
+            }
+        }
+        
+        if barcodeProduct == nil {
+            let barcodeEntity = NSEntityDescription.entity(forEntityName: "BarcodeProduct", in: context)
+            barcodeProduct = NSManagedObject(entity: barcodeEntity!, insertInto: context) as? BarcodeProduct
+            barcodeProduct?.barcode = code
+        }
+        
         performSegue(withIdentifier: "scanAdd", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
+            
         case "scanAdd":
             let destinationVC = segue.destination as! AddViewController
-            destinationVC.barcode = self.barcode
+            destinationVC.barcodeProduct = self.barcodeProduct
+            destinationVC.list = self.list
+            
         default:
             break
         }
@@ -123,4 +157,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
+    
+    @IBAction func cancelScan(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
