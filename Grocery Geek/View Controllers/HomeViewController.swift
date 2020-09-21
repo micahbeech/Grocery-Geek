@@ -135,6 +135,7 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
         
         alert.addTextField { (textField) in
             textField.placeholder = "Name"
+            textField.autocapitalizationType = .sentences
             if self.selectedList != nil {
                 textField.text = self.selectedList!.name
             }

@@ -116,7 +116,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "22D6E6CC-48A6-42FC-B162-2617A58FD365 - 49e8a0be32be12f4"
+                  uuid = "22D6E6CC-48A6-42FC-B162-2617A58FD365 - c467ea9f53f54c3a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -131,7 +131,7 @@
                   offsetFromSymbolStart = "122">
                </Location>
                <Location
-                  uuid = "22D6E6CC-48A6-42FC-B162-2617A58FD365 - 49e8a0be32be12f4"
+                  uuid = "22D6E6CC-48A6-42FC-B162-2617A58FD365 - c467ea9f53f54c3a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -158,8 +158,8 @@
             filePath = "Grocery Geek/View Controllers/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "changeListName(title:message:newList:)"
             landmarkType = "7">
          </BreakpointContent>
