@@ -68,11 +68,32 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {return}
         let keyboardFrame = keyboardSize.cgRectValue
         
-        moveFields(toolbarOffset: -keyboardFrame.height, inputOffset: -20)
+        // Create new constraints
+        NSLayoutConstraint.deactivate([inputStackHeight, toolbarHeight])
+        inputStackHeight = inputStack.bottomAnchor.constraint(equalTo: toolbar.topAnchor, constant: -20)
+        toolbarHeight = toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardFrame.height)
+        
+        // Set constraints
+        UIView.animate(withDuration: 0.6) {
+            NSLayoutConstraint.activate([self.toolbarHeight, self.inputStackHeight])
+            self.view.layoutIfNeeded()
+        }
+        
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        moveFields(toolbarOffset: 0, inputOffset: 0)
+        
+        // Create new constraints
+        NSLayoutConstraint.deactivate([inputStackHeight, toolbarHeight])
+        inputStackHeight = inputStack.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        toolbarHeight = toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
+        // Set constraints
+        UIView.animate(withDuration: 0.6) {
+            NSLayoutConstraint.activate([self.toolbarHeight, self.inputStackHeight])
+            self.view.layoutIfNeeded()
+        }
+        
     }
     
     func moveFields(toolbarOffset: CGFloat, inputOffset: CGFloat) {
