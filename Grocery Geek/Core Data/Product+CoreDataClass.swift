@@ -1,5 +1,5 @@
 //
-//  List+CoreDataClass.swift
+//  Product+CoreDataClass.swift
 //  Grocery Geek
 //
 //  Created by Micah Beech on 2020-09-23.
@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 
-public class List: NSManagedObject {
+public class Product: NSManagedObject {
 
 }

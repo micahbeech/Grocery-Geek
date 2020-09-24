@@ -15,16 +15,17 @@ class ListViewController: UIViewController {
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var navigationBar: UINavigationItem!
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     var list: List?
+    var listManager: GroceryListManager?
     
-    var selectedRow: ListProduct? = nil
+    var selectedRow: Product? = nil
     
     // MARK: setup
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        listManager = GroceryListManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext, list: list!)
         
         navigationBar.title = list?.name
         
@@ -37,11 +38,8 @@ class ListViewController: UIViewController {
         case "addProduct":
             let destinationVC = segue.destination as! AddViewController
             destinationVC.list = list
-            
-            if selectedRow != nil {
-                destinationVC.itemToEdit = selectedRow
-                selectedRow = nil
-            }
+            destinationVC.itemToEdit = selectedRow
+            selectedRow = nil
             
         case "scanProduct":
             let destinationVC = segue.destination as! ScannerViewController
@@ -49,6 +47,7 @@ class ListViewController: UIViewController {
             
         default:
             break
+            
         }
     }
     
@@ -65,66 +64,10 @@ class ListViewController: UIViewController {
             editButton.style = .plain
         }
     }
-    
-    func removeProduct(index: Int) {
         
-        // get cell to remove
-        let removedCell = list?.listProducts?.array[index] as! ListProduct
-        
-        // create new cell
-        let entity = NSEntityDescription.entity(forEntityName: "RemovedProduct", in: context)
-        let removedProduct = NSManagedObject(entity: entity!, insertInto: context) as! RemovedProduct
-        
-        // add name to removed product
-        if removedCell.name != nil {
-            removedProduct.name = removedCell.name!
-        } else {
-            print("Attempted to remove a product with no name")
-            return
-        }
-        
-        removedProduct.quantity = removedCell.quantity!
-        removedProduct.index = Int32(index)
-        
-        list?.addToRemovedProducts(removedProduct)
-        list?.removeFromListProducts(removedCell)
-        context.delete(removedCell)
-    }
-    
-    func undoRemoveProduct() -> Bool {
-        // Get place of item to remove
-        let itemIndex = list!.removedProducts!.count - 1
-        
-        // do nothing if nothing to remove
-        if itemIndex < 0 {
-            return false
-        }
-        
-        // create new cell
-        let entity = NSEntityDescription.entity(forEntityName: "ListProduct", in: context)
-        let cellToAdd = NSManagedObject(entity: entity!, insertInto: context) as! ListProduct
-        
-        // Get removed cell
-        let productToAdd = list?.removedProducts?.array[itemIndex] as! RemovedProduct
-        
-        // Update new cell
-        cellToAdd.name = productToAdd.name
-        cellToAdd.quantity = productToAdd.quantity
-        cellToAdd.index = productToAdd.index <= Int32(list!.listProducts!.count) ? productToAdd.index : Int32(list!.listProducts!.count)
-        
-        // Add cell to list
-        list?.insertIntoListProducts(cellToAdd, at: Int(cellToAdd.index))
-        
-        // remove item from removed list
-        list?.removeFromRemovedProducts(productToAdd)
-        context.delete(productToAdd)
-        
-        return true
-    }
-    
     @IBAction func undoRemove(_ sender: Any) {
         
-        if undoRemoveProduct() {
+        if listManager!.undoRemoveProduct() {
             groceryList.reloadData()
             return
         }
@@ -141,7 +84,7 @@ class ListViewController: UIViewController {
     
     @IBAction func clear(_ sender: Any) {
         
-        if list!.listProducts!.count > 0 || list!.removedProducts!.count > 0 {
+        if listManager!.hasProducts() {
         
             // construct alert to be displayed
             let alert = UIAlertController(title: "Clear grocery list?", message: "This will clear current and removed items.", preferredStyle: .alert)
@@ -149,17 +92,8 @@ class ListViewController: UIViewController {
             // execute if confirmation received
             alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { action in
                 
-                // delete removed products
-                for product in self.list?.removedProducts?.array as! [RemovedProduct] {
-                    self.list?.removeFromRemovedProducts(product)
-                    self.context.delete(product)
-                }
-                
-                // delete from list
-                for product in self.list?.listProducts?.array as! [ListProduct] {
-                    self.list?.removeFromListProducts(product)
-                    self.context.delete(product)
-                }
+                // clear list in database
+                self.listManager!.clearList()
                 
                 // delete cells from table and present to view
                 self.groceryList.reloadData()

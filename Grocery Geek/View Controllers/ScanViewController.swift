@@ -17,14 +17,15 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     
-    var barcodeProduct: BarcodeProduct?
+    var barcodeProduct: Barcode?
     var list: List?
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var barcodeManager: BarcodeManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        barcodeManager = BarcodeManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+        
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
 
@@ -111,29 +112,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
 
     func found(code: String) {
-        
-        // Get existings barcodes
-        var barcodeProducts = [BarcodeProduct]()
-        
-        do {
-            barcodeProducts = try context.fetch(BarcodeProduct.fetchRequest())
-        } catch {
-            print("Could not fetch barcodes")
-        }
-        
-        for item in barcodeProducts {
-            if item.barcode == code {
-                barcodeProduct = item
-                break
-            }
-        }
-        
-        if barcodeProduct == nil {
-            let barcodeEntity = NSEntityDescription.entity(forEntityName: "BarcodeProduct", in: context)
-            barcodeProduct = NSManagedObject(entity: barcodeEntity!, insertInto: context) as? BarcodeProduct
-            barcodeProduct?.barcode = code
-        }
-        
+        barcodeProduct = barcodeManager?.findProduct(code: code)
         performSegue(withIdentifier: "scanAdd", sender: self)
     }
     

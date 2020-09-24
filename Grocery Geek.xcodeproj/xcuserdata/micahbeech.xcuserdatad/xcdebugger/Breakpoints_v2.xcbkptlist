@@ -103,54 +103,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "22D6E6CC-48A6-42FC-B162-2617A58FD365"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Grocery Geek/View Controllers/ListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "removeProduct(index:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "22D6E6CC-48A6-42FC-B162-2617A58FD365 - c467ea9f53f54c3a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Grocery_Geek.ListViewController.removeProduct(index: Swift.Int) -&gt; ()"
-                  moduleName = "Grocery Geek"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/micahbeech/code/apps/Grocery%20Geek/Grocery%20Geek/View%20Controllers/ListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "78"
-                  endingLineNumber = "78"
-                  offsetFromSymbolStart = "122">
-               </Location>
-               <Location
-                  uuid = "22D6E6CC-48A6-42FC-B162-2617A58FD365 - c467ea9f53f54c3a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Grocery_Geek.ListViewController.removeProduct(index: Swift.Int) -&gt; ()"
-                  moduleName = "Grocery Geek"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/micahbeech/code/apps/Grocery%20Geek/Grocery%20Geek/View%20Controllers/ListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "78"
-                  endingLineNumber = "78"
-                  offsetFromSymbolStart = "3931">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "7F79EE12-7127-4DC7-AB5E-8489AA190E9B"
             shouldBeEnabled = "No"
             ignoreCount = "0"

@@ -19,12 +19,12 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list!.listProducts!.count
+        return listManager!.size()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Get the data for this row
-        let product = list?.listProducts?.array[indexPath.row] as! ListProduct
+        let product = listManager!.getProduct(index: indexPath.row)
         
         // Get a cell to display
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductItem", for: indexPath) as! GroceryItem
@@ -36,22 +36,19 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedRow = list?.listProducts?.array[indexPath.row] as? ListProduct
+        selectedRow = listManager!.getProduct(index: indexPath.row)
         performSegue(withIdentifier: "addProduct", sender: self)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            removeProduct(index: indexPath.row)
+            listManager!.removeProduct(index: indexPath.row)
             groceryList.reloadData()
         }
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let product = list?.listProducts?.array[sourceIndexPath.row] as! ListProduct
-        list?.removeFromListProducts(at: sourceIndexPath.row)
-        product.index = Int32(destinationIndexPath.row)
-        list?.insertIntoListProducts(product, at: destinationIndexPath.row)
+        listManager!.moveProduct(source: sourceIndexPath, destination: destinationIndexPath)
     }
     
 }

@@ -2,7 +2,7 @@
 //  List+CoreDataProperties.swift
 //  Grocery Geek
 //
-//  Created by Micah Beech on 2020-09-18.
+//  Created by Micah Beech on 2020-09-23.
 //  Copyright © 2020 Micah Beech. All rights reserved.
 //
 //
@@ -18,45 +18,45 @@ extension List {
     }
 
     @NSManaged public var id: UUID?
-    @NSManaged public var name: String?
     @NSManaged public var index: Int32
-    @NSManaged public var listProducts: NSOrderedSet?
+    @NSManaged public var name: String?
+    @NSManaged public var currentProducts: NSOrderedSet?
     @NSManaged public var removedProducts: NSOrderedSet?
 
 }
 
-// MARK: Generated accessors for listProducts
+// MARK: Generated accessors for currentProducts
 extension List {
 
-    @objc(insertObject:inListProductsAtIndex:)
-    @NSManaged public func insertIntoListProducts(_ value: ListProduct, at idx: Int)
+    @objc(insertObject:inCurrentProductsAtIndex:)
+    @NSManaged public func insertIntoCurrentProducts(_ value: Product, at idx: Int)
 
-    @objc(removeObjectFromListProductsAtIndex:)
-    @NSManaged public func removeFromListProducts(at idx: Int)
+    @objc(removeObjectFromCurrentProductsAtIndex:)
+    @NSManaged public func removeFromCurrentProducts(at idx: Int)
 
-    @objc(insertListProducts:atIndexes:)
-    @NSManaged public func insertIntoListProducts(_ values: [ListProduct], at indexes: NSIndexSet)
+    @objc(insertCurrentProducts:atIndexes:)
+    @NSManaged public func insertIntoCurrentProducts(_ values: [Product], at indexes: NSIndexSet)
 
-    @objc(removeListProductsAtIndexes:)
-    @NSManaged public func removeFromListProducts(at indexes: NSIndexSet)
+    @objc(removeCurrentProductsAtIndexes:)
+    @NSManaged public func removeFromCurrentProducts(at indexes: NSIndexSet)
 
-    @objc(replaceObjectInListProductsAtIndex:withObject:)
-    @NSManaged public func replaceListProducts(at idx: Int, with value: ListProduct)
+    @objc(replaceObjectInCurrentProductsAtIndex:withObject:)
+    @NSManaged public func replaceCurrentProducts(at idx: Int, with value: Product)
 
-    @objc(replaceListProductsAtIndexes:withListProducts:)
-    @NSManaged public func replaceListProducts(at indexes: NSIndexSet, with values: [ListProduct])
+    @objc(replaceCurrentProductsAtIndexes:withCurrentProducts:)
+    @NSManaged public func replaceCurrentProducts(at indexes: NSIndexSet, with values: [Product])
 
-    @objc(addListProductsObject:)
-    @NSManaged public func addToListProducts(_ value: ListProduct)
+    @objc(addCurrentProductsObject:)
+    @NSManaged public func addToCurrentProducts(_ value: Product)
 
-    @objc(removeListProductsObject:)
-    @NSManaged public func removeFromListProducts(_ value: ListProduct)
+    @objc(removeCurrentProductsObject:)
+    @NSManaged public func removeFromCurrentProducts(_ value: Product)
 
-    @objc(addListProducts:)
-    @NSManaged public func addToListProducts(_ values: NSOrderedSet)
+    @objc(addCurrentProducts:)
+    @NSManaged public func addToCurrentProducts(_ values: NSOrderedSet)
 
-    @objc(removeListProducts:)
-    @NSManaged public func removeFromListProducts(_ values: NSOrderedSet)
+    @objc(removeCurrentProducts:)
+    @NSManaged public func removeFromCurrentProducts(_ values: NSOrderedSet)
 
 }
 
@@ -64,33 +64,37 @@ extension List {
 extension List {
 
     @objc(insertObject:inRemovedProductsAtIndex:)
-    @NSManaged public func insertIntoRemovedProducts(_ value: RemovedProduct, at idx: Int)
+    @NSManaged public func insertIntoRemovedProducts(_ value: Product, at idx: Int)
 
     @objc(removeObjectFromRemovedProductsAtIndex:)
     @NSManaged public func removeFromRemovedProducts(at idx: Int)
 
     @objc(insertRemovedProducts:atIndexes:)
-    @NSManaged public func insertIntoRemovedProducts(_ values: [RemovedProduct], at indexes: NSIndexSet)
+    @NSManaged public func insertIntoRemovedProducts(_ values: [Product], at indexes: NSIndexSet)
 
     @objc(removeRemovedProductsAtIndexes:)
     @NSManaged public func removeFromRemovedProducts(at indexes: NSIndexSet)
 
     @objc(replaceObjectInRemovedProductsAtIndex:withObject:)
-    @NSManaged public func replaceRemovedProducts(at idx: Int, with value: RemovedProduct)
+    @NSManaged public func replaceRemovedProducts(at idx: Int, with value: Product)
 
     @objc(replaceRemovedProductsAtIndexes:withRemovedProducts:)
-    @NSManaged public func replaceRemovedProducts(at indexes: NSIndexSet, with values: [RemovedProduct])
+    @NSManaged public func replaceRemovedProducts(at indexes: NSIndexSet, with values: [Product])
 
     @objc(addRemovedProductsObject:)
-    @NSManaged public func addToRemovedProducts(_ value: RemovedProduct)
+    @NSManaged public func addToRemovedProducts(_ value: Product)
 
     @objc(removeRemovedProductsObject:)
-    @NSManaged public func removeFromRemovedProducts(_ value: RemovedProduct)
+    @NSManaged public func removeFromRemovedProducts(_ value: Product)
 
     @objc(addRemovedProducts:)
     @NSManaged public func addToRemovedProducts(_ values: NSOrderedSet)
 
     @objc(removeRemovedProducts:)
     @NSManaged public func removeFromRemovedProducts(_ values: NSOrderedSet)
+
+}
+
+extension List : Identifiable {
 
 }
