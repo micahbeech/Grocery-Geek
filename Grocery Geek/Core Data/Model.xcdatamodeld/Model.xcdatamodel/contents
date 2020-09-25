@@ -14,9 +14,9 @@
         <relationship name="removedProducts" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Product" inverseName="removedList" inverseEntity="Product"/>
     </entity>
     <entity name="Product" representedClassName=".Product" syncable="YES">
-        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="quantity" attributeType="String"/>
+        <attribute name="removedIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="barcode" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Barcode" inverseName="product" inverseEntity="Barcode"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="currentProducts" inverseEntity="List"/>
         <relationship name="removedList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="removedProducts" inverseEntity="List"/>

@@ -15,21 +15,13 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var listManager: ListTableManager?
     var selectedList: List?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        do {
-            // fetch grocery list items
-            listData = try context.fetch(List.fetchRequest())
-            
-            listData.sort(by: { $0.index < $1.index } )
-            
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
+        listManager = ListTableManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
         
         listTable.delegate = self
         listTable.dataSource = self
@@ -42,12 +34,12 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        listData.count
+        return listManager!.size()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Get the data for this row
-        let list = listData[indexPath.row]
+        let list = listManager!.getList(index: indexPath.row)
         
         // Get a cell to display
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListItem", for: indexPath) as! ListItem
@@ -59,7 +51,7 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Get reference to list that was selected
-        selectedList = listData[indexPath.row]
+        selectedList = listManager!.getList(index: indexPath.row)
         
         if listTable.isEditing {
             // Editing mode, change the name of the list
@@ -81,8 +73,7 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
             let alert = UIAlertController(title: "Are you sure?", message: "This cannot be undone", preferredStyle: .alert)
             
             let add = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-                let list = self.listData.remove(at: indexPath.row)
-                self.context.delete(list)
+                self.listManager?.removeList(index: indexPath.row)
                 self.listTable.reloadData()
             }
             
@@ -97,16 +88,7 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        // Get list to be moved
-        let list = listData[sourceIndexPath.row]
-        
-        // Update indices
-        listData[destinationIndexPath.row].index = list.index
-        list.index = Int32(destinationIndexPath.row)
-        
-        // Update table
-        listData.remove(at: sourceIndexPath.row)
-        listData.insert(list, at: destinationIndexPath.row)
+        listManager?.moveList(start: sourceIndexPath.row, end: destinationIndexPath.row)
         listTable.reloadData()
     }
     
@@ -149,20 +131,11 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
             
             if newList {
                 // Create new list
-                let entity = NSEntityDescription.entity(forEntityName: "List", in: self.context)
-                let list = NSManagedObject(entity: entity!, insertInto: self.context) as! List
-                
-                // Set fields
-                list.name = listNameField.text
-                list.id = UUID()
-                list.index = Int32(self.listData.count)
-                
-                // Add to list of lists
-                self.listData.append(list)
+                self.listManager?.addList(name: listNameField.text!)
                 
             } else {
                 // Updated existing list
-                self.selectedList?.name = listNameField.text
+                self.listManager?.updateList(list: self.selectedList!, name: listNameField.text!)
                 
             }
             

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B4081D0C251D7D0C00D8CAC1 /* ListTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4081D0B251D7D0C00D8CAC1 /* ListTableManager.swift */; };
 		B422F174251C367F0027862A /* GroceryListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422F173251C367F0027862A /* GroceryListManager.swift */; };
 		B4244BF1251266C700FAEA14 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4244BF0251266C700FAEA14 /* HomeViewController.swift */; };
 		B4244BF32512978F00FAEA14 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4244BF22512978F00FAEA14 /* ListItem.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B4081D0B251D7D0C00D8CAC1 /* ListTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableManager.swift; sourceTree = "<group>"; };
 		B422F173251C367F0027862A /* GroceryListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListManager.swift; sourceTree = "<group>"; };
 		B4244BF0251266C700FAEA14 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B4244BF22512978F00FAEA14 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				B4244BF22512978F00FAEA14 /* ListItem.swift */,
 				B422F173251C367F0027862A /* GroceryListManager.swift */,
 				B4B76D6D251D6380004BC32F /* BarcodeManager.swift */,
+				B4081D0B251D7D0C00D8CAC1 /* ListTableManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				B422F174251C367F0027862A /* GroceryListManager.swift in Sources */,
 				B4395DF1251C3C6600A23721 /* Product+CoreDataClass.swift in Sources */,
 				B4244BF1251266C700FAEA14 /* HomeViewController.swift in Sources */,
+				B4081D0C251D7D0C00D8CAC1 /* ListTableManager.swift in Sources */,
 				B4B76D73251D66F5004BC32F /* Barcode+CoreDataClass.swift in Sources */,
 				B4B76D74251D66F5004BC32F /* Barcode+CoreDataProperties.swift in Sources */,
 				B4B76D6E251D6380004BC32F /* BarcodeManager.swift in Sources */,
