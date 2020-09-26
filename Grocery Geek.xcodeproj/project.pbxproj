@@ -19,7 +19,6 @@
 		B46173AC2454E498004DD830 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173AB2454E498004DD830 /* AddViewController.swift */; };
 		B469F8ED251EA9000042247D /* ListTableManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469F8EC251EA9000042247D /* ListTableManagerTests.swift */; };
 		B469F8F9251ED1CF0042247D /* CoreDataTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469F8F8251ED1CF0042247D /* CoreDataTestHelper.swift */; };
-		B469F8FF251ED29D0042247D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469F8FE251ED29D0042247D /* CoreDataStack.swift */; };
 		B469F910251F961F0042247D /* GroceryListManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469F90F251F961F0042247D /* GroceryListManagerTests.swift */; };
 		B46E535A251FD82F00D4E145 /* BarcodeManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E5359251FD82F00D4E145 /* BarcodeManagerTests.swift */; };
 		B4872D8E22948CF0008D0F20 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B4872D8C22948CF0008D0F20 /* Model.xcdatamodeld */; };
@@ -60,7 +59,6 @@
 		B469F8EC251EA9000042247D /* ListTableManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableManagerTests.swift; sourceTree = "<group>"; };
 		B469F8EE251EA9000042247D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B469F8F8251ED1CF0042247D /* CoreDataTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestHelper.swift; sourceTree = "<group>"; };
-		B469F8FE251ED29D0042247D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		B469F90F251F961F0042247D /* GroceryListManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListManagerTests.swift; sourceTree = "<group>"; };
 		B46E5359251FD82F00D4E145 /* BarcodeManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeManagerTests.swift; sourceTree = "<group>"; };
 		B4872D8D22948CF0008D0F20 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 				B4395DEB251C3C6600A23721 /* Product+CoreDataClass.swift */,
 				B4395DEC251C3C6600A23721 /* Product+CoreDataProperties.swift */,
 				B4872D8C22948CF0008D0F20 /* Model.xcdatamodeld */,
-				B469F8FE251ED29D0042247D /* CoreDataStack.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -300,7 +297,6 @@
 				B4395DF0251C3C6600A23721 /* List+CoreDataProperties.swift in Sources */,
 				B4B947E22511A76F00C7FDFF /* GroceryListTableView.swift in Sources */,
 				B422F174251C367F0027862A /* GroceryListManager.swift in Sources */,
-				B469F8FF251ED29D0042247D /* CoreDataStack.swift in Sources */,
 				B4395DF1251C3C6600A23721 /* Product+CoreDataClass.swift in Sources */,
 				B4244BF1251266C700FAEA14 /* HomeViewController.swift in Sources */,
 				B4081D0C251D7D0C00D8CAC1 /* ListTableManager.swift in Sources */,
