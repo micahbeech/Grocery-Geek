@@ -71,22 +71,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0488C0AC-3575-416B-AB30-06244C27AF2F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Grocery Geek/AppDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "saveContext()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B6D0E9E3-E6C1-4232-85FE-A5A99B94636B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -94,58 +78,10 @@
             filePath = "Grocery Geek/View Controllers/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "22D6E6CC-48A6-42FC-B162-2617A58FD365"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Grocery Geek/View Controllers/ListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "removeProduct(index:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "22D6E6CC-48A6-42FC-B162-2617A58FD365 - c467ea9f53f54c3a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Grocery_Geek.ListViewController.removeProduct(index: Swift.Int) -&gt; ()"
-                  moduleName = "Grocery Geek"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/micahbeech/code/apps/Grocery%20Geek/Grocery%20Geek/View%20Controllers/ListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "78"
-                  endingLineNumber = "78"
-                  offsetFromSymbolStart = "122">
-               </Location>
-               <Location
-                  uuid = "22D6E6CC-48A6-42FC-B162-2617A58FD365 - c467ea9f53f54c3a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Grocery_Geek.ListViewController.removeProduct(index: Swift.Int) -&gt; ()"
-                  moduleName = "Grocery Geek"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/micahbeech/code/apps/Grocery%20Geek/Grocery%20Geek/View%20Controllers/ListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "78"
-                  endingLineNumber = "78"
-                  offsetFromSymbolStart = "3931">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -158,8 +94,8 @@
             filePath = "Grocery Geek/View Controllers/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "changeListName(title:message:newList:)"
             landmarkType = "7">
          </BreakpointContent>

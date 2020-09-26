@@ -12,9 +12,10 @@ import CoreData
 class AddViewController: UIViewController, UITextFieldDelegate {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var barcodeProduct: BarcodeProduct?
-    var itemToEdit: ListProduct?
-    var list: List?
+    var barcodeProduct: Barcode?
+    var itemToEdit: Product?
+    var list: List!
+    var listManager: GroceryListManager!
     
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var toolbarHeight: NSLayoutConstraint!
@@ -27,6 +28,8 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        listManager = GroceryListManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext, list: list)
         
         productName.delegate = self
         productQuantity.delegate = self
@@ -132,35 +135,15 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        // add product for core data
-        let entity = NSEntityDescription.entity(forEntityName: "ListProduct", in: context)
-        let newProduct = NSManagedObject(entity: entity!, insertInto: context) as! ListProduct
-         
-        // set the product's properties
-        newProduct.name = productName.text
-        newProduct.quantity = productQuantity.text
-        
         if itemToEdit != nil {
-            // Copy over old product
-            newProduct.index = itemToEdit!.index
-            newProduct.barcode = itemToEdit!.barcode
             
-            // Remove old product
-            list?.removeFromListProducts(itemToEdit!)
-            context.delete(itemToEdit!)
-            itemToEdit = nil
+            listManager.editProduct(product: itemToEdit!, name: productName.text!, quantity: productQuantity.text)
             
         } else {
-            newProduct.index = Int32(list!.listProducts!.count)
-            newProduct.barcode = barcodeProduct
+            
+            listManager.addListProduct(name: productName.text!, quantity: productQuantity.text, barcode: barcodeProduct)
             
         }
-        
-        list?.insertIntoListProducts(newProduct, at: Int(newProduct.index))
-        
-        // update info for the barcode
-        newProduct.barcode?.name = newProduct.name
-        newProduct.barcode?.quantity = newProduct.quantity
         
         if let vc = presentingViewController as? ScannerViewController {
             vc.presentingViewController?.dismiss(animated: true, completion: nil)
