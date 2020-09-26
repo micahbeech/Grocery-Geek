@@ -14,8 +14,8 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var barcodeProduct: Barcode?
     var itemToEdit: Product?
-    var list: List?
-    var listManager: GroceryListManager?
+    var list: List!
+    var listManager: GroceryListManager!
     
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var toolbarHeight: NSLayoutConstraint!
@@ -29,7 +29,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        listManager = GroceryListManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext, list: list!)
+        listManager = GroceryListManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext, list: list)
         
         productName.delegate = self
         productQuantity.delegate = self
@@ -137,11 +137,11 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         
         if itemToEdit != nil {
             
-            listManager!.editProduct(product: itemToEdit!, name: productName.text!, quantity: productQuantity.text)
+            listManager.editProduct(product: itemToEdit!, name: productName.text!, quantity: productQuantity.text)
             
         } else {
             
-            listManager!.addListProduct(name: productName.text!, quantity: productQuantity.text, barcode: barcodeProduct)
+            listManager.addListProduct(name: productName.text!, quantity: productQuantity.text, barcode: barcodeProduct)
             
         }
         

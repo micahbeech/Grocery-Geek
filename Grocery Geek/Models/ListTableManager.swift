@@ -34,16 +34,32 @@ class ListTableManager {
         return lists.count
     }
     
-    func getList(index: Int) -> List {
+    func getList(index: Int) -> List? {
+        if index >= lists.count {
+            return nil
+        }
         return lists[index]
     }
     
-    func removeList(index: Int) {
+    @discardableResult
+    func removeList(index: Int) -> Bool {
+        
+        if 0 > index || index >= lists.count {
+            return false
+        }
+        
         let list = lists.remove(at: index)
         context.delete(list)
+        
+        return true
     }
     
-    func moveList(start: Int, end: Int) {
+    @discardableResult
+    func moveList(start: Int, end: Int) -> Bool {
+        
+        if 0 > start || start >= lists.count || 0 > end || end >= lists.count {
+            return false
+        }
         
         // move list
         let list = lists[start]
@@ -51,15 +67,18 @@ class ListTableManager {
         lists.insert(list, at: end)
         
         // Update indices
-        var count = Int32(start)
-        for list in lists[start...end] {
+        var count = Int32(min(start, end))
+        for list in lists[min(start, end)...max(start, end)] {
             list.index = count
             count += 1
         }
+        
+        return true
 
     }
     
-    func addList(name: String) {
+    @discardableResult
+    func addList(name: String) -> List {
         
         // Create new list
         let entity = NSEntityDescription.entity(forEntityName: "List", in: self.context)
@@ -72,6 +91,8 @@ class ListTableManager {
         
         // Add to list of lists
         lists.append(list)
+        
+        return list
         
     }
     

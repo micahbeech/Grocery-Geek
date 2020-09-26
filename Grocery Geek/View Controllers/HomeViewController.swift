@@ -15,7 +15,7 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     
-    var listManager: ListTableManager?
+    var listManager: ListTableManager!
     var selectedList: List?
     
     override func viewDidLoad() {
@@ -34,16 +34,16 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listManager!.size()
+        return listManager.size()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Get the data for this row
-        let list = listManager!.getList(index: indexPath.row)
+        let list = listManager.getList(index: indexPath.row)
         
         // Get a cell to display
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListItem", for: indexPath) as! ListItem
-        cell.listName?.text = list.name
+        cell.listName?.text = list?.name
         
         // Return the cell
         return cell
@@ -51,7 +51,7 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Get reference to list that was selected
-        selectedList = listManager!.getList(index: indexPath.row)
+        selectedList = listManager.getList(index: indexPath.row)
         
         if listTable.isEditing {
             // Editing mode, change the name of the list
@@ -73,7 +73,7 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
             let alert = UIAlertController(title: "Are you sure?", message: "This cannot be undone", preferredStyle: .alert)
             
             let add = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-                self.listManager?.removeList(index: indexPath.row)
+                self.listManager.removeList(index: indexPath.row)
                 self.listTable.reloadData()
             }
             
@@ -88,7 +88,7 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        listManager?.moveList(start: sourceIndexPath.row, end: destinationIndexPath.row)
+        listManager.moveList(start: sourceIndexPath.row, end: destinationIndexPath.row)
         listTable.reloadData()
     }
     
@@ -131,11 +131,11 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
             
             if newList {
                 // Create new list
-                self.listManager?.addList(name: listNameField.text!)
+                self.listManager.addList(name: listNameField.text!)
                 
             } else {
                 // Updated existing list
-                self.listManager?.updateList(list: self.selectedList!, name: listNameField.text!)
+                self.listManager.updateList(list: self.selectedList!, name: listNameField.text!)
                 
             }
             

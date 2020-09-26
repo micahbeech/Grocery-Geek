@@ -15,19 +15,19 @@ class ListViewController: UIViewController {
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var navigationBar: UINavigationItem!
     
-    var list: List?
-    var listManager: GroceryListManager?
+    var list: List!
+    var listManager: GroceryListManager!
     
-    var selectedRow: Product? = nil
+    var selectedRow: Product?
     
     // MARK: setup
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        listManager = GroceryListManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext, list: list!)
+        listManager = GroceryListManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext, list: list)
         
-        navigationBar.title = list?.name
+        navigationBar.title = list.name
         
         groceryList.reloadData()
     }
@@ -67,7 +67,7 @@ class ListViewController: UIViewController {
         
     @IBAction func undoRemove(_ sender: Any) {
         
-        if listManager!.undoRemoveProduct() {
+        if listManager.undoRemoveProduct() {
             groceryList.reloadData()
             return
         }
@@ -84,7 +84,7 @@ class ListViewController: UIViewController {
     
     @IBAction func clear(_ sender: Any) {
         
-        if listManager!.hasProducts() {
+        if listManager.hasProducts() {
         
             // construct alert to be displayed
             let alert = UIAlertController(title: "Clear grocery list?", message: "This will clear current and removed items.", preferredStyle: .alert)
@@ -93,7 +93,7 @@ class ListViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { action in
                 
                 // clear list in database
-                self.listManager!.clearList()
+                self.listManager.clearList()
                 
                 // delete cells from table and present to view
                 self.groceryList.reloadData()

@@ -18,8 +18,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var previewLayer: AVCaptureVideoPreviewLayer!
     
     var barcodeProduct: Barcode?
-    var list: List?
-    var barcodeManager: BarcodeManager?
+    var list: List!
+    var barcodeManager: BarcodeManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,7 +112,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
 
     func found(code: String) {
-        barcodeProduct = barcodeManager?.findProduct(code: code)
+        barcodeProduct = barcodeManager.findProduct(code: code)
         performSegue(withIdentifier: "scanAdd", sender: self)
     }
     

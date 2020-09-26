@@ -19,7 +19,8 @@ class GroceryListManager {
         self.list = list
     }
     
-    func addListProduct(name: String, quantity: String?, barcode: Barcode?) {
+    @discardableResult
+    func addListProduct(name: String, quantity: String?, barcode: Barcode?) -> Product {
         
         // add product to core data
         let entity = NSEntityDescription.entity(forEntityName: "Product", in: context)
@@ -36,6 +37,8 @@ class GroceryListManager {
         
         // add product to the list
         list.addToCurrentProducts(newProduct)
+        
+        return newProduct
     }
     
     func editProduct(product: Product, name: String, quantity: String?) {
@@ -50,7 +53,12 @@ class GroceryListManager {
         
     }
     
-    func removeProduct(index: Int) {
+    @discardableResult
+    func removeProduct(index: Int) -> Bool {
+        
+        if 0 > index || index >= list.currentProducts!.count {
+            return false
+        }
         
         // get product to remove
         let removedProduct = list.currentProducts?.array[index] as! Product
@@ -59,6 +67,8 @@ class GroceryListManager {
         // move product
         list.addToRemovedProducts(removedProduct)
         list.removeFromCurrentProducts(removedProduct)
+        
+        return true
         
     }
     
@@ -86,20 +96,32 @@ class GroceryListManager {
         
         // delete removed products
         for product in list.removedProducts?.array as! [Product] {
+            list.removeFromRemovedProducts(product)
             context.delete(product)
         }
         
         // delete from list
         for product in list.currentProducts?.array as! [Product] {
+            list.removeFromCurrentProducts(product)
             context.delete(product)
         }
         
     }
     
-    func moveProduct(source: IndexPath, destination: IndexPath) {
+    @discardableResult
+    func moveProduct(source: IndexPath, destination: IndexPath) -> Bool {
+        
+        if 0 > source.row || source.row >= list.currentProducts!.count ||
+           0 > destination.row || destination.row >= list.currentProducts!.count {
+            return false
+        }
+        
         let product = list.currentProducts?.array[source.row] as! Product
         list.removeFromCurrentProducts(at: source.row)
         list.insertIntoCurrentProducts(product, at: destination.row)
+        
+        return true
+        
     }
     
     func hasProducts() -> Bool {
@@ -110,8 +132,11 @@ class GroceryListManager {
         return list.currentProducts!.count
     }
     
-    func getProduct(index: Int) -> Product {
-        return list.currentProducts?.array[index] as! Product
+    func getProduct(index: Int) -> Product? {
+        if 0 > index || index >= list.currentProducts!.count {
+            return nil
+        }
+        return list.currentProducts?.array[index] as? Product
     }
     
 }
