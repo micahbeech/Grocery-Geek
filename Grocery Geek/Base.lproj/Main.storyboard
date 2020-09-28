@@ -43,7 +43,6 @@
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bZ0-hd-ty4">
                                                             <rect key="frame" x="332" y="2" width="13" height="40.5"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="23.5" id="5PB-WM-Lnf"/>
                                                                 <constraint firstAttribute="width" constant="13" id="jSP-dY-uAc"/>
                                                             </constraints>
                                                         </imageView>
@@ -124,53 +123,18 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem systemItem="flexibleSpace" id="nbs-RV-Nhi"/>
-                                    <barButtonItem title="Scan" image="barcode.viewfinder" catalog="system" id="o9e-np-tDf" userLabel="Scan">
+                                    <barButtonItem title="AddGroup" image="plus.rectangle" catalog="system" id="spI-gK-Elf">
                                         <connections>
-                                            <segue destination="gzv-8T-iTN" kind="presentation" identifier="scanProduct" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="dII-b9-nph"/>
+                                            <action selector="addSection:" destination="xO8-gZ-rOd" id="Hhh-1J-OrU"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem systemItem="flexibleSpace" id="TrI-lo-apc"/>
-                                    <barButtonItem title="Add" image="plus" catalog="system" id="BA2-O6-ZMN">
-                                        <inset key="imageInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <segue destination="YOP-Za-fsU" kind="presentation" identifier="addProduct" modalPresentationStyle="fullScreen" id="943-JN-0lX"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem systemItem="flexibleSpace" id="LuU-ad-gpv"/>
-                                    <barButtonItem title="Undo" image="arrow.uturn.left" catalog="system" id="kdE-oW-Tg0">
-                                        <connections>
-                                            <action selector="undoRemove:" destination="xO8-gZ-rOd" id="wfB-qC-rQq"/>
-                                        </connections>
-                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="CId-2o-uWs"/>
+                                    <barButtonItem title="Share" image="square.and.arrow.up" catalog="system" id="r02-OR-cy4"/>
                                 </items>
                             </toolbar>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="elq-9H-mgT">
-                                <rect key="frame" x="0.0" y="44" width="375" height="40"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                            </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cYY-f6-HdT">
-                                <rect key="frame" x="15" y="44" width="345" height="40"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h26-bQ-u2V">
-                                        <rect key="frame" x="0.0" y="0.0" width="263.5" height="40"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Quantity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nt4-vw-fya">
-                                        <rect key="frame" x="263.5" y="0.0" width="81.5" height="40"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="JFB-8g-yjg"/>
-                                </constraints>
-                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bQo-7k-Mni" userLabel="Grocery List">
-                                <rect key="frame" x="0.0" y="84" width="375" height="533"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="573"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="separatorColor" systemColor="systemGrayColor"/>
                                 <prototypes>
                                     <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="5" reuseIdentifier="ProductItem" id="9Av-fo-NJH" userLabel="ProductItem" customClass="GroceryItem" customModule="Grocery_Geek" customModuleProvider="target">
@@ -219,23 +183,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="78P-Gu-WAG" firstAttribute="bottom" secondItem="Auc-X9-k46" secondAttribute="bottom" id="9iJ-dV-3xL"/>
-                            <constraint firstAttribute="trailing" secondItem="elq-9H-mgT" secondAttribute="trailing" id="BlZ-CC-Lnc"/>
-                            <constraint firstItem="bQo-7k-Mni" firstAttribute="top" secondItem="elq-9H-mgT" secondAttribute="bottom" id="GHt-pV-cPg"/>
                             <constraint firstItem="Auc-X9-k46" firstAttribute="leading" secondItem="78P-Gu-WAG" secondAttribute="leading" id="JZu-WK-6Ze"/>
-                            <constraint firstItem="78P-Gu-WAG" firstAttribute="trailing" secondItem="cYY-f6-HdT" secondAttribute="trailing" constant="15" id="JmD-dE-Hjf"/>
-                            <constraint firstItem="cYY-f6-HdT" firstAttribute="top" secondItem="78P-Gu-WAG" secondAttribute="top" id="Nh6-51-kjG"/>
                             <constraint firstItem="coE-6S-Iv2" firstAttribute="top" secondItem="78P-Gu-WAG" secondAttribute="top" id="Pgy-ry-yP0"/>
                             <constraint firstItem="coE-6S-Iv2" firstAttribute="bottom" secondItem="2iF-RT-cUG" secondAttribute="bottom" id="QKj-Vo-D2G"/>
+                            <constraint firstItem="bQo-7k-Mni" firstAttribute="top" secondItem="78P-Gu-WAG" secondAttribute="top" id="QQh-ON-TuN"/>
                             <constraint firstItem="Auc-X9-k46" firstAttribute="trailing" secondItem="78P-Gu-WAG" secondAttribute="trailing" id="R6X-Sg-4bv"/>
                             <constraint firstItem="bQo-7k-Mni" firstAttribute="leading" secondItem="78P-Gu-WAG" secondAttribute="leading" id="csa-yg-ra4"/>
-                            <constraint firstItem="elq-9H-mgT" firstAttribute="top" secondItem="78P-Gu-WAG" secondAttribute="top" id="dhc-od-9f0"/>
-                            <constraint firstItem="elq-9H-mgT" firstAttribute="leading" secondItem="2iF-RT-cUG" secondAttribute="leading" id="fbY-3b-pmp"/>
                             <constraint firstItem="Auc-X9-k46" firstAttribute="top" secondItem="bQo-7k-Mni" secondAttribute="bottom" id="i42-5d-ae4"/>
-                            <constraint firstItem="bQo-7k-Mni" firstAttribute="top" secondItem="cYY-f6-HdT" secondAttribute="bottom" id="ojs-CC-DEj"/>
                             <constraint firstItem="78P-Gu-WAG" firstAttribute="trailing" secondItem="bQo-7k-Mni" secondAttribute="trailing" id="ool-GU-MkM"/>
                             <constraint firstItem="coE-6S-Iv2" firstAttribute="trailing" secondItem="2iF-RT-cUG" secondAttribute="trailing" id="q5t-oG-KgX"/>
                             <constraint firstItem="coE-6S-Iv2" firstAttribute="leading" secondItem="2iF-RT-cUG" secondAttribute="leading" id="wsH-vR-a8q"/>
-                            <constraint firstItem="cYY-f6-HdT" firstAttribute="leading" secondItem="78P-Gu-WAG" secondAttribute="leading" constant="15" id="xP0-IG-oul"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Grocery List" id="svI-t5-1HL">
@@ -249,11 +206,13 @@
                         <outlet property="editButton" destination="WG6-0x-VhF" id="D8X-E5-Fes"/>
                         <outlet property="groceryList" destination="bQo-7k-Mni" id="8mx-E0-fNG"/>
                         <outlet property="navigationBar" destination="svI-t5-1HL" id="Zep-zz-B2s"/>
+                        <segue destination="YOP-Za-fsU" kind="presentation" identifier="addProduct" modalPresentationStyle="fullScreen" id="Qvf-nY-6t1"/>
+                        <segue destination="gzv-8T-iTN" kind="presentation" identifier="scanProduct" modalPresentationStyle="fullScreen" id="men-Tp-rdM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xMp-Gd-7LX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1608.8" y="903.59820089955031"/>
+            <point key="canvasLocation" x="1614" y="904"/>
         </scene>
         <!--Add View Controller-->
         <scene sceneID="Kg5-N3-qlC">
@@ -426,15 +385,15 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="943-JN-0lX"/>
+        <segue reference="Qvf-nY-6t1"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="arrow.uturn.left" catalog="system" width="128" height="112"/>
         <image name="background" width="2000" height="2000"/>
-        <image name="barcode.viewfinder" catalog="system" width="128" height="115"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="clear" catalog="system" width="128" height="114"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="plus.rectangle" catalog="system" width="128" height="93"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

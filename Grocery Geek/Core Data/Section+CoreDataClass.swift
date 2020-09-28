@@ -1,5 +1,5 @@
 //
-//  Barcode+CoreDataClass.swift
+//  Section+CoreDataClass.swift
 //  Grocery Geek
 //
 //  Created by Micah Beech on 2020-09-28.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-
-public class Barcode: NSManagedObject {
+@objc(Section)
+public class Section: NSManagedObject {
 
 }

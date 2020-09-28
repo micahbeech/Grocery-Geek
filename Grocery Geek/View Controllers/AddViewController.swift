@@ -16,6 +16,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     var itemToEdit: Product?
     var list: List!
     var listManager: GroceryListManager!
+    var section: Int?
     
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var toolbarHeight: NSLayoutConstraint!
@@ -141,7 +142,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             
         } else {
             
-            listManager.addListProduct(name: productName.text!, quantity: productQuantity.text, barcode: barcodeProduct)
+            listManager.addListProduct(section: section!, name: productName.text!, quantity: productQuantity.text, barcode: barcodeProduct)
             
         }
         
