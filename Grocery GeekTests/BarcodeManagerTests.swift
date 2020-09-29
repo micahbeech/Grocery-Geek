@@ -54,5 +54,28 @@ class BarcodeManagerTests : XCTestCase {
         XCTAssert(barcode1 == barcode2)
         
     }
+    
+    func testSave() {
+        
+        expectation(forNotification: .NSManagedObjectContextDidSave, object: coreDataHelper.persistentContainer.viewContext) { _ in
+            return true
+        }
+        
+        let code = UUID().uuidString
+        let barcode = barcodeManager.findProduct(code: code)
+        coreDataHelper.saveContext()
+        
+        waitForExpectations(timeout: 2.0) { error in
+            XCTAssertNil(error, "Save did not occur")
+            
+            let newManager = BarcodeManager(context: self.coreDataHelper.persistentContainer.viewContext)
+            let newBarcode = newManager.findProduct(code: code)
+            
+            XCTAssertNotNil(newBarcode)
+            XCTAssert(newBarcode == barcode)
+            
+        }
+        
+    }
 
 }

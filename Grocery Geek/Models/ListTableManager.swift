@@ -86,8 +86,10 @@ class ListTableManager {
         
         // Set fields
         list.name = name
-        list.id = UUID()
         list.index = Int32(lists.count)
+        
+        let listManager = GroceryListManager(context: context, list: list)
+        listManager.addSection(name: "Items")
         
         // Add to list of lists
         lists.append(list)

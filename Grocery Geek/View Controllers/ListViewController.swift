@@ -19,6 +19,9 @@ class ListViewController: UIViewController {
     var listManager: GroceryListManager!
     
     var selectedRow: Product?
+    var selectedSection: Int?
+    
+    let headerSize = CGFloat(60)
     
     // MARK: setup
     
@@ -39,11 +42,14 @@ class ListViewController: UIViewController {
             let destinationVC = segue.destination as! AddViewController
             destinationVC.list = list
             destinationVC.itemToEdit = selectedRow
+            destinationVC.section = selectedSection
             selectedRow = nil
+            selectedSection = nil
             
         case "scanProduct":
             let destinationVC = segue.destination as! ScannerViewController
             destinationVC.list = list
+            destinationVC.section = selectedSection
             
         default:
             break
@@ -56,6 +62,8 @@ class ListViewController: UIViewController {
     @IBAction func editToggle(_ sender: Any) {
         groceryList.isEditing = !groceryList.isEditing
         
+        groceryList.reloadData()
+        
         if groceryList.isEditing {
             editButton.title = "Done"
             editButton.style = .done
@@ -63,21 +71,6 @@ class ListViewController: UIViewController {
             editButton.title = "Edit"
             editButton.style = .plain
         }
-    }
-        
-    @IBAction func undoRemove(_ sender: Any) {
-        
-        if listManager.undoRemoveProduct() {
-            groceryList.reloadData()
-            return
-        }
-        
-        // construct alert to be displayed
-        let alert = UIAlertController(title: "No items have been removed", message: "Swipe left to remove an item", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        present(alert, animated: true, completion: nil)
     }
     
     // MARK: Clear data
@@ -107,7 +100,7 @@ class ListViewController: UIViewController {
         } else {
             
             // construct alert to be displayed
-            let alert = UIAlertController(title: "Your list is empty!", message: "Scan or add items from the toolbar below.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Your list is empty!", message: "Scan or add items to build your list.", preferredStyle: .alert)
             
             // add action
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -116,6 +109,53 @@ class ListViewController: UIViewController {
             
         }
     }
+    
+    func changeSectionName(title: String, message: String? = nil, name: String? = nil, section: Int? = nil) {
+        
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        
+        var listNameField = UITextField()
+        
+        alert.addTextField { (textField) in
+            textField.placeholder = "Name"
+            textField.autocapitalizationType = .sentences
+            textField.text = name
+            listNameField = textField
+        }
+        
+        let add = UIAlertAction(title: "OK", style: .default) { (action) in
+            if listNameField.text == nil || listNameField.text == "" {
+                return
+            }
+            
+            if name == nil {
+                self.listManager.addSection(name: listNameField.text!)
+            } else {
+                self.listManager.editSection(section: section!, name: listNameField.text!)
+            }
+            
+            self.groceryList.reloadData()
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(add)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true)
+        
+    }
+    
+    @IBAction func addSection(_ sender: Any) {
+        
+        changeSectionName(title: "Add section", message: "Use sections to group your lists into product types!")
+        
+    }
+    
     
 }
 

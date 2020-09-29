@@ -20,7 +20,7 @@ class GroceryListManager {
     }
     
     @discardableResult
-    func addListProduct(name: String, quantity: String?, barcode: Barcode?) -> Product {
+    func addListProduct(section: Int, name: String, quantity: String?, barcode: Barcode?) -> Product? {
         
         // add product to core data
         let entity = NSEntityDescription.entity(forEntityName: "Product", in: context)
@@ -36,7 +36,8 @@ class GroceryListManager {
         newProduct.barcode?.quantity = newProduct.quantity
         
         // add product to the list
-        list.addToCurrentProducts(newProduct)
+        guard let section = getSection(index: section) else { return nil }
+        section.addToProducts(newProduct)
         
         return newProduct
     }
@@ -46,7 +47,7 @@ class GroceryListManager {
         // update product properties
         product.name = name
         product.quantity = quantity
-        
+
         // update info for the barcode
         product.barcode?.name = name
         product.barcode?.quantity = quantity
@@ -54,56 +55,60 @@ class GroceryListManager {
     }
     
     @discardableResult
-    func removeProduct(index: Int) -> Bool {
-        
-        if 0 > index || index >= list.currentProducts!.count {
-            return false
-        }
+    func removeProduct(indexPath: IndexPath) -> Bool {
         
         // get product to remove
-        let removedProduct = list.currentProducts?.array[index] as! Product
-        removedProduct.removedIndex = Int32(index)
-        
+        guard let section = getSection(index: indexPath.section) else { return false }
+        guard let removedProduct = getProduct(indexPath: indexPath) else { return false }
+        removedProduct.removedSection = section
+        removedProduct.removedRow = Int32(indexPath.row)
+
         // move product
-        list.addToRemovedProducts(removedProduct)
-        list.removeFromCurrentProducts(removedProduct)
+        section.removeFromProducts(removedProduct)
+        section.addToRemovedProducts(removedProduct)
         
         return true
         
     }
     
-    func undoRemoveProduct() -> Bool {
+    func undoRemoveProduct(section: Int) -> Bool {
         
         // Get place of item to remove
-        let itemIndex = list.removedProducts!.count - 1
-        
+        guard let section = getSection(index: section) else { return false }
+        let itemIndex = section.removedProducts!.count - 1
+
         // do nothing if nothing to remove
         if itemIndex < 0 {
             return false
         }
-        
+
         // get removed product
-        let product = list.removedProducts?.array[itemIndex] as! Product
-        
+        let product = section.removedProducts?.array[itemIndex] as! Product
+
         // move product
-        list.insertIntoCurrentProducts(product, at: Int(product.removedIndex))
-        list.removeFromRemovedProducts(product)
+        section.insertIntoProducts(product, at: Int(product.removedRow))
+        section.removeFromRemovedProducts(product)
         
         return true
     }
     
     func clearList() {
-        
-        // delete removed products
-        for product in list.removedProducts?.array as! [Product] {
-            list.removeFromRemovedProducts(product)
-            context.delete(product)
-        }
-        
+
         // delete from list
-        for product in list.currentProducts?.array as! [Product] {
-            list.removeFromCurrentProducts(product)
-            context.delete(product)
+        for section in list.sections?.array as! [Section] {
+            
+            for product in section.products?.array as! [Product] {
+                section.removeFromProducts(product)
+                context.delete(product)
+            }
+            
+            for product in section.removedProducts?.array as! [Product] {
+                section.removeFromRemovedProducts(product)
+                context.delete(product)
+            }
+            
+            list.removeFromSections(section)
+            context.delete(section)
         }
         
     }
@@ -111,32 +116,96 @@ class GroceryListManager {
     @discardableResult
     func moveProduct(source: IndexPath, destination: IndexPath) -> Bool {
         
-        if 0 > source.row || source.row >= list.currentProducts!.count ||
-           0 > destination.row || destination.row >= list.currentProducts!.count {
-            return false
-        }
+        guard let startSection = getSection(index: source.section) else { return false }
+        guard let endSection = getSection(index: destination.section) else { return false }
         
-        let product = list.currentProducts?.array[source.row] as! Product
-        list.removeFromCurrentProducts(at: source.row)
-        list.insertIntoCurrentProducts(product, at: destination.row)
+        guard let product = getProduct(indexPath: source) else { return false }
+
+        if destination.row > endSection.products!.count { return false }
+        
+        startSection.removeFromProducts(at: source.row)
+        endSection.insertIntoProducts(product, at: destination.row)
         
         return true
         
     }
     
     func hasProducts() -> Bool {
-        return list.currentProducts!.count > 0 || list.removedProducts!.count > 0
+        
+        for section in list.sections!.array as! [Section] {
+            if section.products!.count > 0 || section.removedProducts!.count > 0 {
+                return true
+            }
+        }
+        
+        return false
     }
     
-    func size() -> Int {
-        return list.currentProducts!.count
+    func sectionCount() -> Int {
+        return list.sections!.count
     }
     
-    func getProduct(index: Int) -> Product? {
-        if 0 > index || index >= list.currentProducts!.count {
+    func sectionSize(sectionIndex: Int) -> Int {
+        guard let section = getSection(index: sectionIndex) else { return 0 }
+        return section.products!.count
+    }
+    
+    func getSection(index: Int) -> Section? {
+        
+        if 0 > index || index >= list.sections!.count {
             return nil
         }
-        return list.currentProducts?.array[index] as? Product
+        
+        return list.sections?.array[index] as? Section
+    }
+    
+    func getProduct(indexPath: IndexPath) -> Product? {
+        
+        guard let section = getSection(index: indexPath.section) else { return nil }
+        
+        if 0 > indexPath.row || indexPath.row >= section.products!.count {
+            return nil
+        }
+        
+        return section.products?.array[indexPath.row] as? Product
+        
+    }
+    
+    @discardableResult
+    func addSection(name: String) -> Section {
+        // add product to core data
+        let entity = NSEntityDescription.entity(forEntityName: "Section", in: context)
+        let newSection = NSManagedObject(entity: entity!, insertInto: context) as! Section
+         
+        // set the product's properties
+        newSection.name = name
+        
+        list.addToSections(newSection)
+        
+        return newSection
+    }
+    
+    @discardableResult
+    func editSection(section: Int, name: String) -> Bool {
+        
+        guard let section = getSection(index: section) else { return false }
+        
+        section.name = name
+        
+        return true
+        
+    }
+    
+    @discardableResult
+    func deleteSection(section: Int) -> Bool {
+        
+        guard let section = getSection(index: section) else { return false }
+        
+        list.removeFromSections(section)
+        context.delete(section)
+        
+        return true
+        
     }
     
 }

@@ -20,6 +20,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var barcodeProduct: Barcode?
     var list: List!
     var barcodeManager: BarcodeManager!
+    var section: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,6 +124,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             let destinationVC = segue.destination as! AddViewController
             destinationVC.barcodeProduct = self.barcodeProduct
             destinationVC.list = self.list
+            destinationVC.section = section
             
         default:
             break
