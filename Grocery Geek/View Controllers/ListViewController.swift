@@ -152,7 +152,7 @@ class ListViewController: UIViewController {
     
     @IBAction func addSection(_ sender: Any) {
         
-        changeSectionName(title: "Add section")
+        changeSectionName(title: "Add section", message: "Use sections to group your lists into product types!")
         
     }
     

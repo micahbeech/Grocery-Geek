@@ -35,12 +35,11 @@ class ListTableManagerTests : XCTestCase {
         XCTAssertNotNil(list, "list should not be nil")
         XCTAssertNotNil(list.name, "list name should not be nil")
         XCTAssertNotNil(list.id, "id should not be nil")
-        XCTAssertNotNil(list.currentProducts, "current products should not be nil")
-        XCTAssertNotNil(list.removedProducts, "removed products should not be nil")
+        XCTAssertNotNil(list.sections, "current products should not be nil")
         XCTAssert(list.name == "Test list")
         XCTAssert(list.index == 0)
-        XCTAssert(list.currentProducts!.count == 0)
-        XCTAssert(list.removedProducts!.count == 0)
+        XCTAssert(list.sections!.count == 1)
+        XCTAssert((list.sections!.firstObject as! Section).name == "Items")
         
     }
     
@@ -65,18 +64,14 @@ class ListTableManagerTests : XCTestCase {
     func testEditList() {
         
         let list = listManager.addList(name: "Test list")
-        let id = list.id
         let index = list.index
-        let currentProducts = list.currentProducts
-        let removedProducts = list.removedProducts
+        let sections = list.sections
         
         listManager.updateList(list: list, name: "Test")
         
         XCTAssert(list.name == "Test")
-        XCTAssert(list.id == id)
         XCTAssert(list.index == index)
-        XCTAssert(list.currentProducts == currentProducts)
-        XCTAssert(list.removedProducts == removedProducts)
+        XCTAssert(list.sections == sections)
         
     }
     

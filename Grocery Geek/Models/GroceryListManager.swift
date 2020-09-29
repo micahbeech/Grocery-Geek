@@ -116,11 +116,15 @@ class GroceryListManager {
     @discardableResult
     func moveProduct(source: IndexPath, destination: IndexPath) -> Bool {
         
-        guard let section = getSection(index: source.section) else { return false }
+        guard let startSection = getSection(index: source.section) else { return false }
+        guard let endSection = getSection(index: destination.section) else { return false }
+        
         guard let product = getProduct(indexPath: source) else { return false }
 
-        section.removeFromProducts(at: source.row)
-        section.insertIntoProducts(product, at: destination.row)
+        if destination.row > endSection.products!.count { return false }
+        
+        startSection.removeFromProducts(at: source.row)
+        endSection.insertIntoProducts(product, at: destination.row)
         
         return true
         
@@ -142,7 +146,7 @@ class GroceryListManager {
     }
     
     func sectionSize(sectionIndex: Int) -> Int {
-        let section = list.sections!.array[sectionIndex] as! Section
+        guard let section = getSection(index: sectionIndex) else { return 0 }
         return section.products!.count
     }
     

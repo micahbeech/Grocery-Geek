@@ -20,9 +20,9 @@ class GroceryListManagerTests : XCTestCase {
         coreDataHelper = CoreDataTestHelper()
         
         let context = coreDataHelper.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "List", in: context)
-        let list = NSManagedObject(entity: entity!, insertInto: context) as! List
-        list.id = UUID()
+        
+        let listEntity = NSEntityDescription.entity(forEntityName: "List", in: context)
+        let list = NSManagedObject(entity: listEntity!, insertInto: context) as! List
         list.name = "List"
         list.index = 0
         
@@ -35,18 +35,46 @@ class GroceryListManagerTests : XCTestCase {
         groceryListManager = nil
     }
     
+    func testAddSection() {
+        
+        let section = groceryListManager.addSection(name: "Section")
+        
+        XCTAssertNotNil(section.name)
+        XCTAssertNotNil(section.products)
+        XCTAssert(section.name == "Section")
+        XCTAssert(section.products!.count == 0)
+        XCTAssert(groceryListManager.list.sections?.count == 1)
+        XCTAssert(groceryListManager.list.sections?.firstObject as! Section == section)
+        
+    }
+    
+    func testDeleteSection() {
+        
+        groceryListManager.addSection(name: "Section")
+        let result1 = groceryListManager.deleteSection(section: 0)
+        let result2 = groceryListManager.deleteSection(section: 0)
+        
+        XCTAssertTrue(result1)
+        XCTAssertFalse(result2)
+        XCTAssert(groceryListManager.list.sections?.count == 0)
+        
+    }
+    
     func testAddListProductNoBarcode() {
         
-        let product = groceryListManager.addListProduct(name: "Product", quantity: "Quantity", barcode: nil)
+        let section = groceryListManager.addSection(name: "Section")
+        let product = groceryListManager.addListProduct(section: 0, name: "Product", quantity: "Quantity", barcode: nil)
         
-        XCTAssertNotNil(product.name)
-        XCTAssertNotNil(product.quantity)
-        XCTAssert(product.name == "Product")
-        XCTAssert(product.quantity == "Quantity")
-        XCTAssertNil(product.barcode)
-        XCTAssert(groceryListManager.list.currentProducts?.count == 1)
-        XCTAssert(groceryListManager.list.removedProducts?.count == 0)
-        XCTAssert(groceryListManager.list.currentProducts?.firstObject as! Product == product)
+        XCTAssertNotNil(product)
+        XCTAssertNotNil(product!.name)
+        XCTAssertNotNil(product!.quantity)
+        XCTAssert(product!.name == "Product")
+        XCTAssert(product!.quantity == "Quantity")
+        XCTAssertNil(product!.barcode)
+        XCTAssert(section.products?.count == 1)
+        XCTAssert(section.removedProducts?.count == 0)
+        XCTAssert(section.products?.firstObject as? Product == product)
+        
     }
     
     func testAddListProductWithBarcode() {
@@ -55,106 +83,137 @@ class GroceryListManagerTests : XCTestCase {
         let entity = NSEntityDescription.entity(forEntityName: "Barcode", in: context)
         let barcode = NSManagedObject(entity: entity!, insertInto: context) as! Barcode
         
-        let product = groceryListManager.addListProduct(name: "Product", quantity: "Quantity", barcode: barcode)
+        let section = groceryListManager.addSection(name: "Section")
+        let product = groceryListManager.addListProduct(section: 0, name: "Product", quantity: "Quantity", barcode: barcode)
         
-        XCTAssertNotNil(product.name)
-        XCTAssertNotNil(product.quantity)
-        XCTAssertNotNil(product.barcode)
-        XCTAssert(product.name == "Product")
-        XCTAssert(product.quantity == "Quantity")
-        XCTAssert(product.barcode == barcode)
-        XCTAssertNotNil(product.barcode?.name)
-        XCTAssertNotNil(product.barcode?.quantity)
-        XCTAssert(product.barcode?.name == product.name)
-        XCTAssert(product.barcode?.quantity == product.quantity)
-        XCTAssert(groceryListManager.list.currentProducts?.count == 1)
-        XCTAssert(groceryListManager.list.removedProducts?.count == 0)
-        XCTAssert(groceryListManager.list.currentProducts?.firstObject as! Product == product)
+        XCTAssertNotNil(product)
+        XCTAssertNotNil(product!.name)
+        XCTAssertNotNil(product!.quantity)
+        XCTAssertNotNil(product!.barcode)
+        XCTAssert(product!.name == "Product")
+        XCTAssert(product!.quantity == "Quantity")
+        XCTAssert(product!.barcode == barcode)
+        XCTAssertNotNil(product!.barcode?.name)
+        XCTAssertNotNil(product!.barcode?.quantity)
+        XCTAssert(product!.barcode?.name == product!.name)
+        XCTAssert(product!.barcode?.quantity == product!.quantity)
+        XCTAssert(section.products?.count == 1)
+        XCTAssert(section.removedProducts?.count == 0)
+        XCTAssert(section.products?.firstObject as? Product == product)
+        
+    }
+    
+    func testAddProductBadSection() {
+        
+        let product = groceryListManager.addListProduct(section: 0, name: "Product", quantity: "Quantity", barcode: nil)
+        
+        XCTAssertNil(product)
         
     }
     
     func testEditProduct() {
         
-        let product = groceryListManager.addListProduct(name: "Product", quantity: "Quantity", barcode: nil)
-        let barcode = product.barcode
+        groceryListManager.addSection(name: "Section")
+        let product = groceryListManager.addListProduct(section: 0, name: "Product", quantity: "Quantity", barcode: nil)
         
-        groceryListManager.editProduct(product: product, name: "New name", quantity: "New quantity")
+        XCTAssertNotNil(product)
         
-        XCTAssertNotNil(product.name)
-        XCTAssertNotNil(product.quantity)
-        XCTAssert(product.name == "New name")
-        XCTAssert(product.quantity == "New quantity")
-        XCTAssert(product.barcode == barcode)
+        let barcode = product!.barcode
+        
+        groceryListManager.editProduct(product: product!, name: "New name", quantity: "New quantity")
+        
+        XCTAssertNotNil(product!.name)
+        XCTAssertNotNil(product!.quantity)
+        XCTAssert(product!.name == "New name")
+        XCTAssert(product!.quantity == "New quantity")
+        XCTAssert(product!.barcode == barcode)
         
     }
     
     func testRemoveProductFailure() {
         
-        let result = groceryListManager.removeProduct(index: 0)
+        let bad = groceryListManager.removeProduct(indexPath: IndexPath(row: 0, section: 0))
         
-        XCTAssertFalse(result)
+        groceryListManager.addSection(name: "Section")
+        
+        let badSection = groceryListManager.removeProduct(indexPath: IndexPath(row: 0, section: 1))
+        let badRow = groceryListManager.removeProduct(indexPath: IndexPath(row: 1, section: 0))
+        
+        XCTAssertFalse(bad)
+        XCTAssertFalse(badSection)
+        XCTAssertFalse(badRow)
         
     }
     
     func testRemoveProduct() {
         
-        let product = groceryListManager.addListProduct(name: "Product", quantity: nil, barcode: nil)
+        let section = groceryListManager.addSection(name: "Section")
+        let product = groceryListManager.addListProduct(section: 0, name: "Product", quantity: nil, barcode: nil)
         
-        groceryListManager.removeProduct(index: 0)
+        groceryListManager.removeProduct(indexPath: IndexPath(row: 0, section: 0))
         
-        XCTAssert(product.removedIndex == 0)
-        XCTAssert(groceryListManager.list.currentProducts?.count == 0)
-        XCTAssert(groceryListManager.list.removedProducts?.count == 1)
-        XCTAssert(groceryListManager.list.removedProducts?.firstObject as! Product == product)
+        XCTAssert(product?.removedRow == 0)
+        XCTAssert(section.products?.count == 0)
+        XCTAssert(section.removedProducts?.count == 1)
+        XCTAssert(section.removedProducts?.firstObject as? Product == product)
         
     }
     
     func testUndoRemoveProductFailure() {
         
-        let result = groceryListManager.undoRemoveProduct()
+        let bad = groceryListManager.undoRemoveProduct(section: 0)
         
-        XCTAssertFalse(result)
+        groceryListManager.addSection(name: "Section")
+        
+        let badRow = groceryListManager.undoRemoveProduct(section: 0)
+        let badSection = groceryListManager.undoRemoveProduct(section: 1)
+        
+        XCTAssertFalse(bad)
+        XCTAssertFalse(badRow)
+        XCTAssertFalse(badSection)
         
     }
     
     func testUndoRemoveProduct() {
 
-        let product = groceryListManager.addListProduct(name: "Product", quantity: nil, barcode: nil)
-        groceryListManager.removeProduct(index: 0)
-        let result = groceryListManager.undoRemoveProduct()
+        let section = groceryListManager.addSection(name: "Section")
+        let product = groceryListManager.addListProduct(section: 0, name: "Product", quantity: nil, barcode: nil)
+        groceryListManager.removeProduct(indexPath: IndexPath(row: 0, section: 0))
+        let result = groceryListManager.undoRemoveProduct(section: 0)
         
         XCTAssertTrue(result)
-        XCTAssert(groceryListManager.list.currentProducts?.count == 1)
-        XCTAssert(groceryListManager.list.removedProducts?.count == 0)
-        XCTAssert(groceryListManager.list.currentProducts?.firstObject as! Product == product)
+        XCTAssert(section.products?.count == 1)
+        XCTAssert(section.removedProducts?.count == 0)
+        XCTAssert(section.products?.firstObject as? Product == product)
         
     }
     
     func testUndoRemoveProductCorrectIndex() {
         
-        let product1 = groceryListManager.addListProduct(name: "Product 1", quantity: nil, barcode: nil)
-        let product2 = groceryListManager.addListProduct(name: "Product 2", quantity: nil, barcode: nil)
-        let product3 = groceryListManager.addListProduct(name: "Product 3", quantity: nil, barcode: nil)
+        let section = groceryListManager.addSection(name: "Section")
+        let product1 = groceryListManager.addListProduct(section: 0, name: "Product 1", quantity: nil, barcode: nil)
+        let product2 = groceryListManager.addListProduct(section: 0, name: "Product 2", quantity: nil, barcode: nil)
+        let product3 = groceryListManager.addListProduct(section: 0, name: "Product 3", quantity: nil, barcode: nil)
         
-        groceryListManager.removeProduct(index: 1)
-        let result = groceryListManager.undoRemoveProduct()
+        groceryListManager.removeProduct(indexPath: IndexPath(row: 1, section: 0))
+        let result = groceryListManager.undoRemoveProduct(section: 0)
         
         XCTAssertTrue(result)
-        XCTAssert(groceryListManager.list.removedProducts?.count == 0)
-        XCTAssert(groceryListManager.list.currentProducts?.array as! [Product] == [product1, product2, product3])
+        XCTAssert(section.removedProducts?.count == 0)
+        XCTAssert(section.products?.array as! [Product] == [product1, product2, product3])
         
     }
     
     func testClearList() {
         
-        groceryListManager.addListProduct(name: "Product", quantity: nil, barcode: nil)
-        groceryListManager.addListProduct(name: "Product", quantity: nil, barcode: nil)
-        groceryListManager.removeProduct(index: 0)
+        groceryListManager.addSection(name: "Section")
+        groceryListManager.addListProduct(section: 0, name: "Product", quantity: nil, barcode: nil)
+        groceryListManager.addListProduct(section: 0, name: "Product", quantity: nil, barcode: nil)
+        groceryListManager.removeProduct(indexPath: IndexPath(row: 0, section: 0))
         
         groceryListManager.clearList()
         
-        XCTAssert(groceryListManager.list.currentProducts?.count == 0)
-        XCTAssert(groceryListManager.list.removedProducts?.count == 0)
+        XCTAssert(groceryListManager.list.sections?.count == 0)
         
     }
     
@@ -166,66 +225,135 @@ class GroceryListManagerTests : XCTestCase {
         
     }
     
-    func testMoveProduct() {
+    func testMoveProductSameSection() {
         
-        let product1 = groceryListManager.addListProduct(name: "Product 1", quantity: nil, barcode: nil)
-        let product2 = groceryListManager.addListProduct(name: "Product 2", quantity: nil, barcode: nil)
-        let product3 = groceryListManager.addListProduct(name: "Product 3", quantity: nil, barcode: nil)
+        let section = groceryListManager.addSection(name: "Section")
+        let product1 = groceryListManager.addListProduct(section: 0, name: "Product 1", quantity: nil, barcode: nil)
+        let product2 = groceryListManager.addListProduct(section: 0, name: "Product 2", quantity: nil, barcode: nil)
+        let product3 = groceryListManager.addListProduct(section: 0, name: "Product 3", quantity: nil, barcode: nil)
         
-        let original = groceryListManager.list.currentProducts?.array as? [Product]
+        let original = section.products?.array as? [Product]
         
         let result1 = groceryListManager.moveProduct(source: IndexPath(row: 0, section: 0), destination: IndexPath(row: 2, section: 0))
         let result2 = groceryListManager.moveProduct(source: IndexPath(row: 1, section: 0), destination: IndexPath(row: 0, section: 0))
         
+        XCTAssertNotNil(product1)
+        XCTAssertNotNil(product2)
+        XCTAssertNotNil(product3)
         XCTAssertTrue(result1)
         XCTAssertTrue(result2)
-        XCTAssert(original == [product1, product2, product3])
-        XCTAssert(groceryListManager.list.currentProducts?.array as? [Product] == [product3, product2, product1])
+        XCTAssert(original == [product1!, product2!, product3!])
+        XCTAssert(section.products?.array as? [Product] == [product3!, product2!, product1!])
+
+    }
+    
+    func testMoveProductDifferentSection() {
+        
+        let section1 = groceryListManager.addSection(name: "Section 1")
+        let section2 = groceryListManager.addSection(name: "Section 2")
+        let product1 = groceryListManager.addListProduct(section: 0, name: "Product 1", quantity: nil, barcode: nil)
+        let product2 = groceryListManager.addListProduct(section: 0, name: "Product 2", quantity: nil, barcode: nil)
+        let product3 = groceryListManager.addListProduct(section: 1, name: "Product 3", quantity: nil, barcode: nil)
+        
+        let original1 = section1.products?.array as? [Product]
+        let original2 = section2.products?.array as? [Product]
+        
+        let result1 = groceryListManager.moveProduct(source: IndexPath(row: 0, section: 0), destination: IndexPath(row: 1, section: 1))
+        let result2 = groceryListManager.moveProduct(source: IndexPath(row: 0, section: 1), destination: IndexPath(row: 0, section: 0))
+        
+        XCTAssertNotNil(product1)
+        XCTAssertNotNil(product2)
+        XCTAssertNotNil(product3)
+        XCTAssertTrue(result1)
+        XCTAssertTrue(result2)
+        XCTAssert(original1 == [product1!, product2!])
+        XCTAssert(original2 == [product3!])
+        XCTAssert(section1.products?.array as? [Product] == [product3!, product2!])
+        XCTAssert(section2.products?.array as? [Product] == [product1!])
 
     }
     
     func testHasProducts() {
         
         let result1 = groceryListManager.hasProducts()
-        groceryListManager.addListProduct(name: "Product", quantity: nil, barcode: nil)
+        groceryListManager.addSection(name: "Section")
         let result2 = groceryListManager.hasProducts()
+        groceryListManager.addListProduct(section: 0, name: "Product", quantity: nil, barcode: nil)
+        let result3 = groceryListManager.hasProducts()
         
         XCTAssertFalse(result1)
-        XCTAssertTrue(result2)
+        XCTAssertFalse(result2)
+        XCTAssertTrue(result3)
         
     }
     
     func testSize() {
         
-        let empty1 = groceryListManager.size()
+        let noSections = groceryListManager.sectionCount()
+        let badProducts = groceryListManager.sectionSize(sectionIndex: 0)
         
-        groceryListManager.addListProduct(name: "Product", quantity: nil, barcode: nil)
-        let one = groceryListManager.size()
+        groceryListManager.addSection(name: "Section")
+        let oneSection = groceryListManager.sectionCount()
+        let noProducts = groceryListManager.sectionSize(sectionIndex: 0)
         
-        groceryListManager.addListProduct(name: "Product", quantity: nil, barcode: nil)
-        let two = groceryListManager.size()
+        groceryListManager.addListProduct(section: 0, name: "Product", quantity: nil, barcode: nil)
+        let oneProduct = groceryListManager.sectionSize(sectionIndex: 0)
         
-        groceryListManager.removeProduct(index: 0)
-        groceryListManager.removeProduct(index: 0)
-        let empty2 = groceryListManager.size()
+        groceryListManager.addListProduct(section: 0, name: "Product", quantity: nil, barcode: nil)
+        let twoProducts = groceryListManager.sectionSize(sectionIndex: 0)
         
-        XCTAssert(empty1 == 0)
-        XCTAssert(one == 1)
-        XCTAssert(two == 2)
-        XCTAssert(empty2 == 0)
+        groceryListManager.removeProduct(indexPath: IndexPath(row: 0, section: 0))
+        groceryListManager.removeProduct(indexPath: IndexPath(row: 0, section: 0))
+        let empty = groceryListManager.sectionSize(sectionIndex: 0)
+        
+        groceryListManager.deleteSection(section: 0)
+        let noSectionsAgain = groceryListManager.sectionCount()
+        
+        XCTAssert(noSections == 0)
+        XCTAssert(badProducts == 0)
+        XCTAssert(oneSection == 1)
+        XCTAssert(noProducts == 0)
+        XCTAssert(oneProduct == 1)
+        XCTAssert(twoProducts == 2)
+        XCTAssert(empty == 0)
+        XCTAssert(noSectionsAgain == 0)
+        
+    }
+    
+    func testGetSection() {
+        
+        let section1 = groceryListManager.getSection(index: 0)
+        let section2 = groceryListManager.addSection(name: "Section")
+        let section3 = groceryListManager.getSection(index: 0)
+        
+        XCTAssertNil(section1)
+        XCTAssertNotNil(section2)
+        XCTAssertNotNil(section3)
+        XCTAssert(section2 == section3)
         
     }
     
     func testGetProduct() {
         
-        let product1 = groceryListManager.getProduct(index: 0)
-        let product2 = groceryListManager.addListProduct(name: "Product", quantity: nil, barcode: nil)
-        let product3 = groceryListManager.getProduct(index: 0)
+        groceryListManager.addSection(name: "Section 1")
+        groceryListManager.addSection(name: "Section 2")
+        
+        let product1 = groceryListManager.getProduct(indexPath: IndexPath(row: 0, section: 0))
+        let product2 = groceryListManager.addListProduct(section: 0, name: "Product", quantity: nil, barcode: nil)
+        let product3 = groceryListManager.getProduct(indexPath: IndexPath(row: 0, section: 0))
+        
+        let product4 = groceryListManager.getProduct(indexPath: IndexPath(row: 0, section: 1))
+        let product5 = groceryListManager.addListProduct(section: 1, name: "Product", quantity: nil, barcode: nil)
+        let product6 = groceryListManager.getProduct(indexPath: IndexPath(row: 0, section: 1))
         
         XCTAssertNil(product1)
         XCTAssertNotNil(product2)
         XCTAssertNotNil(product3)
         XCTAssert(product2 == product3)
+        XCTAssertNil(product4)
+        XCTAssertNotNil(product5)
+        XCTAssertNotNil(product6)
+        XCTAssert(product5 == product6)
         
     }
     
@@ -239,10 +367,12 @@ class GroceryListManagerTests : XCTestCase {
         let entity = NSEntityDescription.entity(forEntityName: "Barcode", in: context)
         let barcode = NSManagedObject(entity: entity!, insertInto: context) as! Barcode
         
-        let product1 = groceryListManager.addListProduct(name: "Product 1", quantity: "1", barcode: barcode)
-        let product2 = groceryListManager.addListProduct(name: "Product 2", quantity: "2", barcode: nil)
+        let section = groceryListManager.addSection(name: "Section")
+        
+        let product1 = groceryListManager.addListProduct(section: 0, name: "Product 1", quantity: "1", barcode: barcode)
+        let product2 = groceryListManager.addListProduct(section: 0, name: "Product 2", quantity: "2", barcode: nil)
         groceryListManager.moveProduct(source: IndexPath(row: 0, section: 0), destination: IndexPath(row: 1, section: 0))
-        groceryListManager.removeProduct(index: 1)
+        groceryListManager.removeProduct(indexPath: IndexPath(row: 0, section: 0))
         
         coreDataHelper.saveContext()
         
@@ -251,15 +381,20 @@ class GroceryListManagerTests : XCTestCase {
             XCTAssertNil(error, "Save did not occur")
             
             let newManager = GroceryListManager(context: self.coreDataHelper.persistentContainer.viewContext, list: self.groceryListManager.list)
+            let newSection = newManager.list.sections?.firstObject as! Section
             
-            XCTAssert(newManager.list.currentProducts?.array as? [Product] == [product2])
-            XCTAssert(newManager.list.removedProducts?.array as? [Product] == [product1])
-            XCTAssert(product1.name == "Product 1")
-            XCTAssert(product2.name == "Product 2")
-            XCTAssert(product1.quantity == "1")
-            XCTAssert(product2.quantity == "2")
-            XCTAssert(product1.barcode == barcode)
-            XCTAssertNil(product2.barcode)
+            XCTAssertNotNil(newSection)
+            XCTAssert(newManager.list.sections?.array as? [Section] == [newSection])
+            XCTAssert(newSection.name == section.name)
+            XCTAssert(newSection.products?.array as? [Product] == [product1!])
+            XCTAssert(newSection.removedProducts?.array as? [Product] == [product2!])
+            XCTAssert(newSection.name == "Section")
+            XCTAssert(product1!.name == "Product 1")
+            XCTAssert(product2!.name == "Product 2")
+            XCTAssert(product1!.quantity == "1")
+            XCTAssert(product2!.quantity == "2")
+            XCTAssert(product1!.barcode == barcode)
+            XCTAssertNil(product2!.barcode)
             
         }
     }
