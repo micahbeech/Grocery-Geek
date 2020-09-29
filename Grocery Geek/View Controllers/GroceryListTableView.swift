@@ -67,7 +67,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
         } else {
             
             let addButton = UIButton(frame: CGRect(x: view.frame.maxX - inset - itemHeight, y: offset, width: itemHeight, height: itemHeight))
-            addButton.setImage(UIImage(systemName: "plus"), for: .normal)
+            addButton.setImage(UIImage(systemName: "cart.badge.plus"), for: .normal)
             addButton.addTarget(self, action: #selector(addProduct), for: .touchUpInside)
             addButton.tag = section
             

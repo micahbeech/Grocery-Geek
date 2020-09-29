@@ -10,15 +10,22 @@ import XCTest
 @testable import Grocery_Geek
 import CoreData
 
-class BarcodeManagerTests : XCTestCase {
+class BarcodeManagerTests : XCTestCase, BarcodeManagerDelegate {
 
     var barcodeManager: BarcodeManager!
     var coreDataHelper: CoreDataTestHelper!
+    
+    var barcode: Barcode?
+    var expectation: XCTestExpectation!
+    
+    let code = "3614272049529"
     
     override func setUp()  {
         super.setUp()
         coreDataHelper = CoreDataTestHelper()
         barcodeManager = BarcodeManager(context: coreDataHelper.persistentContainer.viewContext)
+        barcodeManager.delegate = self
+        expectation = XCTestExpectation(description: "Barcode found")
         
     }
 
@@ -26,32 +33,44 @@ class BarcodeManagerTests : XCTestCase {
         super.tearDown()
         coreDataHelper = nil
         barcodeManager = nil
+        expectation = nil
+        barcode = nil
+    }
+    
+    func barcodeFound(barcode: Barcode) {
+        self.barcode = barcode
+        expectation.fulfill()
     }
     
     func testFindProductNewBarcode() {
         
-        let code = UUID().uuidString
+        barcodeManager.findProduct(code: code)
         
-        let barcode = barcodeManager.findProduct(code: code)
-        
+        wait(for: [expectation], timeout: 12.0)
+            
         XCTAssertNotNil(barcode)
-        XCTAssertNotNil(barcode.barcode)
-        XCTAssert(barcode.barcode == code)
-        XCTAssertNil(barcode.name)
-        XCTAssertNil(barcode.quantity)
+        XCTAssertNotNil(barcode!.barcode)
+        XCTAssert(barcode!.barcode == code)
+        XCTAssert(barcode!.name == "Volupté Tint-in-Balm - Summer Look 2018")
+        XCTAssertNil(barcode!.quantity)
         
     }
     
     func testFindProductExistingBarcode() {
         
-        let code = UUID().uuidString
+        barcodeManager.findProduct(code: code)
         
-        let barcode1 = barcodeManager.findProduct(code: code)
-        let barcode2 = barcodeManager.findProduct(code: code)
+        wait(for: [expectation], timeout: 12.0)
         
-        XCTAssertNotNil(barcode1)
-        XCTAssertNotNil(barcode2)
-        XCTAssert(barcode1 == barcode2)
+        let barcode = self.barcode
+        expectation = XCTestExpectation(description: "Barcode found")
+        barcodeManager.findProduct(code: code)
+        
+        wait(for: [expectation], timeout: 12.0)
+        
+        XCTAssertNotNil(barcode)
+        XCTAssertNotNil(self.barcode)
+        XCTAssert(barcode == self.barcode)
         
     }
     
@@ -62,17 +81,24 @@ class BarcodeManagerTests : XCTestCase {
         }
         
         let code = UUID().uuidString
-        let barcode = barcodeManager.findProduct(code: code)
+        barcodeManager.findProduct(code: code)
+        
+        wait(for: [expectation], timeout: 12.0)
+        expectation = XCTestExpectation(description: "Barcode found")
+        let barcode = self.barcode
+        
         coreDataHelper.saveContext()
         
         waitForExpectations(timeout: 2.0) { error in
             XCTAssertNil(error, "Save did not occur")
             
             let newManager = BarcodeManager(context: self.coreDataHelper.persistentContainer.viewContext)
-            let newBarcode = newManager.findProduct(code: code)
+            newManager.findProduct(code: code)
             
-            XCTAssertNotNil(newBarcode)
-            XCTAssert(newBarcode == barcode)
+            self.wait(for: [self.expectation], timeout: 12.0)
+            
+            XCTAssertNotNil(self.barcode)
+            XCTAssert(barcode == self.barcode)
             
         }
         

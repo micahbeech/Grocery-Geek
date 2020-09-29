@@ -62,6 +62,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         } else {
             addLabel.text = "Add Product"
             addButton.title = "Add"
+            
         }
     }
         

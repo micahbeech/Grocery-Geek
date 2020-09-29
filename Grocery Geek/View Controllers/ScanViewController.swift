@@ -10,9 +10,10 @@ import AVFoundation
 import UIKit
 import CoreData
 
-class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, BarcodeManagerDelegate {
     
     @IBOutlet weak var actionBar: UIToolbar!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -26,6 +27,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         super.viewDidLoad()
 
         barcodeManager = BarcodeManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+        barcodeManager.delegate = self
         
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
@@ -63,11 +65,12 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         let width = view.layer.bounds.width
         let originX = view.layer.bounds.origin.x
         let originY = view.layer.bounds.origin.y
-        let bounds = CGRect(x: originX, y: originY, width: width, height: height)
-        previewLayer.frame = bounds
+        previewLayer.frame = CGRect(x: originX, y: originY, width: width, height: height)
         
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
+        
+        view.bringSubviewToFront(spinner)
 
         captureSession.startRunning()
     }
@@ -90,6 +93,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         if (captureSession?.isRunning == false) {
             captureSession.startRunning()
         }
+        
+        spinner.layer.cornerRadius = 20
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -113,7 +118,13 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
 
     func found(code: String) {
-        barcodeProduct = barcodeManager.findProduct(code: code)
+        spinner.startAnimating()
+        barcodeManager.findProduct(code: code)
+    }
+    
+    func barcodeFound(barcode: Barcode) {
+        self.barcodeProduct = barcode
+        spinner.stopAnimating()
         performSegue(withIdentifier: "scanAdd", sender: self)
     }
     
@@ -124,7 +135,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             let destinationVC = segue.destination as! AddViewController
             destinationVC.barcodeProduct = self.barcodeProduct
             destinationVC.list = self.list
-            destinationVC.section = section
+            destinationVC.section = self.section
             
         default:
             break
