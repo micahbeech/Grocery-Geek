@@ -16,7 +16,7 @@ class BarcodeManagerTests : XCTestCase, BarcodeManagerDelegate {
     var coreDataHelper: CoreDataTestHelper!
     
     var barcode: Barcode?
-    var expectation: XCTestExpectation!
+    var found: XCTestExpectation!
     
     let code = "3614272049529"
     
@@ -25,7 +25,7 @@ class BarcodeManagerTests : XCTestCase, BarcodeManagerDelegate {
         coreDataHelper = CoreDataTestHelper()
         barcodeManager = BarcodeManager(context: coreDataHelper.persistentContainer.viewContext)
         barcodeManager.delegate = self
-        expectation = XCTestExpectation(description: "Barcode found")
+        found = XCTestExpectation(description: "Barcode found")
         
     }
 
@@ -33,20 +33,20 @@ class BarcodeManagerTests : XCTestCase, BarcodeManagerDelegate {
         super.tearDown()
         coreDataHelper = nil
         barcodeManager = nil
-        expectation = nil
+        found = nil
         barcode = nil
     }
     
     func barcodeFound(barcode: Barcode) {
         self.barcode = barcode
-        expectation.fulfill()
+        found.fulfill()
     }
     
     func testFindProductNewBarcode() {
         
         barcodeManager.findProduct(code: code)
         
-        wait(for: [expectation], timeout: 12.0)
+        wait(for: [found], timeout: 12.0)
             
         XCTAssertNotNil(barcode)
         XCTAssertNotNil(barcode!.barcode)
@@ -60,13 +60,13 @@ class BarcodeManagerTests : XCTestCase, BarcodeManagerDelegate {
         
         barcodeManager.findProduct(code: code)
         
-        wait(for: [expectation], timeout: 12.0)
+        wait(for: [found], timeout: 12.0)
         
         let barcode = self.barcode
-        expectation = XCTestExpectation(description: "Barcode found")
+        found = XCTestExpectation(description: "Barcode found")
         barcodeManager.findProduct(code: code)
         
-        wait(for: [expectation], timeout: 12.0)
+        wait(for: [found], timeout: 12.0)
         
         XCTAssertNotNil(barcode)
         XCTAssertNotNil(self.barcode)
@@ -80,25 +80,26 @@ class BarcodeManagerTests : XCTestCase, BarcodeManagerDelegate {
             return true
         }
         
-        let code = UUID().uuidString
         barcodeManager.findProduct(code: code)
         
-        wait(for: [expectation], timeout: 12.0)
-        expectation = XCTestExpectation(description: "Barcode found")
-        let barcode = self.barcode
+        wait(for: [found], timeout: 12.0)
+        found = XCTestExpectation(description: "Barcode found")
         
         coreDataHelper.saveContext()
         
         waitForExpectations(timeout: 2.0) { error in
             XCTAssertNil(error, "Save did not occur")
             
-            let newManager = BarcodeManager(context: self.coreDataHelper.persistentContainer.viewContext)
-            newManager.findProduct(code: code)
+            var barcodeProducts = [Barcode]()
             
-            self.wait(for: [self.expectation], timeout: 12.0)
+            do {
+                barcodeProducts = try self.coreDataHelper.persistentContainer.viewContext.fetch(Barcode.fetchRequest())
+            } catch {
+                print("Could not fetch barcodes")
+            }
             
-            XCTAssertNotNil(self.barcode)
-            XCTAssert(barcode == self.barcode)
+            XCTAssertNotNil(barcodeProducts.first)
+            XCTAssert(barcodeProducts.first == self.barcode)
             
         }
         

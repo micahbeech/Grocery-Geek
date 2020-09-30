@@ -22,6 +22,8 @@ class BarcodeManager {
         self.context = context
     }
     
+    // Looks for the barcode in the existing user's store
+    // If it is not found, searches the barcode database for a result
     func findProduct(code: String) {
         
         // Get existings barcodes
@@ -44,6 +46,8 @@ class BarcodeManager {
         
     }
     
+    // Searches a barcode database for a given code
+    // Creates a barcode from the result and passes it to the delegate
     private func searchProduct(code: String) {
         
         guard let fileURL = Bundle.main.url(forResource: "apikeys", withExtension: "txt") else {
@@ -113,11 +117,15 @@ class BarcodeManager {
     }
     
     private func createBarcode(code: String, name: String? = nil) -> Barcode {
+        
         let entity = NSEntityDescription.entity(forEntityName: "Barcode", in: context)
         let barcodeProduct = NSManagedObject(entity: entity!, insertInto: context) as! Barcode
+        
         barcodeProduct.barcode = code
         barcodeProduct.name = name
+        
         return barcodeProduct
+        
     }
     
 }
