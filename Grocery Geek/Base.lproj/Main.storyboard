@@ -123,7 +123,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem systemItem="flexibleSpace" id="nbs-RV-Nhi"/>
-                                    <barButtonItem title="AddGroup" image="plus.rectangle" catalog="system" id="spI-gK-Elf">
+                                    <barButtonItem title="AddGroup" image="plus" catalog="system" id="spI-gK-Elf">
                                         <connections>
                                             <action selector="addSection:" destination="xO8-gZ-rOd" id="Hhh-1J-OrU"/>
                                         </connections>
@@ -144,17 +144,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MuQ-Vo-uNp">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MuQ-Vo-uNp">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acJ-RN-Peg" userLabel="Product Name">
-                                                            <rect key="frame" x="0.0" y="0.0" width="167.5" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="156" height="44"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00Q-6S-ppY" userLabel="Product Quantity">
-                                                            <rect key="frame" x="177.5" y="0.0" width="167.5" height="44"/>
+                                                            <rect key="frame" x="166" y="0.0" width="179" height="44"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -346,18 +346,30 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <activityIndicatorView hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="jKT-YY-INJ">
+                                <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="aPH-9o-qgu"/>
+                                    <constraint firstAttribute="height" constant="100" id="fFN-LZ-a30"/>
+                                </constraints>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zSY-QL-CjX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="jKT-YY-INJ" firstAttribute="centerX" secondItem="XWd-de-0dr" secondAttribute="centerX" id="2AE-G8-dJG"/>
                             <constraint firstItem="sMD-NO-NpD" firstAttribute="trailing" secondItem="zSY-QL-CjX" secondAttribute="trailing" id="40d-iQ-vVv"/>
                             <constraint firstItem="sMD-NO-NpD" firstAttribute="leading" secondItem="zSY-QL-CjX" secondAttribute="leading" id="NmP-Jg-sdG"/>
                             <constraint firstItem="sMD-NO-NpD" firstAttribute="bottom" secondItem="zSY-QL-CjX" secondAttribute="bottom" id="OYO-LH-f7G"/>
+                            <constraint firstItem="jKT-YY-INJ" firstAttribute="centerY" secondItem="XWd-de-0dr" secondAttribute="centerY" id="tgA-TU-1o6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="w0t-w8-yCS"/>
                     <connections>
                         <outlet property="actionBar" destination="sMD-NO-NpD" id="S1C-22-jiL"/>
+                        <outlet property="spinner" destination="jKT-YY-INJ" id="PZZ-o8-M8x"/>
                         <segue destination="YOP-Za-fsU" kind="presentation" identifier="scanAdd" modalPresentationStyle="fullScreen" id="oQO-XZ-evl"/>
                     </connections>
                 </viewController>
@@ -392,7 +404,6 @@
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="clear" catalog="system" width="128" height="114"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="plus.rectangle" catalog="system" width="128" height="93"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

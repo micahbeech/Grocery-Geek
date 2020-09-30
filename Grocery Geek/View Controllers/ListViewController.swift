@@ -48,6 +48,7 @@ class ListViewController: UIViewController {
             
         case "scanProduct":
             let destinationVC = segue.destination as! ScannerViewController
+            destinationVC.loadViewIfNeeded()
             destinationVC.list = list
             destinationVC.section = selectedSection
             

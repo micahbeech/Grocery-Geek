@@ -33,6 +33,7 @@
 		B4C5569C2280BAAD00989D46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4C5569A2280BAAD00989D46 /* Main.storyboard */; };
 		B4C5569E2280BAAD00989D46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4C5569D2280BAAD00989D46 /* Assets.xcassets */; };
 		B4C556A12280BAAD00989D46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4C5569F2280BAAD00989D46 /* LaunchScreen.storyboard */; };
+		B4CDB75E2523FD6A00BDBCFD /* apikeys.txt in Resources */ = {isa = PBXBuildFile; fileRef = B4CDB75D2523FD6A00BDBCFD /* apikeys.txt */; };
 		B4F8F555228A0F0500575AFA /* GroceryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F8F554228A0F0500575AFA /* GroceryItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		B4C5569D2280BAAD00989D46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4C556A02280BAAD00989D46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B4C556A22280BAAD00989D46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4CDB75D2523FD6A00BDBCFD /* apikeys.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = apikeys.txt; sourceTree = "<group>"; };
 		B4F8F554228A0F0500575AFA /* GroceryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,6 +181,7 @@
 				B4C5569D2280BAAD00989D46 /* Assets.xcassets */,
 				B4C5569F2280BAAD00989D46 /* LaunchScreen.storyboard */,
 				B4C556A22280BAAD00989D46 /* Info.plist */,
+				B4CDB75D2523FD6A00BDBCFD /* apikeys.txt */,
 			);
 			path = "Grocery Geek";
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				B4C556A12280BAAD00989D46 /* LaunchScreen.storyboard in Resources */,
 				B4C5569E2280BAAD00989D46 /* Assets.xcassets in Resources */,
 				B4C5569C2280BAAD00989D46 /* Main.storyboard in Resources */,
+				B4CDB75E2523FD6A00BDBCFD /* apikeys.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
