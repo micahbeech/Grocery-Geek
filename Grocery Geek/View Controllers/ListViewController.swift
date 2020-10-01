@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import CoreData
 
 class ListViewController: UIViewController {
 
     @IBOutlet weak var groceryList: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var navigationBar: UINavigationItem!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var list: List!
     var listManager: GroceryListManager!
@@ -31,6 +31,8 @@ class ListViewController: UIViewController {
         listManager = GroceryListManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext, list: list)
         
         navigationBar.title = list.name
+        
+        spinner.layer.cornerRadius = 20
         
         groceryList.reloadData()
     }
@@ -157,6 +159,18 @@ class ListViewController: UIViewController {
         
     }
     
+    @IBAction func share(_ sender: Any) {
+        
+        spinner.startAnimating()
+        
+        let items = [listManager.list]
+        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        ac.excludedActivityTypes = [.airDrop]
+        present(ac, animated: true)
+        
+        spinner.stopAnimating()
+        
+    }
     
 }
 
