@@ -17,12 +17,12 @@ class GroceryListManagerTests : XCTestCase {
     
     override func setUp()  {
         super.setUp()
+        
         coreDataHelper = CoreDataTestHelper()
         
         let context = coreDataHelper.persistentContainer.viewContext
         
-        let listEntity = NSEntityDescription.entity(forEntityName: "List", in: context)
-        let list = NSManagedObject(entity: listEntity!, insertInto: context) as! List
+        let list = List(context: context)
         list.name = "List"
         list.index = 0
         
@@ -397,6 +397,37 @@ class GroceryListManagerTests : XCTestCase {
             XCTAssertNil(product2!.barcode)
             
         }
+    }
+    
+    func testStringConversion() {
+        
+        groceryListManager.addSection(name: "Section 1")
+        groceryListManager.addSection(name: "Section 2")
+        
+        groceryListManager.addListProduct(section: 0, name: "Product 1", quantity: "1", barcode: nil)
+        groceryListManager.addListProduct(section: 0, name: "Product 2", quantity: "2", barcode: nil)
+        groceryListManager.addListProduct(section: 1, name: "Product 3", quantity: "3", barcode: nil)
+        groceryListManager.addListProduct(section: 1, name: "Product 4", quantity: "4", barcode: nil)
+        groceryListManager.addListProduct(section: 1, name: "Product 5", quantity: "5", barcode: nil)
+        
+        let result = groceryListManager.list.toString()
+        
+        let expectedResult = """
+        Check out my list from Grocery Geek!
+
+        Section 1
+         • Product 1, 1
+         • Product 2, 2
+
+        Section 2
+         • Product 3, 3
+         • Product 4, 4
+         • Product 5, 5
+
+        """
+        
+        XCTAssert(result == expectedResult)
+        
     }
 
 }
