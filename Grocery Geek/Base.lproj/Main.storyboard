@@ -56,6 +56,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="4Ne-7R-KkD" secondAttribute="trailing" constant="15" id="sY4-j4-Iiu"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="listName" destination="m5x-LM-1C7" id="0ah-YN-SsJ"/>
                                         </connections>
@@ -110,28 +111,6 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="coE-6S-Iv2">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                             </imageView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" translatesAutoresizingMaskIntoConstraints="NO" id="Auc-X9-k46">
-                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="LMz-Wm-71K"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem title="Clear" image="clear" catalog="system" id="dl4-rx-kai">
-                                        <connections>
-                                            <action selector="clear:" destination="xO8-gZ-rOd" id="0Fm-Dj-8t4"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem systemItem="flexibleSpace" id="nbs-RV-Nhi"/>
-                                    <barButtonItem title="AddGroup" image="plus" catalog="system" id="spI-gK-Elf">
-                                        <connections>
-                                            <action selector="addSection:" destination="xO8-gZ-rOd" id="Hhh-1J-OrU"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="CId-2o-uWs"/>
-                                    <barButtonItem title="Share" image="square.and.arrow.up" catalog="system" id="r02-OR-cy4"/>
-                                </items>
-                            </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bQo-7k-Mni" userLabel="Grocery List">
                                 <rect key="frame" x="0.0" y="44" width="375" height="573"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -178,10 +157,46 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" translatesAutoresizingMaskIntoConstraints="NO" id="Auc-X9-k46">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="LMz-Wm-71K"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Clear" image="clear" catalog="system" id="dl4-rx-kai">
+                                        <connections>
+                                            <action selector="clear:" destination="xO8-gZ-rOd" id="0Fm-Dj-8t4"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="flexibleSpace" id="nbs-RV-Nhi"/>
+                                    <barButtonItem title="AddGroup" image="plus" catalog="system" id="spI-gK-Elf">
+                                        <connections>
+                                            <action selector="addSection:" destination="xO8-gZ-rOd" id="Hhh-1J-OrU"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="CId-2o-uWs"/>
+                                    <barButtonItem title="Share" image="square.and.arrow.up" catalog="system" id="r02-OR-cy4">
+                                        <connections>
+                                            <action selector="share:" destination="xO8-gZ-rOd" id="rYQ-FC-FLW"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="sgq-9V-0PA">
+                                <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="OJq-io-ru8"/>
+                                    <constraint firstAttribute="width" constant="100" id="x6g-ZY-IOn"/>
+                                </constraints>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="78P-Gu-WAG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="sgq-9V-0PA" firstAttribute="centerY" secondItem="2iF-RT-cUG" secondAttribute="centerY" id="8Zq-px-oth"/>
                             <constraint firstItem="78P-Gu-WAG" firstAttribute="bottom" secondItem="Auc-X9-k46" secondAttribute="bottom" id="9iJ-dV-3xL"/>
                             <constraint firstItem="Auc-X9-k46" firstAttribute="leading" secondItem="78P-Gu-WAG" secondAttribute="leading" id="JZu-WK-6Ze"/>
                             <constraint firstItem="coE-6S-Iv2" firstAttribute="top" secondItem="78P-Gu-WAG" secondAttribute="top" id="Pgy-ry-yP0"/>
@@ -190,6 +205,7 @@
                             <constraint firstItem="Auc-X9-k46" firstAttribute="trailing" secondItem="78P-Gu-WAG" secondAttribute="trailing" id="R6X-Sg-4bv"/>
                             <constraint firstItem="bQo-7k-Mni" firstAttribute="leading" secondItem="78P-Gu-WAG" secondAttribute="leading" id="csa-yg-ra4"/>
                             <constraint firstItem="Auc-X9-k46" firstAttribute="top" secondItem="bQo-7k-Mni" secondAttribute="bottom" id="i42-5d-ae4"/>
+                            <constraint firstItem="sgq-9V-0PA" firstAttribute="centerX" secondItem="2iF-RT-cUG" secondAttribute="centerX" id="jMW-Wx-kHN"/>
                             <constraint firstItem="78P-Gu-WAG" firstAttribute="trailing" secondItem="bQo-7k-Mni" secondAttribute="trailing" id="ool-GU-MkM"/>
                             <constraint firstItem="coE-6S-Iv2" firstAttribute="trailing" secondItem="2iF-RT-cUG" secondAttribute="trailing" id="q5t-oG-KgX"/>
                             <constraint firstItem="coE-6S-Iv2" firstAttribute="leading" secondItem="2iF-RT-cUG" secondAttribute="leading" id="wsH-vR-a8q"/>
@@ -206,6 +222,7 @@
                         <outlet property="editButton" destination="WG6-0x-VhF" id="D8X-E5-Fes"/>
                         <outlet property="groceryList" destination="bQo-7k-Mni" id="8mx-E0-fNG"/>
                         <outlet property="navigationBar" destination="svI-t5-1HL" id="Zep-zz-B2s"/>
+                        <outlet property="spinner" destination="sgq-9V-0PA" id="eH3-Dd-y8W"/>
                         <segue destination="YOP-Za-fsU" kind="presentation" identifier="addProduct" modalPresentationStyle="fullScreen" id="Qvf-nY-6t1"/>
                         <segue destination="gzv-8T-iTN" kind="presentation" identifier="scanProduct" modalPresentationStyle="fullScreen" id="men-Tp-rdM"/>
                     </connections>
