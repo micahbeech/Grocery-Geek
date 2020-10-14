@@ -11,19 +11,16 @@ import UIKit
 
 extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        groceryList.delegate = self
-        groceryList.dataSource = self
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return listManager.sectionCount()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listManager.sectionSize(sectionIndex: section)
+        if resultSearchController.isActive {
+            return filteredData[section]!.count
+        } else {
+            return listManager.sectionSize(sectionIndex: section)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -145,11 +142,22 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Get the data for this row
-        let product = listManager.getProduct(indexPath: indexPath)
         
         // Get a cell to display
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductItem", for: indexPath) as! GroceryItem
+        
+        var product: Product? = nil
+        
+        if resultSearchController.isActive {
+            
+            product = filteredData[indexPath.section]![indexPath.row]
+            
+        } else {
+            
+            // Get the data for this row
+            product = listManager.getProduct(indexPath: indexPath)
+        }
+        
         cell.productName?.text = product?.name
         cell.productQuantity?.text = product?.quantity
         

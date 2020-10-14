@@ -8,22 +8,55 @@
 
 import UIKit
 
-class ListViewController: UIViewController {
+class ListViewController: UIViewController, UISearchResultsUpdating {
 
     @IBOutlet weak var groceryList: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    var resultSearchController = UISearchController()
+    
     var list: List!
     var listManager: GroceryListManager!
     
     var selectedRow: Product?
     var selectedSection: Int?
+    var filteredData = [Int: [Product]]()
     
     let headerSize = CGFloat(60)
     
     // MARK: setup
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        resultSearchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            controller.searchResultsUpdater = self
+            controller.obscuresBackgroundDuringPresentation = false
+            controller.searchBar.sizeToFit()
+
+            groceryList.tableHeaderView = controller.searchBar
+
+            return controller
+        })()
+        
+        groceryList.delegate = self
+        groceryList.dataSource = self
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filteredData.removeAll(keepingCapacity: false)
+
+        let searchPredicate = NSPredicate(format: "SELF.name CONTAINS[c] %@", searchController.searchBar.text!)
+        let sections = list.sections!.array as! [Section]
+        for (index, section) in sections.enumerated() {
+            filteredData[index] = section.products?.filtered(using: searchPredicate).array as? [Product]
+        }
+
+        self.groceryList.reloadData()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
