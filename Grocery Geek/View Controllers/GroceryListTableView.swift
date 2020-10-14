@@ -12,15 +12,29 @@ import UIKit
 extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return listManager.sectionCount()
+        
+        // Use filtered data if searching
+        if resultSearchController.isActive {
+            return filteredData.count
+            
+        // Use regular data otherwise
+        } else {
+            return listManager.sectionCount()
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        // User filtered data if searching
         if resultSearchController.isActive {
-            return filteredData[section]!.count
+            return filteredData[section].count
+            
+        // Return regular data otherwise
         } else {
             return listManager.sectionSize(sectionIndex: section)
         }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -87,6 +101,46 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
         return view
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        // Get a cell to display
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductItem", for: indexPath) as! GroceryItem
+        
+        var product: Product? = nil
+        
+        // Use the filtered data if searching
+        if resultSearchController.isActive {
+            product = filteredData[indexPath.section][indexPath.row]
+            
+        // Use the regular data otherwise
+        } else {
+            product = listManager.getProduct(indexPath: indexPath)
+        }
+        
+        cell.productName?.text = product?.name
+        cell.productQuantity?.text = product?.quantity
+        
+        // Return the cell
+        return cell
+    }
+    
+    // Go into product editing mode when a row is selected
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRow = listManager.getProduct(indexPath: indexPath)
+        performSegue(withIdentifier: "addProduct", sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            listManager.removeProduct(indexPath: indexPath)
+            groceryList.reloadData()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        listManager.moveProduct(source: sourceIndexPath, destination: destinationIndexPath)
+    }
+    
     // Selector function for adding a product
     @objc func addProduct(sender: UIButton!) {
         selectedSection = sender.tag
@@ -140,46 +194,4 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
         present(alert, animated: true, completion: nil)
         
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        // Get a cell to display
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductItem", for: indexPath) as! GroceryItem
-        
-        var product: Product? = nil
-        
-        if resultSearchController.isActive {
-            
-            product = filteredData[indexPath.section]![indexPath.row]
-            
-        } else {
-            
-            // Get the data for this row
-            product = listManager.getProduct(indexPath: indexPath)
-        }
-        
-        cell.productName?.text = product?.name
-        cell.productQuantity?.text = product?.quantity
-        
-        // Return the cell
-        return cell
-    }
-    
-    // Go into product editing mode when a row is selected
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedRow = listManager.getProduct(indexPath: indexPath)
-        performSegue(withIdentifier: "addProduct", sender: self)
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            listManager.removeProduct(indexPath: indexPath)
-            groceryList.reloadData()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        listManager.moveProduct(source: sourceIndexPath, destination: destinationIndexPath)
-    }
-    
 }

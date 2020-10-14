@@ -22,7 +22,7 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
     
     var selectedRow: Product?
     var selectedSection: Int?
-    var filteredData = [Int: [Product]]()
+    var filteredData = [[Product]]()
     
     let headerSize = CGFloat(60)
     
@@ -35,6 +35,7 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
             let controller = UISearchController(searchResultsController: nil)
             controller.searchResultsUpdater = self
             controller.obscuresBackgroundDuringPresentation = false
+            controller.hidesNavigationBarDuringPresentation = false
             controller.searchBar.sizeToFit()
 
             groceryList.tableHeaderView = controller.searchBar
@@ -44,18 +45,6 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
         
         groceryList.delegate = self
         groceryList.dataSource = self
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        filteredData.removeAll(keepingCapacity: false)
-
-        let searchPredicate = NSPredicate(format: "SELF.name CONTAINS[c] %@", searchController.searchBar.text!)
-        let sections = list.sections!.array as! [Section]
-        for (index, section) in sections.enumerated() {
-            filteredData[index] = section.products?.filtered(using: searchPredicate).array as? [Product]
-        }
-
-        self.groceryList.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -146,6 +135,8 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
         }
     }
     
+    // MARK: Section Management
+    
     func changeSectionName(title: String, message: String? = nil, name: String? = nil, section: Int? = nil) {
         
         let alert = UIAlertController(
@@ -192,6 +183,8 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
         
     }
     
+    // MARK: Sharing
+    
     @IBAction func share(_ sender: Any) {
         
         spinner.startAnimating()
@@ -203,6 +196,40 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
         
         spinner.stopAnimating()
         
+    }
+    
+    // MARK: Searching
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        // Clear the current search results
+        filteredData.removeAll(keepingCapacity: false)
+
+        // Get a predicate to filter by
+        var searchPredicate = NSPredicate()
+        
+        if searchController.searchBar.text!.isEmpty {
+            // If nothing has been typed, continue to display all results
+            searchPredicate = NSPredicate(value: true)
+            
+        } else {
+            // Otherwise, return all items whose name begins with the text
+            searchPredicate = NSPredicate(format: "SELF.name BEGINSWITH[c] %@", searchController.searchBar.text!)
+        }
+        
+        for section in list.sections!.array as! [Section] {
+            
+            // Get the products for this section that meet the criteria of the predicate
+            let products = section.products?.filtered(using: searchPredicate).array as! [Product]
+            
+            // Add the section to the list with the filtered products, if any
+            if !products.isEmpty {
+                filteredData.append(products)
+            }
+        }
+
+        // Update the UI
+        groceryList.reloadData()
     }
     
 }
