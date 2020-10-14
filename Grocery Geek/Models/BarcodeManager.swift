@@ -42,7 +42,12 @@ class BarcodeManager {
             }
         }
         
-        searchProduct(code: code)
+        // Add the following line back in once there is a subscription to Barcode Lookup
+        // searchProduct(code: code)
+        
+        // Remove this once there is a subscription to barcode lookup
+        let barcode = createBarcode(code: code)
+        delegate?.barcodeFound(barcode: barcode)
         
     }
     
