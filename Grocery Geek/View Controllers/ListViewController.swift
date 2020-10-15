@@ -36,8 +36,13 @@ class ListViewController: UIViewController, UISearchResultsUpdating, UINavigatio
             controller.obscuresBackgroundDuringPresentation = false
             controller.hidesNavigationBarDuringPresentation = false
             controller.searchBar.sizeToFit()
+            controller.searchBar.backgroundColor = .systemBackground
 
             groceryList.tableHeaderView = controller.searchBar
+            
+            // This fixes the background color changing on pull down with search bar at top
+            // Stupid fix, but it works
+            groceryList.backgroundView = UIView()
 
             return controller
         })()
