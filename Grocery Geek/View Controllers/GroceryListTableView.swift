@@ -28,7 +28,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
         
         // User filtered data if searching
         if resultSearchController.isActive {
-            return filteredData[section].count
+            return filteredData[section].1.count
             
         // Return regular data otherwise
         } else {
@@ -43,7 +43,13 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let sectionObject = listManager.getSection(index: section)
+        // Get the correct section index
+        var sectionIndex = section
+        if resultSearchController.isActive {
+            sectionIndex = filteredData[section].0
+        }
+        
+        let sectionObject = listManager.getSection(index: sectionIndex)
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight))
         view.backgroundColor = UIColor.systemBackground
@@ -110,7 +116,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
         
         // Use the filtered data if searching
         if resultSearchController.isActive {
-            product = filteredData[indexPath.section][indexPath.row]
+            product = filteredData[indexPath.section].1[indexPath.row]
             
         // Use the regular data otherwise
         } else {

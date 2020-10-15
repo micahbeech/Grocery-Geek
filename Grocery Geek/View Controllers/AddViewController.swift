@@ -91,7 +91,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         // Create new constraints
         NSLayoutConstraint.deactivate([inputStackHeight, toolbarHeight])
         inputStackHeight = inputStack.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        toolbarHeight = toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        toolbarHeight = toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.safeAreaInsets.bottom)
         
         // Set constraints
         UIView.animate(withDuration: 0.6) {
