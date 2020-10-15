@@ -2,7 +2,7 @@
 //  Product+CoreDataProperties.swift
 //  Grocery Geek
 //
-//  Created by Micah Beech on 2020-09-28.
+//  Created by Micah Beech on 2020-10-15.
 //  Copyright © 2020 Micah Beech. All rights reserved.
 //
 //
@@ -22,6 +22,7 @@ extension Product {
     @NSManaged public var removedRow: Int32
     @NSManaged public var removedSection: Section?
     @NSManaged public var section: Section?
+    @NSManaged public var recentSection: Section?
 
 }
 

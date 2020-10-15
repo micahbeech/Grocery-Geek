@@ -11,13 +11,14 @@
 		B4244BF1251266C700FAEA14 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4244BF0251266C700FAEA14 /* HomeViewController.swift */; };
 		B4244BF32512978F00FAEA14 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4244BF22512978F00FAEA14 /* ListItem.swift */; };
 		B4260314252299F300F56061 /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B426030C252299F300F56061 /* Section+CoreDataClass.swift */; };
-		B4260315252299F300F56061 /* Section+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B426030D252299F300F56061 /* Section+CoreDataProperties.swift */; };
 		B4260316252299F300F56061 /* Barcode+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B426030E252299F300F56061 /* Barcode+CoreDataClass.swift */; };
 		B4260317252299F300F56061 /* Barcode+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B426030F252299F300F56061 /* Barcode+CoreDataProperties.swift */; };
 		B4260318252299F300F56061 /* List+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4260310252299F300F56061 /* List+CoreDataClass.swift */; };
 		B4260319252299F300F56061 /* List+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4260311252299F300F56061 /* List+CoreDataProperties.swift */; };
 		B426031A252299F300F56061 /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4260312252299F300F56061 /* Product+CoreDataClass.swift */; };
-		B426031B252299F300F56061 /* Product+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4260313252299F300F56061 /* Product+CoreDataProperties.swift */; };
+		B44131942538BAD7006FCD9C /* SuggestionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44131932538BAD7006FCD9C /* SuggestionList.swift */; };
+		B441319A2538C393006FCD9C /* Section+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44131982538C393006FCD9C /* Section+CoreDataProperties.swift */; };
+		B44131A62538C3C3006FCD9C /* Product+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44131A42538C3C3006FCD9C /* Product+CoreDataProperties.swift */; };
 		B45A50962282006E0004BB54 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45A50952282006E0004BB54 /* ScanViewController.swift */; };
 		B46173AC2454E498004DD830 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173AB2454E498004DD830 /* AddViewController.swift */; };
 		B469F8ED251EA9000042247D /* ListTableManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469F8EC251EA9000042247D /* ListTableManagerTests.swift */; };
@@ -53,13 +54,14 @@
 		B4244BF0251266C700FAEA14 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B4244BF22512978F00FAEA14 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		B426030C252299F300F56061 /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
-		B426030D252299F300F56061 /* Section+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B426030E252299F300F56061 /* Barcode+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Barcode+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B426030F252299F300F56061 /* Barcode+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Barcode+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B4260310252299F300F56061 /* List+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B4260311252299F300F56061 /* List+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B4260312252299F300F56061 /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
-		B4260313252299F300F56061 /* Product+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B44131932538BAD7006FCD9C /* SuggestionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionList.swift; sourceTree = "<group>"; };
+		B44131982538C393006FCD9C /* Section+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B44131A42538C3C3006FCD9C /* Product+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B45A50952282006E0004BB54 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		B46173AB2454E498004DD830 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		B469F8EA251EA9000042247D /* Grocery GeekTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Grocery GeekTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,13 +108,13 @@
 			isa = PBXGroup;
 			children = (
 				B426030C252299F300F56061 /* Section+CoreDataClass.swift */,
-				B426030D252299F300F56061 /* Section+CoreDataProperties.swift */,
+				B44131982538C393006FCD9C /* Section+CoreDataProperties.swift */,
 				B426030E252299F300F56061 /* Barcode+CoreDataClass.swift */,
 				B426030F252299F300F56061 /* Barcode+CoreDataProperties.swift */,
 				B4260310252299F300F56061 /* List+CoreDataClass.swift */,
 				B4260311252299F300F56061 /* List+CoreDataProperties.swift */,
 				B4260312252299F300F56061 /* Product+CoreDataClass.swift */,
-				B4260313252299F300F56061 /* Product+CoreDataProperties.swift */,
+				B44131A42538C3C3006FCD9C /* Product+CoreDataProperties.swift */,
 				B4872D8C22948CF0008D0F20 /* Model.xcdatamodeld */,
 			);
 			path = "Core Data";
@@ -126,6 +128,7 @@
 				B4B947E12511A76F00C7FDFF /* GroceryListTableView.swift */,
 				B45A50952282006E0004BB54 /* ScanViewController.swift */,
 				B46173AB2454E498004DD830 /* AddViewController.swift */,
+				B44131932538BAD7006FCD9C /* SuggestionList.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -314,17 +317,18 @@
 			files = (
 				B4244BF32512978F00FAEA14 /* ListItem.swift in Sources */,
 				B46173AC2454E498004DD830 /* AddViewController.swift in Sources */,
-				B4260315252299F300F56061 /* Section+CoreDataProperties.swift in Sources */,
+				B44131942538BAD7006FCD9C /* SuggestionList.swift in Sources */,
 				B4260316252299F300F56061 /* Barcode+CoreDataClass.swift in Sources */,
 				B4260318252299F300F56061 /* List+CoreDataClass.swift in Sources */,
 				B4260314252299F300F56061 /* Section+CoreDataClass.swift in Sources */,
 				B4C556992280BAAD00989D46 /* ListViewController.swift in Sources */,
 				B4C556972280BAAD00989D46 /* AppDelegate.swift in Sources */,
 				B4B947E22511A76F00C7FDFF /* GroceryListTableView.swift in Sources */,
-				B426031B252299F300F56061 /* Product+CoreDataProperties.swift in Sources */,
+				B441319A2538C393006FCD9C /* Section+CoreDataProperties.swift in Sources */,
 				B4244BF1251266C700FAEA14 /* HomeViewController.swift in Sources */,
 				B426031A252299F300F56061 /* Product+CoreDataClass.swift in Sources */,
 				B4081D0C251D7D0C00D8CAC1 /* ListTableManager.swift in Sources */,
+				B44131A62538C3C3006FCD9C /* Product+CoreDataProperties.swift in Sources */,
 				B4B76D6E251D6380004BC32F /* BarcodeManager.swift in Sources */,
 				B4260319252299F300F56061 /* List+CoreDataProperties.swift in Sources */,
 				B4260317252299F300F56061 /* Barcode+CoreDataProperties.swift in Sources */,

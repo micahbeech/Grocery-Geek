@@ -30,8 +30,16 @@ public class Section: NSManagedObject {
         // set the product's properties
         newProduct.edit(name: name, quantity: quantity)
         
+        for product in recentProducts!.array as! [Product] {
+            if product.name == name {
+                removeFromRecentProducts(product)
+                break
+            }
+        }
+        
         // add product to the section
         addToProducts(newProduct)
+        insertIntoRecentProducts(newProduct, at: 0)
         
         return newProduct
     }
@@ -86,6 +94,19 @@ public class Section: NSManagedObject {
     
     func search(predicate: NSPredicate) -> [Product] {
         return products?.filtered(using: predicate).array as! [Product]
+    }
+    
+    func searchRecent(text: String) -> [Product] {
+        
+        var predicate = NSPredicate()
+        
+        if text.isEmpty {
+            predicate = NSPredicate(value: true)
+        } else {
+            predicate = NSPredicate(format: "SELF.name CONTAINS[c] %@", text)
+        }
+        
+        return recentProducts!.filtered(using: predicate).array as! [Product]
     }
     
 }

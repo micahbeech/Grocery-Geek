@@ -133,6 +133,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     // Go into product editing mode when a row is selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRow = list.getProduct(indexPath: indexPath)
+        selectedSection = indexPath.section
         performSegue(withIdentifier: "addProduct", sender: self)
     }
     
