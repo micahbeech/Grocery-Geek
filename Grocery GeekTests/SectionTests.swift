@@ -155,5 +155,26 @@ class SectionTests : XCTestCase {
             
         }
     }
+    
+    func testSearchRecent() {
+        
+        let product1 = section.addProduct(name: "Product 1", quantity: "1")
+        let product2 = section.addProduct(name: "Product 2", quantity: "2")
+        let product3 = section.addProduct(name: "Item", quantity: "3")
+        
+        let empty = section.searchRecent(text: "")
+        let case1 = section.searchRecent(text: "Product")
+        let case2 = section.searchRecent(text: "It")
+        let case3 = section.searchRecent(text: "t")
+        let case4 = section.searchRecent(text: "Hello")
+        
+        XCTAssert(section.recentProducts?.count == 3)
+        XCTAssert(empty == [product3, product2, product1])
+        XCTAssert(case1 == [product2, product1])
+        XCTAssert(case2 == [product3])
+        XCTAssert(case3 == [product3, product2, product1])
+        XCTAssertTrue(case4.isEmpty)
+        
+    }
 
 }

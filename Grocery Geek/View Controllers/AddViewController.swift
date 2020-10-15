@@ -39,7 +39,6 @@ class AddViewController: UIViewController, UITextFieldDelegate {
 
         suggestionList.delegate = self
         suggestionList.dataSource = self
-        suggestionList.isHidden = itemToEdit != nil
         suggestionList.layer.cornerRadius = 10
         
         productName.addTarget(self, action: #selector(textFieldActive), for: .touchDown)
@@ -56,6 +55,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             productName.text = barcode.name
             productQuantity.text = barcode.quantity
             addButton.title = "Confirm"
+            suggestionList.isHidden = true
         
         // Check if item is to be edited
         } else if let item = itemToEdit {
@@ -63,11 +63,13 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             productName.text = item.name
             productQuantity.text = item.quantity
             addButton.title = "Confirm"
+            suggestionList.isHidden = true
         
         // Manual addition
         } else {
             addLabel.text = "Add Product"
             addButton.title = "Add"
+            suggestionList.isHidden = false
             
         }
         
