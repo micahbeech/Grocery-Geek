@@ -8,22 +8,44 @@
 
 import UIKit
 
-class ListViewController: UIViewController {
+class ListViewController: UIViewController, UISearchResultsUpdating {
 
     @IBOutlet weak var groceryList: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    var resultSearchController = UISearchController()
+    
     var list: List!
     var listManager: GroceryListManager!
     
     var selectedRow: Product?
     var selectedSection: Int?
+    var filteredData = [(Int, [Product])]()
     
     let headerSize = CGFloat(60)
     
     // MARK: setup
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        resultSearchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            controller.searchResultsUpdater = self
+            controller.obscuresBackgroundDuringPresentation = false
+            controller.hidesNavigationBarDuringPresentation = false
+            controller.searchBar.sizeToFit()
+
+            groceryList.tableHeaderView = controller.searchBar
+
+            return controller
+        })()
+        
+        groceryList.delegate = self
+        groceryList.dataSource = self
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -113,6 +135,8 @@ class ListViewController: UIViewController {
         }
     }
     
+    // MARK: Section Management
+    
     func changeSectionName(title: String, message: String? = nil, name: String? = nil, section: Int? = nil) {
         
         let alert = UIAlertController(
@@ -159,6 +183,8 @@ class ListViewController: UIViewController {
         
     }
     
+    // MARK: Sharing
+    
     @IBAction func share(_ sender: Any) {
         
         spinner.startAnimating()
@@ -170,6 +196,17 @@ class ListViewController: UIViewController {
         
         spinner.stopAnimating()
         
+    }
+    
+    // MARK: Searching
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        // Update the current search results
+        filteredData = listManager.searchProducts(text: searchController.searchBar.text!)
+
+        // Update the UI
+        groceryList.reloadData()
     }
     
 }

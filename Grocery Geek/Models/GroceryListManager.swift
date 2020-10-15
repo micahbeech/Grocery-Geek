@@ -208,4 +208,34 @@ class GroceryListManager {
         
     }
     
+    func searchProducts(text: String) -> [(Int, [Product])] {
+        
+        // Get a predicate to filter by
+        var searchPredicate = NSPredicate()
+        
+        if text.isEmpty {
+            // If the text is empty, continue to display all results
+            searchPredicate = NSPredicate(value: true)
+            
+        } else {
+            // Otherwise, return all items whose name begins with the text
+            searchPredicate = NSPredicate(format: "SELF.name BEGINSWITH[c] %@", text)
+        }
+        
+        var results = [(Int, [Product])]()
+        
+        for (index, section) in (list.sections!.array as! [Section]).enumerated() {
+            
+            // Get the products for this section that meet the criteria of the predicate
+            let products = section.products?.filtered(using: searchPredicate).array as! [Product]
+            
+            // Add the section to the list with the filtered products, if any
+            if !products.isEmpty {
+                results.append((index, products))
+            }
+        }
+        
+        return results
+    }
+    
 }

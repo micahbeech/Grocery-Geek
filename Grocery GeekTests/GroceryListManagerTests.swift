@@ -429,5 +429,32 @@ class GroceryListManagerTests : XCTestCase {
         XCTAssert(result == expectedResult)
         
     }
+    
+    func testSearch() {
+        
+        groceryListManager.addSection(name: "Section 1")
+        groceryListManager.addSection(name: "Section 2")
+        
+        let product1 = groceryListManager.addListProduct(section: 0, name: "Product 1", quantity: "1", barcode: nil)
+        let product2 = groceryListManager.addListProduct(section: 0, name: "Product 2", quantity: "2", barcode: nil)
+        let product3 = groceryListManager.addListProduct(section: 1, name: "Product 3", quantity: "3", barcode: nil)
+        let product4 = groceryListManager.addListProduct(section: 1, name: "Product 4", quantity: "4", barcode: nil)
+        let product5 = groceryListManager.addListProduct(section: 1, name: "Product 5", quantity: "5", barcode: nil)
+        
+        let allReturned = groceryListManager.searchProducts(text: "Product")
+        let noneReturned = groceryListManager.searchProducts(text: "Apples")
+        let empty = groceryListManager.searchProducts(text: "")
+        let oneReturned = groceryListManager.searchProducts(text: "Product 4")
+        
+        func isEqual(lhs: (Int, [Product]), rhs: (Int, [Product?])) -> Bool {
+            return lhs.0 == rhs.0 && lhs.1 == rhs.1
+        }
+        
+        XCTAssert(allReturned.elementsEqual([(0, [product1, product2]), (1, [product3, product4, product5])], by: isEqual(lhs:rhs:)))
+        XCTAssertTrue(noneReturned.isEmpty)
+        XCTAssert(empty.elementsEqual([(0, [product1, product2]), (1, [product3, product4, product5])], by: isEqual(lhs:rhs:)))
+        XCTAssert(oneReturned.elementsEqual([(1, [product4])], by: isEqual(lhs:rhs:)))
+        
+    }
 
 }
