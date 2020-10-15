@@ -7,14 +7,16 @@
 //
 
 import UIKit
-import CoreData
 
 class AddViewController: UIViewController, UITextFieldDelegate {
+    var filteredValues = [Product]()
     
     var barcodeProduct: Barcode?
     var itemToEdit: Product?
     var list: List!
-    var section: Int?
+    var section: Int!
+    
+    let cellReuseIdentifier = "cell"
     
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var toolbarHeight: NSLayoutConstraint!
@@ -24,6 +26,8 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var productName: UITextField!
     @IBOutlet weak var productQuantity: UITextField!
     @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var suggestionList: UITableView!
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,14 +35,20 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         productName.delegate = self
         productQuantity.delegate = self
         
+        self.suggestionList.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+
+        suggestionList.delegate = self
+        suggestionList.dataSource = self
+        suggestionList.isHidden = itemToEdit != nil
+        suggestionList.layer.cornerRadius = 10
+        
+        productName.addTarget(self, action: #selector(textFieldActive), for: .touchDown)
+        productName.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
         productName.becomeFirstResponder()
         
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        view.addGestureRecognizer(tap)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(AddViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(AddViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         // Check if item was scanned
         if let barcode = barcodeProduct {
@@ -60,6 +70,9 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             addButton.title = "Add"
             
         }
+        
+        let section = list.getSection(index: self.section)
+        filteredValues = section?.searchRecent(text: productName.text!) ?? []
     }
         
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -71,7 +84,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         
         // Create new constraints
         NSLayoutConstraint.deactivate([inputStackHeight, toolbarHeight])
-        inputStackHeight = inputStack.bottomAnchor.constraint(equalTo: toolbar.topAnchor, constant: -20)
+        inputStackHeight = inputStack.bottomAnchor.constraint(equalTo: toolbar.topAnchor, constant: -100)
         toolbarHeight = toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardFrame.height)
         
         // Set constraints
@@ -97,24 +110,12 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    func moveFields(toolbarOffset: CGFloat, inputOffset: CGFloat) {
-        // Create new constraints
-        NSLayoutConstraint.deactivate([inputStackHeight, toolbarHeight])
-        inputStackHeight = inputStack.bottomAnchor.constraint(equalTo: toolbar.topAnchor, constant: inputOffset)
-        toolbarHeight = toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: toolbarOffset)
-        
-        // Set constraints
-        UIView.animate(withDuration: 0.6) {
-            NSLayoutConstraint.activate([self.toolbarHeight, self.inputStackHeight])
-            self.view.layoutIfNeeded()
-        }
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField == productName {
             // hit return in name, start typing in quantity
             productQuantity.becomeFirstResponder()
+            suggestionList.isHidden = true
             
         } else if textField == productQuantity {
             // hit return in quantity, add product to list

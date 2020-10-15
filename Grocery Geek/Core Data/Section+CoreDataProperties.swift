@@ -2,13 +2,14 @@
 //  Section+CoreDataProperties.swift
 //  Grocery Geek
 //
-//  Created by Micah Beech on 2020-09-28.
+//  Created by Micah Beech on 2020-10-15.
 //  Copyright © 2020 Micah Beech. All rights reserved.
 //
 //
 
 import Foundation
 import CoreData
+
 
 extension Section {
 
@@ -20,6 +21,7 @@ extension Section {
     @NSManaged public var list: List?
     @NSManaged public var products: NSOrderedSet?
     @NSManaged public var removedProducts: NSOrderedSet?
+    @NSManaged public var recentProducts: NSOrderedSet?
 
 }
 
@@ -90,6 +92,41 @@ extension Section {
 
     @objc(removeRemovedProducts:)
     @NSManaged public func removeFromRemovedProducts(_ values: NSOrderedSet)
+
+}
+
+// MARK: Generated accessors for recentProducts
+extension Section {
+
+    @objc(insertObject:inRecentProductsAtIndex:)
+    @NSManaged public func insertIntoRecentProducts(_ value: Product, at idx: Int)
+
+    @objc(removeObjectFromRecentProductsAtIndex:)
+    @NSManaged public func removeFromRecentProducts(at idx: Int)
+
+    @objc(insertRecentProducts:atIndexes:)
+    @NSManaged public func insertIntoRecentProducts(_ values: [Product], at indexes: NSIndexSet)
+
+    @objc(removeRecentProductsAtIndexes:)
+    @NSManaged public func removeFromRecentProducts(at indexes: NSIndexSet)
+
+    @objc(replaceObjectInRecentProductsAtIndex:withObject:)
+    @NSManaged public func replaceRecentProducts(at idx: Int, with value: Product)
+
+    @objc(replaceRecentProductsAtIndexes:withRecentProducts:)
+    @NSManaged public func replaceRecentProducts(at indexes: NSIndexSet, with values: [Product])
+
+    @objc(addRecentProductsObject:)
+    @NSManaged public func addToRecentProducts(_ value: Product)
+
+    @objc(removeRecentProductsObject:)
+    @NSManaged public func removeFromRecentProducts(_ value: Product)
+
+    @objc(addRecentProducts:)
+    @NSManaged public func addToRecentProducts(_ values: NSOrderedSet)
+
+    @objc(removeRecentProducts:)
+    @NSManaged public func removeFromRecentProducts(_ values: NSOrderedSet)
 
 }
 

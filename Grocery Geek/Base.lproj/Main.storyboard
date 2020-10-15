@@ -293,6 +293,14 @@
                                     <constraint firstAttribute="width" constant="200" id="pWQ-Tb-g5P"/>
                                 </constraints>
                             </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="umo-aN-zfr">
+                                <rect key="frame" x="87.5" y="343.5" width="200" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="1Us-di-eSC"/>
+                                    <constraint firstAttribute="width" constant="200" id="gI0-aO-rqK"/>
+                                </constraints>
+                            </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dl-eQ-ssv">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <constraints>
@@ -322,25 +330,29 @@
                             <constraint firstItem="Pnd-Yb-qhP" firstAttribute="bottom" secondItem="0Dl-eQ-ssv" secondAttribute="bottom" id="OFM-0A-EbB"/>
                             <constraint firstItem="ljU-dF-b8h" firstAttribute="leading" secondItem="Pnd-Yb-qhP" secondAttribute="leading" id="R7e-FF-HPr"/>
                             <constraint firstItem="ljU-dF-b8h" firstAttribute="top" secondItem="Pnd-Yb-qhP" secondAttribute="top" id="bbv-Dh-1S0"/>
+                            <constraint firstItem="umo-aN-zfr" firstAttribute="top" secondItem="0bK-qX-i20" secondAttribute="centerY" constant="10" id="nUW-RP-tL9"/>
                             <constraint firstItem="0bK-qX-i20" firstAttribute="centerX" secondItem="mPG-RN-leI" secondAttribute="centerX" id="neL-wN-YUz"/>
                             <constraint firstItem="0bK-qX-i20" firstAttribute="centerY" secondItem="mPG-RN-leI" secondAttribute="centerY" id="sCG-AT-UET"/>
+                            <constraint firstItem="umo-aN-zfr" firstAttribute="centerX" secondItem="mPG-RN-leI" secondAttribute="centerX" id="wrH-00-8PQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HjC-QW-oKl"/>
                     <connections>
                         <outlet property="addButton" destination="cve-fP-hJf" id="iXc-a7-TPl"/>
                         <outlet property="addLabel" destination="Lvp-Ux-I2z" id="v7P-83-h6j"/>
+                        <outlet property="heightConstraint" destination="1Us-di-eSC" id="Eha-tA-emc"/>
                         <outlet property="inputStack" destination="0bK-qX-i20" id="QYb-80-Fjg"/>
                         <outlet property="inputStackHeight" destination="sCG-AT-UET" id="XbJ-MR-E72"/>
                         <outlet property="productName" destination="Z1Y-du-tZ2" id="n2w-yv-pkO"/>
                         <outlet property="productQuantity" destination="H0b-QH-5zL" id="SJ9-UU-BhQ"/>
+                        <outlet property="suggestionList" destination="umo-aN-zfr" id="iGt-6q-7bo"/>
                         <outlet property="toolbar" destination="0Dl-eQ-ssv" id="Vog-Q6-fVd"/>
                         <outlet property="toolbarHeight" destination="OFM-0A-EbB" id="VRO-EI-f3j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LLe-5p-emi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1978" y="1673"/>
+            <point key="canvasLocation" x="1976.8" y="1672.7136431784108"/>
         </scene>
         <!--Scanner View Controller-->
         <scene sceneID="C6x-WU-ySS">
@@ -417,7 +429,7 @@
         <segue reference="Qvf-nY-6t1"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="background" width="2000" height="2000"/>
+        <image name="background" width="512" height="512"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="clear" catalog="system" width="128" height="114"/>
         <image name="plus" catalog="system" width="128" height="113"/>
