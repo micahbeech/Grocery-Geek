@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListViewController: UIViewController, UISearchResultsUpdating {
+class ListViewController: UIViewController, UISearchResultsUpdating, UINavigationControllerDelegate {
 
     @IBOutlet weak var groceryList: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
@@ -48,6 +48,17 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
         
         groceryList.delegate = self
         groceryList.dataSource = self
+        
+        if let navParent = parent as? UINavigationController {
+            navParent.delegate = self
+        }
+    }
+    
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        // This method is used to deactivate the search bar if it is in use when the view is popped
+        resultSearchController.isActive = false
+        return .none
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +68,9 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        resultSearchController.isActive = false
+        
         switch segue.identifier {
             
         case "addProduct":
@@ -136,7 +150,7 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
     
     func changeSectionName(title: String, message: String? = nil, name: String? = nil, section: Int? = nil) {
         
-        if resultSearchController.isActive { return }
+        resultSearchController.isActive = false
         
         let alert = UIAlertController(
             title: title,
