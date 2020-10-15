@@ -81,15 +81,13 @@ class ListTableManager {
     func addList(name: String) -> List {
         
         // Create new list
-        let entity = NSEntityDescription.entity(forEntityName: "List", in: self.context)
-        let list = NSManagedObject(entity: entity!, insertInto: self.context) as! List
+        let list = List(context: context)
         
         // Set fields
         list.name = name
         list.index = Int32(lists.count)
         
-        let listManager = GroceryListManager(context: context, list: list)
-        listManager.addSection(name: "Items")
+        list.addSection(name: "Items")
         
         // Add to list of lists
         lists.append(list)

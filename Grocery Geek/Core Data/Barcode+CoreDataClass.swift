@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 public class Barcode: NSManagedObject {
     
     func edit(code: String? = nil, name: String? = nil, quantity: String? = nil) {

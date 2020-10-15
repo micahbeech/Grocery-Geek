@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B4081D0C251D7D0C00D8CAC1 /* ListTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4081D0B251D7D0C00D8CAC1 /* ListTableManager.swift */; };
-		B422F174251C367F0027862A /* GroceryListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B422F173251C367F0027862A /* GroceryListManager.swift */; };
 		B4244BF1251266C700FAEA14 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4244BF0251266C700FAEA14 /* HomeViewController.swift */; };
 		B4244BF32512978F00FAEA14 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4244BF22512978F00FAEA14 /* ListItem.swift */; };
 		B4260314252299F300F56061 /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B426030C252299F300F56061 /* Section+CoreDataClass.swift */; };
@@ -23,9 +22,11 @@
 		B46173AC2454E498004DD830 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46173AB2454E498004DD830 /* AddViewController.swift */; };
 		B469F8ED251EA9000042247D /* ListTableManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469F8EC251EA9000042247D /* ListTableManagerTests.swift */; };
 		B469F8F9251ED1CF0042247D /* CoreDataTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469F8F8251ED1CF0042247D /* CoreDataTestHelper.swift */; };
-		B469F910251F961F0042247D /* GroceryListManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469F90F251F961F0042247D /* GroceryListManagerTests.swift */; };
+		B469F910251F961F0042247D /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B469F90F251F961F0042247D /* ListTests.swift */; };
 		B46E535A251FD82F00D4E145 /* BarcodeManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E5359251FD82F00D4E145 /* BarcodeManagerTests.swift */; };
 		B4872D8E22948CF0008D0F20 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B4872D8C22948CF0008D0F20 /* Model.xcdatamodeld */; };
+		B48796FB2538A5EB0063D991 /* SectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48796FA2538A5EB0063D991 /* SectionTests.swift */; };
+		B48796FF2538AA220063D991 /* ProductTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48796FE2538AA220063D991 /* ProductTests.swift */; };
 		B4B76D6E251D6380004BC32F /* BarcodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B76D6D251D6380004BC32F /* BarcodeManager.swift */; };
 		B4B947E22511A76F00C7FDFF /* GroceryListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B947E12511A76F00C7FDFF /* GroceryListTableView.swift */; };
 		B4C556972280BAAD00989D46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C556962280BAAD00989D46 /* AppDelegate.swift */; };
@@ -49,7 +50,6 @@
 
 /* Begin PBXFileReference section */
 		B4081D0B251D7D0C00D8CAC1 /* ListTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableManager.swift; sourceTree = "<group>"; };
-		B422F173251C367F0027862A /* GroceryListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListManager.swift; sourceTree = "<group>"; };
 		B4244BF0251266C700FAEA14 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B4244BF22512978F00FAEA14 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		B426030C252299F300F56061 /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -66,9 +66,11 @@
 		B469F8EC251EA9000042247D /* ListTableManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableManagerTests.swift; sourceTree = "<group>"; };
 		B469F8EE251EA9000042247D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B469F8F8251ED1CF0042247D /* CoreDataTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestHelper.swift; sourceTree = "<group>"; };
-		B469F90F251F961F0042247D /* GroceryListManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListManagerTests.swift; sourceTree = "<group>"; };
+		B469F90F251F961F0042247D /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		B46E5359251FD82F00D4E145 /* BarcodeManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeManagerTests.swift; sourceTree = "<group>"; };
 		B4872D8D22948CF0008D0F20 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		B48796FA2538A5EB0063D991 /* SectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTests.swift; sourceTree = "<group>"; };
+		B48796FE2538AA220063D991 /* ProductTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTests.swift; sourceTree = "<group>"; };
 		B4B76D6D251D6380004BC32F /* BarcodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeManager.swift; sourceTree = "<group>"; };
 		B4B947E12511A76F00C7FDFF /* GroceryListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryListTableView.swift; sourceTree = "<group>"; };
 		B4C556932280BAAD00989D46 /* Grocery Geek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grocery Geek.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,9 +133,6 @@
 		B41C8BDF251029D500EAD7FE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B4F8F554228A0F0500575AFA /* GroceryItem.swift */,
-				B4244BF22512978F00FAEA14 /* ListItem.swift */,
-				B422F173251C367F0027862A /* GroceryListManager.swift */,
 				B4B76D6D251D6380004BC32F /* BarcodeManager.swift */,
 				B4081D0B251D7D0C00D8CAC1 /* ListTableManager.swift */,
 			);
@@ -145,11 +144,22 @@
 			children = (
 				B469F8EC251EA9000042247D /* ListTableManagerTests.swift */,
 				B46E5359251FD82F00D4E145 /* BarcodeManagerTests.swift */,
-				B469F90F251F961F0042247D /* GroceryListManagerTests.swift */,
+				B469F90F251F961F0042247D /* ListTests.swift */,
+				B48796FA2538A5EB0063D991 /* SectionTests.swift */,
+				B48796FE2538AA220063D991 /* ProductTests.swift */,
 				B469F8F8251ED1CF0042247D /* CoreDataTestHelper.swift */,
 				B469F8EE251EA9000042247D /* Info.plist */,
 			);
 			path = "Grocery GeekTests";
+			sourceTree = "<group>";
+		};
+		B48797042538ABAC0063D991 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B4F8F554228A0F0500575AFA /* GroceryItem.swift */,
+				B4244BF22512978F00FAEA14 /* ListItem.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		B4C5568A2280BAAD00989D46 = {
@@ -177,6 +187,7 @@
 				B41C8BDD2510292F00EAD7FE /* Core Data */,
 				B41C8BDF251029D500EAD7FE /* Models */,
 				B41C8BDE2510297A00EAD7FE /* View Controllers */,
+				B48797042538ABAC0063D991 /* Views */,
 				B4C5569A2280BAAD00989D46 /* Main.storyboard */,
 				B4C5569D2280BAAD00989D46 /* Assets.xcassets */,
 				B4C5569F2280BAAD00989D46 /* LaunchScreen.storyboard */,
@@ -289,9 +300,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B469F8ED251EA9000042247D /* ListTableManagerTests.swift in Sources */,
-				B469F910251F961F0042247D /* GroceryListManagerTests.swift in Sources */,
+				B469F910251F961F0042247D /* ListTests.swift in Sources */,
+				B48796FB2538A5EB0063D991 /* SectionTests.swift in Sources */,
 				B46E535A251FD82F00D4E145 /* BarcodeManagerTests.swift in Sources */,
 				B469F8F9251ED1CF0042247D /* CoreDataTestHelper.swift in Sources */,
+				B48796FF2538AA220063D991 /* ProductTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +321,6 @@
 				B4C556992280BAAD00989D46 /* ListViewController.swift in Sources */,
 				B4C556972280BAAD00989D46 /* AppDelegate.swift in Sources */,
 				B4B947E22511A76F00C7FDFF /* GroceryListTableView.swift in Sources */,
-				B422F174251C367F0027862A /* GroceryListManager.swift in Sources */,
 				B426031B252299F300F56061 /* Product+CoreDataProperties.swift in Sources */,
 				B4244BF1251266C700FAEA14 /* HomeViewController.swift in Sources */,
 				B426031A252299F300F56061 /* Product+CoreDataClass.swift in Sources */,

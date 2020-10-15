@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 public class Product: NSManagedObject {
     
     func edit(name: String, quantity: String?) {

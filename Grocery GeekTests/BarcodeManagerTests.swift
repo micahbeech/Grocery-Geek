@@ -42,7 +42,7 @@ class BarcodeManagerTests : XCTestCase, BarcodeManagerDelegate {
         found.fulfill()
     }
     
-    func testFindProductNewBarcode() {
+    func testFindProductNewBarcode()  {
         
         barcodeManager.findProduct(code: code)
         
@@ -51,7 +51,7 @@ class BarcodeManagerTests : XCTestCase, BarcodeManagerDelegate {
         XCTAssertNotNil(barcode)
         XCTAssertNotNil(barcode!.barcode)
         XCTAssert(barcode!.barcode == code)
-        XCTAssert(barcode!.name == "Volupté Tint-in-Balm - Summer Look 2018")
+        XCTAssertNil(barcode!.name)
         XCTAssertNil(barcode!.quantity)
         
     }

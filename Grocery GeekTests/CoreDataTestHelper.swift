@@ -43,4 +43,34 @@ class CoreDataTestHelper {
         }
     }
     
+    func getLists() -> [List] {
+        
+        let context = persistentContainer.viewContext
+        var lists = [List]()
+        
+        do {
+            lists = try context.fetch(List.fetchRequest())
+            
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        
+        return lists
+    }
+    
+    func getSections() -> [Section] {
+        
+        let context = persistentContainer.viewContext
+        var sections = [Section]()
+        
+        do {
+            sections = try context.fetch(Section.fetchRequest())
+            
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        
+        return sections
+    }
+    
 }

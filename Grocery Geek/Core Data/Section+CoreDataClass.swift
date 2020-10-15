@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-@objc(Section)
 public class Section: NSManagedObject {
 
     func getProduct(index: Int) -> Product? {
@@ -22,6 +21,7 @@ public class Section: NSManagedObject {
         return products?.array[index] as? Product
     }
     
+    @discardableResult
     func addProduct(name: String, quantity: String?) -> Product? {
         
         // add product to core data

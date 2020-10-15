@@ -17,7 +17,7 @@
         <relationship name="removedSection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="removedProducts" inverseEntity="Section"/>
         <relationship name="section" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="products" inverseEntity="Section"/>
     </entity>
-    <entity name="Section" representedClassName="Section" syncable="YES">
+    <entity name="Section" representedClassName=".Section" syncable="YES">
         <attribute name="name" attributeType="String"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="sections" inverseEntity="List"/>
         <relationship name="products" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Product" inverseName="section" inverseEntity="Product"/>
