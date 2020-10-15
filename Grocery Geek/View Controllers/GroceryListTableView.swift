@@ -19,7 +19,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
             
         // Use regular data otherwise
         } else {
-            return listManager.sectionCount()
+            return list.sectionCount()
         }
         
     }
@@ -32,7 +32,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
             
         // Return regular data otherwise
         } else {
-            return listManager.sectionSize(sectionIndex: section)
+            return list.sectionSize(sectionIndex: section)
         }
         
     }
@@ -49,7 +49,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
             sectionIndex = filteredData[section].0
         }
         
-        let sectionObject = listManager.getSection(index: sectionIndex)
+        let sectionObject = list.getSection(index: sectionIndex)
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: tableView.rowHeight))
         view.backgroundColor = UIColor.systemBackground
@@ -120,7 +120,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
             
         // Use the regular data otherwise
         } else {
-            product = listManager.getProduct(indexPath: indexPath)
+            product = list.getProduct(indexPath: indexPath)
         }
         
         cell.productName?.text = product?.name
@@ -132,19 +132,19 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     
     // Go into product editing mode when a row is selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedRow = listManager.getProduct(indexPath: indexPath)
+        selectedRow = list.getProduct(indexPath: indexPath)
         performSegue(withIdentifier: "addProduct", sender: self)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            listManager.removeProduct(indexPath: indexPath)
+            list.removeProduct(indexPath: indexPath)
             groceryList.reloadData()
         }
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        listManager.moveProduct(source: sourceIndexPath, destination: destinationIndexPath)
+        list.moveProduct(source: sourceIndexPath, destination: destinationIndexPath)
     }
     
     // Selector function for adding a product
@@ -161,7 +161,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     
     // Selector function for editing a section name
     @objc func editHeader(sender: UIButton!) {
-        let section = listManager.getSection(index: sender.tag)
+        let section = list.getSection(index: sender.tag)
         changeSectionName(title: "Edit section", message: nil, name: section?.name, section: sender.tag)
     }
     
@@ -173,7 +173,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
         
         // execute if confirmation received
         alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { action in
-            self.listManager.deleteSection(section: sender.tag)
+            self.list.deleteSection(section: sender.tag)
             self.groceryList.reloadData()
         }))
         
@@ -187,7 +187,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     // Selector function for undoing the removal of a product
     @objc func undoRemove(sender: UIButton!) {
         
-        if listManager.undoRemoveProduct(section: sender.tag) {
+        if list.undoRemoveProduct(section: sender.tag) {
             groceryList.reloadData()
             return
         }

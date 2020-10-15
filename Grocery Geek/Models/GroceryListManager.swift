@@ -29,11 +29,6 @@ class GroceryListManager {
         // set the product's properties
         newProduct.name = name
         newProduct.quantity = quantity
-        newProduct.barcode = barcode
-        
-        // update info for the barcode
-        newProduct.barcode?.name = newProduct.name
-        newProduct.barcode?.quantity = newProduct.quantity
         
         // add product to the list
         guard let section = getSection(index: section) else { return nil }
@@ -47,10 +42,6 @@ class GroceryListManager {
         // update product properties
         product.name = name
         product.quantity = quantity
-
-        // update info for the barcode
-        product.barcode?.name = name
-        product.barcode?.quantity = quantity
         
     }
     

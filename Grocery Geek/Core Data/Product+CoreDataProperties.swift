@@ -20,7 +20,6 @@ extension Product {
     @NSManaged public var name: String?
     @NSManaged public var quantity: String?
     @NSManaged public var removedRow: Int32
-    @NSManaged public var barcode: Barcode?
     @NSManaged public var removedSection: Section?
     @NSManaged public var section: Section?
 

@@ -18,7 +18,6 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
     var resultSearchController = UISearchController()
     
     var list: List!
-    var listManager: GroceryListManager!
     
     var selectedRow: Product?
     var selectedSection: Int?
@@ -43,18 +42,16 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
             return controller
         })()
         
+        navigationBar.title = list.name
+        
+        spinner.layer.cornerRadius = 20
+        
         groceryList.delegate = self
         groceryList.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        listManager = GroceryListManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext, list: list)
-        
-        navigationBar.title = list.name
-        
-        spinner.layer.cornerRadius = 20
         
         groceryList.reloadData()
     }
@@ -102,7 +99,7 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
     
     @IBAction func clear(_ sender: Any) {
         
-        if listManager.hasProducts() {
+        if list.hasProducts() {
         
             // construct alert to be displayed
             let alert = UIAlertController(title: "Clear grocery list?", message: "This will clear current and removed items.", preferredStyle: .alert)
@@ -111,7 +108,7 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
             alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { action in
                 
                 // clear list in database
-                self.listManager.clearList()
+                self.list.clear()
                 
                 // delete cells from table and present to view
                 self.groceryList.reloadData()
@@ -139,6 +136,8 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
     
     func changeSectionName(title: String, message: String? = nil, name: String? = nil, section: Int? = nil) {
         
+        if resultSearchController.isActive { return }
+        
         let alert = UIAlertController(
             title: title,
             message: message,
@@ -160,9 +159,9 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
             }
             
             if name == nil {
-                self.listManager.addSection(name: listNameField.text!)
+                self.list.addSection(name: listNameField.text!)
             } else {
-                self.listManager.editSection(section: section!, name: listNameField.text!)
+                self.list.editSection(section: section!, name: listNameField.text!)
             }
             
             self.groceryList.reloadData()
@@ -189,7 +188,7 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
         
         spinner.startAnimating()
         
-        let items = [listManager.list]
+        let items = [list!]
         let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
         ac.excludedActivityTypes = [.airDrop]
         present(ac, animated: true)
@@ -203,7 +202,7 @@ class ListViewController: UIViewController, UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
         // Update the current search results
-        filteredData = listManager.searchProducts(text: searchController.searchBar.text!)
+        filteredData = list.searchProducts(text: searchController.searchBar.text!)
 
         // Update the UI
         groceryList.reloadData()

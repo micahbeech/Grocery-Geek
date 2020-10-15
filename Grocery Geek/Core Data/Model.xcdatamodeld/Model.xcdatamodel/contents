@@ -4,7 +4,6 @@
         <attribute name="barcode" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="quantity" optional="YES" attributeType="String"/>
-        <relationship name="product" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="barcode" inverseEntity="Product"/>
     </entity>
     <entity name="List" representedClassName=".List" syncable="YES">
         <attribute name="index" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -15,7 +14,6 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="quantity" attributeType="String"/>
         <attribute name="removedRow" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="barcode" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Barcode" inverseName="product" inverseEntity="Barcode"/>
         <relationship name="removedSection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="removedProducts" inverseEntity="Section"/>
         <relationship name="section" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="products" inverseEntity="Section"/>
     </entity>
@@ -26,9 +24,9 @@
         <relationship name="removedProducts" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Product" inverseName="removedSection" inverseEntity="Product"/>
     </entity>
     <elements>
-        <element name="Barcode" positionX="-45" positionY="27" width="128" height="103"/>
+        <element name="Barcode" positionX="-45" positionY="27" width="128" height="88"/>
         <element name="List" positionX="-431.8515625" positionY="-108.4453125" width="128" height="88"/>
-        <element name="Product" positionX="-311.69140625" positionY="196.33984375" width="128" height="133"/>
+        <element name="Product" positionX="-311.69140625" positionY="196.33984375" width="128" height="118"/>
         <element name="Section" positionX="-234" positionY="45" width="128" height="103"/>
     </elements>
 </model>

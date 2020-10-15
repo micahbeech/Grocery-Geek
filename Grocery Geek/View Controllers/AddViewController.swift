@@ -15,7 +15,6 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     var barcodeProduct: Barcode?
     var itemToEdit: Product?
     var list: List!
-    var listManager: GroceryListManager!
     var section: Int?
     
     @IBOutlet weak var toolbar: UIToolbar!
@@ -29,8 +28,6 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        listManager = GroceryListManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext, list: list)
         
         productName.delegate = self
         productQuantity.delegate = self
@@ -139,24 +136,26 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         
         if itemToEdit != nil {
             
-            listManager.editProduct(product: itemToEdit!, name: productName.text!, quantity: productQuantity.text)
+            itemToEdit?.edit(name: productName.text!, quantity: productQuantity.text)
             
         } else {
             
-            listManager.addListProduct(section: section!, name: productName.text!, quantity: productQuantity.text, barcode: barcodeProduct)
+            list.addListProduct(section: section!, name: productName.text!, quantity: productQuantity.text)
             
         }
         
-        if let vc = presentingViewController as? ScannerViewController {
-            vc.presentingViewController?.dismiss(animated: true, completion: nil)
-        } else {
-            presentingViewController?.dismiss(animated: true, completion: nil)
-        }
+        barcodeProduct?.edit(name: productName.text, quantity: productQuantity.text)
+        
+        dismissToList()
         
     }
     
     @IBAction func cancelAddProduct(_ sender: Any) {
         
+        dismissToList()
+    }
+    
+    func dismissToList() {
         if let vc = presentingViewController as? ScannerViewController {
             vc.presentingViewController?.dismiss(animated: true, completion: nil)
         } else {

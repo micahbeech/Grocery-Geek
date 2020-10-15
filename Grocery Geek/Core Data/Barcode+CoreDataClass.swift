@@ -12,5 +12,15 @@ import CoreData
 
 
 public class Barcode: NSManagedObject {
-
+    
+    func edit(code: String? = nil, name: String? = nil, quantity: String? = nil) {
+        
+        if let barcode = code {
+            self.barcode = barcode
+        }
+        
+        self.name = name
+        self.quantity = quantity
+    }
+    
 }

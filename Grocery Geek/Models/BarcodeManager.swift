@@ -123,12 +123,8 @@ class BarcodeManager {
     
     private func createBarcode(code: String, name: String? = nil) -> Barcode {
         
-        let entity = NSEntityDescription.entity(forEntityName: "Barcode", in: context)
-        let barcodeProduct = NSManagedObject(entity: entity!, insertInto: context) as! Barcode
-        
-        barcodeProduct.barcode = code
-        barcodeProduct.name = name
-        
+        let barcodeProduct = Barcode(context: context)
+        barcodeProduct.edit(code: code, name: name)
         return barcodeProduct
         
     }

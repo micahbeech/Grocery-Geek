@@ -12,5 +12,13 @@ import CoreData
 
 
 public class Product: NSManagedObject {
+    
+    func edit(name: String, quantity: String?) {
+        
+        // update product properties
+        self.name = name
+        self.quantity = quantity
+        
+    }
 
 }

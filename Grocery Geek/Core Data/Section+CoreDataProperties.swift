@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 extension Section {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Section> {
