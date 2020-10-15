@@ -11,7 +11,6 @@ import CoreData
 
 class AddViewController: UIViewController, UITextFieldDelegate {
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var barcodeProduct: Barcode?
     var itemToEdit: Product?
     var list: List!
