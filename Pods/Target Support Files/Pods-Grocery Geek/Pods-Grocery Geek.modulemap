@@ -1,0 +1,6 @@
+framework module Pods_Grocery_Geek {
+  umbrella header "Pods-Grocery Geek-umbrella.h"
+
+  export *
+  module * { export * }
+}

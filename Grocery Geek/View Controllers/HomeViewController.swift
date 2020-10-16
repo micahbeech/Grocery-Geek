@@ -7,13 +7,15 @@
 //
 
 import UIKit
-import CoreData
+import GoogleMobileAds
 
 class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var listData = [List]()
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
+    
+    let bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
     
     var listManager: ListTableManager!
     var selectedList: List?
@@ -25,11 +27,16 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
         
         listTable.delegate = self
         listTable.dataSource = self
+        
+        // Set up ads
+        bannerView.setUp(root: self, adUnitID: testingAdUnitID)
+        bannerView.addToViewAtTop(view: view)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        bannerView.load()
         listTable.reloadData()
     }
     

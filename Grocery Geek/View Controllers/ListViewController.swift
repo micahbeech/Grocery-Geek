@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class ListViewController: UIViewController, UISearchResultsUpdating, UINavigationControllerDelegate {
 
@@ -14,6 +15,8 @@ class ListViewController: UIViewController, UISearchResultsUpdating, UINavigatio
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    let bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
     
     var resultSearchController = UISearchController()
     
@@ -57,18 +60,16 @@ class ListViewController: UIViewController, UISearchResultsUpdating, UINavigatio
         if let navParent = parent as? UINavigationController {
             navParent.delegate = self
         }
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        // This method is used to deactivate the search bar if it is in use when the view is popped
-        resultSearchController.isActive = false
-        return .none
+        // Set up ads
+        bannerView.setUp(root: self, adUnitID: testingAdUnitID)
+        bannerView.addToViewAtTop(view: view)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        bannerView.load()
         groceryList.reloadData()
     }
     
@@ -96,6 +97,13 @@ class ListViewController: UIViewController, UISearchResultsUpdating, UINavigatio
             break
             
         }
+    }
+    
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        // This method is used to deactivate the search bar if it is in use when the view is popped
+        resultSearchController.isActive = false
+        return .none
     }
     
     // MARK: remove data

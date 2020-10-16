@@ -8,7 +8,6 @@
 
 import AVFoundation
 import UIKit
-import CoreData
 
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, BarcodeManagerDelegate {
     

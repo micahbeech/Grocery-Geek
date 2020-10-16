@@ -72,6 +72,6 @@ extension AddViewController : UITableViewDelegate, UITableViewDataSource {
     func updateSuggestionListHeight() {
         
         // Size the suggest list to be as large as the number of rows, but not go past the toolbar
-        heightConstraint.constant = min(suggestionList.contentSize.height, toolbar.frame.minY - inputStack.frame.midY - 20)
+        heightConstraint.constant = min(suggestionList.contentSize.height, toolbar.frame.minY - inputStack.frame.midY - 20, 220)
     }
 }
