@@ -115,6 +115,18 @@
       "size" : "1024x1024"
     },
     {
+      "filename" : "assetsfinal_120-2.png",
+      "idiom" : "car",
+      "scale" : "2x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "assetsfinal_180-1.png",
+      "idiom" : "car",
+      "scale" : "3x",
+      "size" : "60x60"
+    },
+    {
       "filename" : "assetsfinal_512.png",
       "idiom" : "mac",
       "scale" : "1x",
