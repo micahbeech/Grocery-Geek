@@ -29,7 +29,7 @@ class HomeViewController : UIViewController, UITableViewDelegate, UITableViewDat
         listTable.dataSource = self
         
         // Set up ads
-        bannerView.setUp(root: self, adUnitID: testingAdUnitID)
+        bannerView.setUp(root: self, adUnitID: testingBannerAdUnitID)
         bannerView.addToViewAtTop(view: view)
     }
     

@@ -9,14 +9,12 @@
 import UIKit
 import GoogleMobileAds
 
-let testingAdUnitID = "ca-app-pub-3940256099942544/2934735716"
-
 extension GADBannerView {
     
     func setUp(root: UIViewController, adUnitID: String) {
         self.adUnitID = adUnitID
         self.rootViewController = root
-        self.backgroundColor = .systemBackground
+        self.backgroundColor = .secondarySystemBackground
     }
     
     func addToView(view: UIView) {

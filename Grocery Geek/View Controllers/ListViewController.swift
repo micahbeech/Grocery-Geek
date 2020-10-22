@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMobileAds
 
-class ListViewController: UIViewController, UISearchResultsUpdating, UINavigationControllerDelegate {
+class ListViewController: UIViewController, UISearchResultsUpdating {
 
     @IBOutlet weak var groceryList: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
@@ -57,12 +57,8 @@ class ListViewController: UIViewController, UISearchResultsUpdating, UINavigatio
         groceryList.delegate = self
         groceryList.dataSource = self
         
-        if let navParent = parent as? UINavigationController {
-            navParent.delegate = self
-        }
-        
         // Set up ads
-        bannerView.setUp(root: self, adUnitID: testingAdUnitID)
+        bannerView.setUp(root: self, adUnitID: testingBannerAdUnitID)
         bannerView.addToViewAtTop(view: view)
     }
     
@@ -71,6 +67,11 @@ class ListViewController: UIViewController, UISearchResultsUpdating, UINavigatio
         
         bannerView.load()
         groceryList.reloadData()
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        // Turn off the search bar when moving to parent view
+        resultSearchController.isActive = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -97,13 +98,6 @@ class ListViewController: UIViewController, UISearchResultsUpdating, UINavigatio
             break
             
         }
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        // This method is used to deactivate the search bar if it is in use when the view is popped
-        resultSearchController.isActive = false
-        return .none
     }
     
     // MARK: remove data

@@ -55,27 +55,10 @@ class BarcodeManager {
     // Creates a barcode from the result and passes it to the delegate
     private func searchProduct(code: String) {
         
-        guard let fileURL = Bundle.main.url(forResource: "apikeys", withExtension: "txt") else {
-            delegate?.barcodeFound(barcode: createBarcode(code: code))
-            return
-        }
-
-        var key = ""
-        
-        do {
-            key = try String(contentsOf: fileURL, encoding: .utf8)
-        } catch {
-            print("Could not read from \(fileURL.absoluteString)")
-            delegate?.barcodeFound(barcode: createBarcode(code: code))
-            return
-        }
-        
-        key = String(key.dropLast())
-        
         let queryItems = [
             URLQueryItem(name: "barcode", value: code),
             URLQueryItem(name: "formatted", value: "y"),
-            URLQueryItem(name: "key", value: key)
+            URLQueryItem(name: "key", value: barcodeAPIKey)
         ]
         var urlComponents = URLComponents(string: "https://api.barcodelookup.com/v2/products")!
         urlComponents.queryItems = queryItems
